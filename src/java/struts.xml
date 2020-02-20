@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+    
+    <package name="defaultPackage" extends="struts-default,json-default,packInterceptor">
+        <action name="asesorias" class="com.sgaa.estudiante.control.ControlEstudiante" method="inicioEstudiante">
+            <result name="success">/views/student/inicioEstudiante.jsp</result>
+        </action>
+        <action name="agendar-asesoria" class="com.sgaa.estudiante.control.ControlEstudiante" method="agendarAsesoria">
+            <result name="success" type="redirectAction">
+                <param name="actionName">asesorias</param>
+                <param name="mensaje">${mensaje}</param>
+            </result>
+        </action>
+        <action name="listDocents" class="com.sgaa.estudiante.control.ControlEstudiante" method="listDocents">
+            <result name="success" type="json"/>
+        </action>
+        <action name="cuatrimestre" class="com.sgaa.estudiante.control.ControlEstudiante" method="cuatrimestre">
+            <result name="success" type="json"/>
+        </action>
+    </package>
+    <package name="packInterceptor" extends="struts-default">
+        <!--Interceptor: Todas mis peticiones van a pasar por aqui-->
+        <interceptors>
+            <interceptor name="sesionValida" class="interceptor.Interceptores"/>
+            <interceptor-stack name="miPilaDeInterceptors">
+                <interceptor-ref name="sesionValida"/>
+                <interceptor-ref name="defaultStack"/>
+            </interceptor-stack>            
+        </interceptors>
+        <default-interceptor-ref name="miPilaDeInterceptors"/>
+        <global-results>
+            <result name="NOLOGIN">
+                <param name="location">/index.jsp</param>
+            </result>
+            <result name="NOPERMISO">
+                <param name="location">/noPermission.jsp</param>
+                <!--<param name="root">"errorResponse"</param>-->
+                <param name="status">403</param>
+            </result>
+        </global-results>
+    </package>
+    <include file="sesion.xml" />
+</struts>
