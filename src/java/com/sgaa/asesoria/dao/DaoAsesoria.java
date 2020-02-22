@@ -5,25 +5,30 @@
  */
 package com.sgaa.asesoria.dao;
 
+import com.sgaa.asesoria.bean.BeanAsesoria;
+import com.sgaa.horario.bean.BeanHorario;
 import com.sgaa.usuario.dao.DaoUsuario;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import utileria.SQLConnection;
+import java.util.List;
 
 /**
  *
  * @author netmo
  */
 public class DaoAsesoria {
-     Connection con;
+
+    Connection con;
     CallableStatement cstm;
     ResultSet rs;
-    
-    public boolean CambiarContrasena(String contrasena){
+
+    public boolean CambiarContrasena(String contrasena) {
         boolean result = false;
         try {
             con = SQLConnection.getConnection();
@@ -32,10 +37,41 @@ public class DaoAsesoria {
             result = cstm.executeUpdate() == 1;//se cambió o no
         } catch (SQLException ex) {
             Logger.getLogger(DaoUsuario.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+        } finally {
             cerrarConexiones();
         }
         return result;
+    }
+
+    public List<BeanAsesoria> getCourses(int idDocent) {
+        List<BeanAsesoria> listCourses = new ArrayList<>();
+        BeanAsesoria beanAsesoria = null;
+        BeanHorario beanHorario = null;
+        try {
+            con = SQLConnection.getConnection();
+            cstm = con.prepareCall("call sp_getPendingCourses(?)");
+            cstm.setInt(1, idDocent);
+            rs = cstm.executeQuery();
+            while (rs.next()) {
+                beanAsesoria = new BeanAsesoria();
+                beanAsesoria.setId_asesoria(rs.getInt("id_course"));
+                beanAsesoria.setDate(rs.getString("registry_date"));
+
+                beanHorario = new BeanHorario();
+                beanHorario.setHora_inicio(rs.getString("advisory_start"));
+                beanHorario.setHora_fin(rs.getString("advisory_end"));
+
+                beanAsesoria.setHorario(beanHorario);
+                beanAsesoria.setId_student(rs.getInt("id_student"));
+                beanAsesoria.setSubject_diocent(rs.getInt("id_subject_docent"));
+            }
+        } catch (SQLException e) {
+            System.out.println("Error en el método SQL " + e.getMessage());
+        } finally {
+            cerrarConexiones();
+        }
+        return listCourses;
+
     }
 
     public void cerrarConexiones() {

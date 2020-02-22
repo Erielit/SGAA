@@ -99,11 +99,6 @@
                                                 <a href="#" class="text-right f-w-600">¿Olvidaste tu contraseña?</a>
                                             </div>
                                         </div>
-                                        <div class="col-6">
-                                            <div class="forgot-phone text-right f-right">
-                                                <a href="" class="text-right f-w-600">Prueba</a>
-                                            </div>
-                                        </div>
                                     </div>
                                     <div class="row m-t-30">
                                         <div class="col-md-12">
