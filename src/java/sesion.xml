@@ -10,6 +10,9 @@
             <result name="student" type="redirectAction">
                 <param name="actionName">asesorias</param>
             </result>
+            <result name="docente" type="redirectAction">
+                <param name="actionName">inicioDocente</param>
+            </result>
             <result name="error">/index.jsp</result>
         </action>
         <action name="cerrar-sesion" class="com.sgaa.controlAcceso.control.IniciarSesion" method="cerrarSesion">

@@ -21,6 +21,11 @@
         <action name="cuatrimestre" class="com.sgaa.estudiante.control.ControlEstudiante" method="cuatrimestre">
             <result name="success" type="json"/>
         </action>
+        
+        <!--Docente-->
+        <action name="inicioDocente"> 
+            <result name="success">views/student/agendarAsesorias.jsp</result><!-- views/docent/inicioDocente.jsp -->
+        </action>
     </package>
     <package name="packInterceptor" extends="struts-default">
         <!--Interceptor: Todas mis peticiones van a pasar por aqui-->
@@ -44,4 +49,5 @@
         </global-results>
     </package>
     <include file="sesion.xml" />
+   
 </struts>
