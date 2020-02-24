@@ -28,6 +28,7 @@
         <action name="cuatrimestre" class="com.sgaa.estudiante.control.ControlEstudiante" method="cuatrimestre">
             <result name="success" type="json"/>
         </action>
+<<<<<<< Updated upstream
         <action name="detalles-asesoria" class="com.sgaa.estudiante.control.ControlEstudiante" method="detallesAsesoria">
             <result name="success" type="json"/>
         </action>
@@ -48,6 +49,8 @@
             <result name="success">inicio</result>
             <!--/views/tutor/inicioTutor.jsp-->
         </action>
+=======
+>>>>>>> Stashed changes
     </package>
     <package name="packInterceptor" extends="struts-default">
         <!--Interceptor: Todas mis peticiones van a pasar por aqui-->
