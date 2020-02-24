@@ -6,6 +6,7 @@
 package com.sgaa.estudiante.control;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.sgaa.asesoria.bean.BeanAsesoria;
 import com.sgaa.cuatrimestre.bean.BeanCuatrimestre;
 import com.sgaa.docente.bean.BeanDocente;
 import com.sgaa.estudiante.bean.BeanEstudiante;
@@ -18,6 +19,7 @@ import java.util.Map;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.struts2.ServletActionContext;
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -71,11 +73,57 @@ public class ControlEstudiante extends ActionSupport {
         return SUCCESS;
     }
 
+    public String cancelarAseoria() {
+        DaoEstudiante dao = new DaoEstudiante();
+        if (dao.cancelarAsesoria(number_param)) {
+            mensaje = "1";
+        } else {
+            mensaje = "2";
+        }
+        return SUCCESS;
+    }
+
     public String cuatrimestre() {
         DaoEstudiante dao = new DaoEstudiante();
         respuesta = new HashMap();
         BeanCuatrimestre cuatrimestre = dao.getCuratrimestre();
-        respuesta.put("cuatrimestre", cuatrimestre);
+        Map session = ServletActionContext.getContext().getSession();
+        if (session.get("estudiante") == null) {
+            return "NOLOGIN";
+        } else {
+            BeanEstudiante estudiante = (BeanEstudiante) session.get("estudiante");
+            System.out.println(estudiante.getId_estudiante() + "ESTUDIANTE");
+            List<BeanAsesoria> asesorias = dao.listAsesorias(estudiante.getId_estudiante());
+            respuesta.put("cuatrimestre", cuatrimestre);
+            respuesta.put("asesorias", asesorias);
+            return SUCCESS;
+        }
+    }
+
+    public String detallesAsesoria() {
+        DaoEstudiante dao = new DaoEstudiante();
+        respuesta = new HashMap();
+        JSONObject asesoria = dao.detallesAsesoria(number_param);
+        System.out.println(asesoria != null);
+        if (asesoria != null) {
+            respuesta.put("asesoria", asesoria.toString());
+        }
+        return SUCCESS;
+    }
+
+    public String historialAsesorias() {
+        DaoEstudiante dao = new DaoEstudiante();
+        respuesta = new HashMap();
+        Map session = ServletActionContext.getContext().getSession();
+        if (session.get("estudiante") == null) {
+            return "NOLOGIN";
+        } else {
+            BeanEstudiante estudiante = (BeanEstudiante) session.get("estudiante");
+            JSONArray asesorias = dao.historialAsesorias(estudiante.getId_estudiante());
+            if (asesorias != null) {
+                respuesta.put("asesoria", asesorias.toString());
+            }
+        }
         return SUCCESS;
     }
 

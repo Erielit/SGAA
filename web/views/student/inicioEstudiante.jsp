@@ -22,6 +22,7 @@
         <link rel="stylesheet" type="text/css" href="<%=context%>\files\assets\icon\themify-icons\themify-icons.css"/>
         <!-- ico font -->
         <link rel="stylesheet" type="text/css" href="<%=context%>\files\assets\icon\icofont\css\icofont.css"/>
+        <link rel="stylesheet" type="text/css" href="<%=context%>\files\assets\icon\font-awesome\css\font-awesome.min.css">
         <!-- Style.css -->
         <link rel="stylesheet" type="text/css" href="<%=context%>\files\assets\pages\menu-search\css\component.css"/>
         <link rel="stylesheet" href="<%=context%>/files/assets/icon/feather/css/feather.css"/>
@@ -153,6 +154,83 @@
                     </div>
                 </div>
             </form>
+
+            <div class="modal fade" id="cancelar-asesoria" tabindex="-1" role="dialog">
+                <div class="modal-dialog modal-lg" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Opciones</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <ul class="nav nav-tabs md-tabs " role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#home7" role="tab"><i class="fa fa-file-text-o"></i> Asesoria</a>
+                                    <div class="slide"></div>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#profile7" role="tab"><i class="fa fa-share-alt"></i></i> Invitar</a>
+                                    <div class="slide"></div>
+                                </li>
+                            </ul>
+                            <!-- Tab panes -->
+                            <div class="tab-content card-block">
+                                <div class="tab-pane active" id="home7" role="tabpanel">
+                                    <div class="form-row m-3">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                            <label>Materia:</label>
+                                            <p id="det_materia"></p>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                            <label>Docente:</label>
+                                            <p id="det_docente"></p>
+                                        </div>
+                                    </div>
+                                    <div class="form-row m-3">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                            <label>Fecha: </label>
+                                            <p id="det_fecha"></p>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                            <label>Horario:</label>
+                                            <p id="det_horario"></p>
+                                        </div>
+
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="profile7" role="tabpanel">
+                                    <div class="form-row m-3">
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                            <<div class="card card-block user-card">
+                                                <ul class="scroll-list wave">
+                                                    <li>
+                                                        <h6>Item1</h6>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                            <form>
+                                                
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Cerrar</button>
+                            <form method="post" action="cancelar-asesoria" id="form_cancelar">
+                                <input type="hidden" id="asesoria_cancelar" />
+                                <button class="btn btn-danger" ng-click="cancelarAsesoria()"  type="button">Cancelar asesoria</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
 
         <script type="text/javascript" src="<%=context%>\files\bower_components\jquery\js\jquery.min.js"></script>
@@ -185,7 +263,7 @@
                                         toast: true,
                                         position: 'top-end',
                                         showConfirmButton: false,
-                                        timer: 2000,
+                                        timer: 3000,
                                         timerProgressBar: true,
                                         onOpen: function (toast) {
                                             toast.addEventListener('mouseenter', Swal.stopTimer);
