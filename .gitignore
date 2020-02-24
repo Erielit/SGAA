@@ -1,4 +1,20 @@
+<<<<<<< Updated upstream
+<<<<<<< Updated upstream
 /nbproject
 /build
 build.xml
 /dist/
+=======
+=======
+>>>>>>> Stashed changes
+/nbproject/private/
+/build/
+*.properties
+nbproject/ant-deploy.xml
+nbproject/project.xml
+nbproject/build-impl.xml
+build.xml
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes

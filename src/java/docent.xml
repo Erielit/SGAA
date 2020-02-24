@@ -6,9 +6,11 @@
 <struts>
     
     <package name="docentPackage" extends="struts-default,json-default">
-        <action name="inicioDocente" class="com.sgaa.control.ControlDocente" method="inicioDocente"> 
-            <result name="success">views/student/agendarAsesorias.jsp</result><!-- views/docent/inicioDocente.jsp -->
+        <action name="inicioDocente" class="com.sgaa.docente.control.ControlDocente" method="inicioDocente"> 
+            <result name="success">views/docent/inicioDocente.jsp</result>
+        </action>
+        <action name="historialAsesorias" class="com.sgaa.docente.control.ControlDocente" method="historialAsesorias"> 
+            <result name="success">views/docent/historialAsesorias.jsp</result>
         </action>
     </package>
- 
 </struts>

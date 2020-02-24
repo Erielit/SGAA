@@ -7,6 +7,7 @@ package com.sgaa.asesoria.bean;
 
 import com.sgaa.estado.bean.BeanEstado;
 import com.sgaa.horario.bean.BeanHorario;
+import com.sgaa.materia.bean.BeanMateria;
 
 /**
  *
@@ -19,17 +20,19 @@ public class BeanAsesoria {
     private int id_student;
     private int subject_diocent;
     private BeanEstado estado;
+    private BeanMateria materia;
 
     public BeanAsesoria() {
     }
 
-    public BeanAsesoria(int id_asesoria, BeanHorario horario, String date, int id_student, int subject_diocent, BeanEstado estado) {
+    public BeanAsesoria(int id_asesoria, BeanHorario horario, String date, int id_student, int subject_diocent, BeanEstado estado, BeanMateria materia) {
         this.id_asesoria = id_asesoria;
         this.horario = horario;
         this.date = date;
         this.id_student = id_student;
         this.subject_diocent = subject_diocent;
         this.estado = estado;
+        this.materia = materia;
     }
 
     public int getId_asesoria() {
@@ -79,6 +82,12 @@ public class BeanAsesoria {
     public void setEstado(BeanEstado estado) {
         this.estado = estado;
     }
-    
-    
+
+    public BeanMateria getMateria() {
+        return materia;
+    }
+
+    public void setMateria(BeanMateria materia) {
+        this.materia = materia;
+    }
 }

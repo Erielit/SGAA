@@ -6,7 +6,9 @@
 package com.sgaa.asesoria.dao;
 
 import com.sgaa.asesoria.bean.BeanAsesoria;
+import com.sgaa.estado.bean.BeanEstado;
 import com.sgaa.horario.bean.BeanHorario;
+import com.sgaa.materia.bean.BeanMateria;
 import com.sgaa.usuario.dao.DaoUsuario;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -47,9 +49,10 @@ public class DaoAsesoria {
         List<BeanAsesoria> listCourses = new ArrayList<>();
         BeanAsesoria beanAsesoria = null;
         BeanHorario beanHorario = null;
+        BeanMateria beanMateria = null;
         try {
             con = SQLConnection.getConnection();
-            cstm = con.prepareCall("call sp_getPendingCourses(?)");
+            cstm = con.prepareCall("{call sp_getPendingCourses(?)}");
             cstm.setInt(1, idDocent);
             rs = cstm.executeQuery();
             while (rs.next()) {
@@ -64,6 +67,12 @@ public class DaoAsesoria {
                 beanAsesoria.setHorario(beanHorario);
                 beanAsesoria.setId_student(rs.getInt("id_student"));
                 beanAsesoria.setSubject_diocent(rs.getInt("id_subject_docent"));
+
+                beanMateria = new BeanMateria();
+                beanMateria.setNombre(rs.getString("name"));
+                beanAsesoria.setMateria(beanMateria);
+
+                listCourses.add(beanAsesoria);
             }
         } catch (SQLException e) {
             System.out.println("Error en el método SQL " + e.getMessage());
@@ -71,7 +80,49 @@ public class DaoAsesoria {
             cerrarConexiones();
         }
         return listCourses;
+    }
 
+    public List<BeanAsesoria> getHistoryCourses(int idDocent) {
+        List<BeanAsesoria> listCourses = new ArrayList<>();
+        BeanAsesoria beanAsesoria = null;
+        BeanHorario beanHorario = null;
+        BeanMateria beanMateria = null;
+        BeanEstado beanEstado = null;
+        try {
+            con = SQLConnection.getConnection();
+            cstm = con.prepareCall("{call sp_getCoursesHistory(?)}");
+            cstm.setInt(1, idDocent);
+            rs = cstm.executeQuery();
+            while (rs.next()) {
+                beanAsesoria = new BeanAsesoria();
+                beanAsesoria.setId_asesoria(rs.getInt("id_course"));
+                beanAsesoria.setDate(rs.getString("registry_date"));
+
+                beanEstado = new BeanEstado();
+                beanEstado.setId_estado(rs.getInt("id_course_status"));
+                beanEstado.setEstado(rs.getString("course_status"));
+                beanAsesoria.setEstado(beanEstado);
+
+                beanHorario = new BeanHorario();
+                beanHorario.setHora_inicio(rs.getString("advisory_start"));
+                beanHorario.setHora_fin(rs.getString("advisory_end"));
+
+                beanAsesoria.setHorario(beanHorario);
+                beanAsesoria.setId_student(rs.getInt("id_student"));
+                beanAsesoria.setSubject_diocent(rs.getInt("id_subject_docent"));
+
+                beanMateria = new BeanMateria();
+                beanMateria.setNombre(rs.getString("name"));
+                beanAsesoria.setMateria(beanMateria);
+
+                listCourses.add(beanAsesoria);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error en el método SQL " + e.getMessage());
+        } finally {
+            cerrarConexiones();
+        }
+        return listCourses;
     }
 
     public void cerrarConexiones() {

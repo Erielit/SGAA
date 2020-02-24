@@ -13,7 +13,7 @@
         <div class="pcoded-navigatio-lavel">Docente</div>
         <ul class="pcoded-item pcoded-left-item">
             <li class="">
-                <a href="<%=context%>/asesorias">
+                <a href="<%=context%>/inicioDocente">
                     <span class="pcoded-micon"><i class="feather icon-watch"></i></span>
                     <span class="pcoded-mtext">Asesorias Pendientes</span>
                 </a>
@@ -21,7 +21,7 @@
         </ul>
         <ul class="pcoded-item pcoded-left-item">
             <li class="">
-                <a href="<%=context%>/asesorias">
+                <a href="<%=context%>/historialAsesorias">
                     <span class="pcoded-micon"><i class="feather icon-watch"></i></span>
                     <span class="pcoded-mtext">Historial de Asesorias</span>
                 </a>
