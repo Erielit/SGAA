@@ -4,7 +4,7 @@ var origin = window.location.origin + '/SGAA/';
 var swalWithBootstrapButtons = Swal.mixin({
     customClass: {
         confirmButton: 'btn btn-success mr-3',
-        cancelButton: 'btn btn-danger'
+        cancelButton: 'btn btn-default'
     },
     buttonsStyling: false
 });
@@ -12,6 +12,7 @@ var swalWithBootstrapButtons = Swal.mixin({
 app.controller('agendarAsesoria', ['$scope', '$http', function ($scope, $http) {
         $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
         $scope.docentes = [];
+        $scope.historial = [];
         $scope.asesoria = {};
         $scope.materia = undefined;
 
@@ -21,6 +22,17 @@ app.controller('agendarAsesoria', ['$scope', '$http', function ($scope, $http) {
                 url: origin + 'cuatrimestre',
                 data: {}
             }).then(function (response) {
+                var asesorias = response.data.respuesta.asesorias;
+                var asesorias_up = [];
+                asesorias.map(function (x) {
+                    asesorias_up.push({
+                        id: x.id_asesoria,
+                        title: "Asesoria",
+                        start: x.date + "T" + x.horario.hora_inicio,
+                        end: x.date + "T" + x.horario.hora_fin,
+                        allDay: false
+                    });
+                });
                 var cuatri = response.data.respuesta.cuatrimestre;
                 var date = new Date();
                 var initialLocaleCode = 'es';
@@ -30,7 +42,7 @@ app.controller('agendarAsesoria', ['$scope', '$http', function ($scope, $http) {
                     header: {
                         left: 'prev,next today',
                         center: 'title',
-                        right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
+                        right: 'dayGridMonth,listMonth'
                     },
                     defaultDate: '2019-08-12',
                     locale: initialLocaleCode,
@@ -46,14 +58,34 @@ app.controller('agendarAsesoria', ['$scope', '$http', function ($scope, $http) {
                     dateClick: function (dateInfo) {
                         document.getElementById('fecha').value = dateInfo.dateStr;
                         $("#default-Modal").modal('show');
+                    },
+                    events: asesorias_up,
+                    eventClick: function (event) {
+                        $scope.detalles(event.event.id);
                     }
                 });
                 calendar.render();
             });
         };
 
+        $scope.detalles = function (id) {
+            $http({
+                method: 'post',
+                url: origin + 'detalles-asesoria',
+                data: 'number_param=' + id
+            }).then(function (response) {
+                var detalles = JSON.parse(response.data.respuesta.asesoria);
+                $("#det_materia").text(detalles.materia);
+                $("#det_docente").text(detalles.docente);
+                var horario = detalles.horario.split(' ');
+                $("#det_horario").text(horario[0].substring(1, 8) + " " + horario[1].substring(1, 8) + " PM");
+                $("#det_fecha").text(detalles.fecha);
+                $("#asesoria_cancelar").val(id);
+                $("#cancelar-asesoria").modal('show');
+            });
+        };
+
         $scope.changeMateria = function (e) {
-            console.log(e);
             $http({
                 method: 'post',
                 url: origin + 'listDocents',
@@ -92,6 +124,57 @@ app.controller('agendarAsesoria', ['$scope', '$http', function ($scope, $http) {
                 } else {
                     $("#default-Modal").modal('show');
                 }
+            });
+        };
+
+        $scope.cancelarAsesoria = function () {
+            $("#cancelar-asesoria").modal('hide');
+            swalWithBootstrapButtons.fire({
+                title: 'Cancelar asesoria',
+                text: "Confirmar para continuar la acción.",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonText: 'Aceptar',
+                cancelButtonText: 'Cancelar'
+            }).then(function (result) {
+                if (result.value) {
+                    $("#form_cancelar").submit();
+                } else {
+                    $("#cancelar-asesoria").modal('show');
+                }
+            });
+        };
+
+        //        $scope.historialEstudiante = function () {
+//            $http({
+//                method: 'post',
+//                url: origin + 'list-historial',
+//                data: {}
+//            }).then(function (response) {
+//                var data = response.data.respuesta.asesoria;
+//                console.log(JSON.parse(data));
+//                $('#dt-ajax-array').DataTable({
+//                    "processing": true,
+//                    "data": JSON.parse(data),
+//                    columns: [
+//                        {title: "Docente"},
+//                        {title: "Materia"},
+//                        {title: "Fecha"},
+//                        {title: "Horario"},
+//                        {title: "Estado"}
+//                    ]
+//                });
+//            });
+//        };
+
+        $scope.historialEstudiante = function () {
+            $http({
+                method: 'post',
+                url: origin + 'list-historial'
+            }).then(function (response) {
+                var data = JSON.parse(response.data.respuesta.asesoria);
+                $scope.historial = data;
+//                $('#dt-ajax-array').DataTable({ajax: data});
             });
         };
     }]);

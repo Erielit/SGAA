@@ -33,17 +33,23 @@ public class IniciarSesion extends ActionSupport {
             session.put("persona", persona);
             if (persona.getUsuario().getRoles().get(0).getId_role() == 2) {
                 result = "student";
+                session.put("rolActivo", 2);
             } else {
                 if (persona.getUsuario().getRoles().size() > 1) {
                     result = SUCCESS;
-                }else{
+                } else {
                     switch (persona.getUsuario().getRoles().get(0).getId_role()) {
                         case 1://ADMIN
                             result = "admin";
+                            session.put("rolActivo", 1);
                             break;
                         case 3://Docente
+                            session.put("rolActivo", 3);
                             result = "docente";
                             break;
+                        case 4:
+                            session.put("rolActivo", 4);
+                            result = "tutor";
                         default:
                             throw new AssertionError();
                     }

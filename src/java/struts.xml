@@ -6,10 +6,17 @@
 <struts>
     
     <package name="defaultPackage" extends="struts-default,json-default,packInterceptor">
+        <!--        Estudiante-->
         <action name="asesorias" class="com.sgaa.estudiante.control.ControlEstudiante" method="inicioEstudiante">
             <result name="success">/views/student/inicioEstudiante.jsp</result>
         </action>
         <action name="agendar-asesoria" class="com.sgaa.estudiante.control.ControlEstudiante" method="agendarAsesoria">
+            <result name="success" type="redirectAction">
+                <param name="actionName">asesorias</param>
+                <param name="mensaje">${mensaje}</param>
+            </result>
+        </action>
+        <action name="cancelar-asesoria" class="com.sgaa.estudiante.control.ControlEstudiante" method="cancelarAseoria">
             <result name="success" type="redirectAction">
                 <param name="actionName">asesorias</param>
                 <param name="mensaje">${mensaje}</param>
@@ -21,10 +28,25 @@
         <action name="cuatrimestre" class="com.sgaa.estudiante.control.ControlEstudiante" method="cuatrimestre">
             <result name="success" type="json"/>
         </action>
-        
+        <action name="detalles-asesoria" class="com.sgaa.estudiante.control.ControlEstudiante" method="detallesAsesoria">
+            <result name="success" type="json"/>
+        </action>
+        <action name="historial-estudiante">
+            <result name="success">/views/student/historialAsesorias.jsp</result>
+        </action>
+        <action name="list-historial" class="com.sgaa.estudiante.control.ControlEstudiante" method="historialAsesorias">
+            <result name="success" type="json" />
+        </action>
+        <!--Fin Estudiante-->
         <!--Docente-->
         <action name="inicioDocente"> 
             <result name="success">views/student/agendarAsesorias.jsp</result><!-- views/docent/inicioDocente.jsp -->
+        </action>
+        <!--Fin docente-->
+        <!--Tutor-->
+        <action name="inicioTutor" > <!-- Agrega la clase y el metodo -->
+            <result name="success">inicio</result>
+            <!--/views/tutor/inicioTutor.jsp-->
         </action>
     </package>
     <package name="packInterceptor" extends="struts-default">
