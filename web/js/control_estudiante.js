@@ -177,4 +177,9 @@ app.controller('agendarAsesoria', ['$scope', '$http', function ($scope, $http) {
 //                $('#dt-ajax-array').DataTable({ajax: data});
             });
         };
+
+        $scope.listadoInvita = function () {
+
+        };
+        
     }]);

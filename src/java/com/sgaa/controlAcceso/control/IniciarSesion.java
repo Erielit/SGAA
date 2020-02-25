@@ -20,6 +20,7 @@ public class IniciarSesion extends ActionSupport {
 
     private String username;
     private String password;
+    private int id_rol;
     private Map respuesta;
 
     public String iniciarSesion() {
@@ -63,6 +64,37 @@ public class IniciarSesion extends ActionSupport {
         return result;
     }
 
+    public String cambiarRol() {
+        String result = "";
+        Map session = ActionContext.getContext().getSession();
+        System.out.println(id_rol);
+        switch (id_rol) {
+            case 1:
+                result = "admin";
+                session.put("rolActivo", 1);
+                break;
+            case 2:
+                result = "estudiante";
+                session.put("rolActivo", 2);
+                break;
+            case 3:
+                result = "docente";
+                session.put("rolActivo", 3);
+                break;
+            case 4:
+                result = "tutor";
+                session.put("rolActivo", 4);
+                break;
+            case 5:
+                result = "coordinador";
+                session.put("rolActivo", 5);
+                break;
+            default:
+
+        }
+        return result;
+    }
+
     public String cerrarSesion() {
         Map session = ActionContext.getContext().getSession();
         session.clear();
@@ -81,4 +113,7 @@ public class IniciarSesion extends ActionSupport {
         return respuesta;
     }
 
+    public void setId_rol(int id_rol) {
+        this.id_rol = id_rol;
+    }
 }

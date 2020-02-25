@@ -90,23 +90,23 @@
                                         <!-- CONTENT -->
                                         <div class="page-body">
                                             <div class="row">
-                                                <s:iterator value="#session.persona.usuario.roles" status="po">
-                                                <div class="col-xl-4 col-md-12">
-                                                    <div class="card social-card bg-simple-c-blue">
-                                                        <div class="card-block">
-                                                            <div class="row align-items-center">
-                                                                <div class="col-auto">
-                                                                    <i class="feather icon-instagram f-34 text-c-green social-icon"></i>
-                                                                </div>
-                                                                <div class="col">
-                                                                    <h6 class="m-b-0"><s:property value="role"/></h6>
-                                                                    <p class="m-b-0"><s:property value="descripcion"/></p>
+                                                <s:iterator value="#session.persona.usuario.roles" status="po">                                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
+                                                        <div class="card social-card bg-simple-c-blue">
+                                                            <div class="card-block">
+                                                                <div class="row align-items-center">
+                                                                    <div class="col-auto">
+                                                                        <i class="feather icon-instagram f-34 text-c-green social-icon"></i>
+                                                                    </div>
+                                                                    <div class="col">
+                                                                        <h6 class="m-b-0"><s:property value="role"/></h6>
+                                                                        <p class="m-b-0"><s:property value="descripcion"/></p>
+                                                                        <br/>
+                                                                    </div>
                                                                 </div>
                                                             </div>
+                                                            <a href="javascript:void(0)" onclick="cambiarRol(<s:property value="id_role"/>)" class="download-icon"><i class="feather icon-arrow-right"></i></a>
                                                         </div>
-                                                        <a href="#!" class="download-icon"><i class="feather icon-arrow-right"></i></a>
                                                     </div>
-                                                </div>
                                                 </s:iterator>
                                             </div>
                                         </div>
@@ -140,6 +140,21 @@
         <script src="<%=context%>\files\bower_components\datatables.net-bs4\js\dataTables.bootstrap4.min.js"></script>
         <script src="<%=context%>\files\bower_components\datatables.net-responsive\js\dataTables.responsive.min.js"></script>
         <!--<script src="<%=context%>\files\bower_components\datatables.net-responsive-bs4\js\responsive.bootstrap4.min.js"></script>-->
+        <script>
+                                                                function cambiarRol(id_role) {
+                                                                    var form = document.createElement("form");
+                                                                    form.action = "cambiar-rol";
+                                                                    form.method = "post";
+                                                                    var input = document.createElement("input");
+                                                                    input.name = "id_rol";
+                                                                    input.type = "number";
+                                                                    input.value = id_role + "";
+                                                                    form.appendChild(input);
+                                                                    document.body.appendChild(form);
+                                                                    console.log(input);
+                                                                    form.submit();
+                                                                }
+        </script>
         <script>
             (function () {
                 'use strict';

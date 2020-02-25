@@ -27,5 +27,49 @@
                 </li>
             </ul>
         </s:if>
+        <s:if test="#session.rolActivo == 1">
+            <div class="pcoded-navigatio-lavel">Asesorias</div>
+            <ul class="pcoded-item pcoded-left-item">
+                <li class="">
+                    <a href="#">
+                        <span class="pcoded-micon"><i class="feather icon-book"></i></span>
+                        <span class="pcoded-mtext">Links del admin</span>
+                    </a>
+                </li>
+            </ul>
+        </s:if>
+        <s:if test="#session.rolActivo == 3">
+            <div class="pcoded-navigatio-lavel">Asesorias</div>
+            <ul class="pcoded-item pcoded-left-item">
+                <li class="">
+                    <a href="#">
+                        <span class="pcoded-micon"><i class="feather icon-plus-square"></i></span>
+                        <span class="pcoded-mtext">Links del docente</span>
+                    </a>
+                </li>
+            </ul>
+        </s:if>
+        <s:if test="#session.rolActivo == 4">
+            <div class="pcoded-navigatio-lavel">Asesorias</div>
+            <ul class="pcoded-item pcoded-left-item">
+                <li class="">
+                    <a href="#">
+                        <span class="pcoded-micon"><i class="feather icon-plus-square"></i></span>
+                        <span class="pcoded-mtext">Links del tutor</span>
+                    </a>
+                </li>
+            </ul>
+        </s:if>
+        <s:if test="#session.rolActivo == 5">
+            <div class="pcoded-navigatio-lavel">Asesorias</div>
+            <ul class="pcoded-item pcoded-left-item">
+                <li class="">
+                    <a href="#">
+                        <span class="pcoded-micon"><i class="feather icon-book"></i></span>
+                        <span class="pcoded-mtext">Mete link del coordinador</span>
+                    </a>
+                </li>
+            </ul>
+        </s:if>
     </div>
 </nav>

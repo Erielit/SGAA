@@ -26,6 +26,12 @@
         <!-- Style.css -->
         <link rel="stylesheet" type="text/css" href="<%=context%>\files\assets\pages\menu-search\css\component.css"/>
         <link rel="stylesheet" href="<%=context%>/files/assets/icon/feather/css/feather.css"/>
+        <!-- list css -->
+        <link rel="stylesheet" type="text/css" href="<%=context%>\files\assets\pages\list-scroll\list.css">
+        <link rel="stylesheet" type="text/css" href="<%=context%>\files\bower_components\stroll\css\stroll.css">
+        <!-- Multi Select css -->
+        <link rel="stylesheet" type="text/css" href="<%=context%>\files\bower_components\bootstrap-multiselect\css\bootstrap-multiselect.css">
+        <link rel="stylesheet" type="text/css" href="<%=context%>\files\bower_components\multiselect\css\multi-select.css">
         <!-- Callendar -->
         <link href='<%=context%>/packages/core/main.css' rel='stylesheet' />
         <link href='<%=context%>/packages/daygrid/main.css' rel='stylesheet' />
@@ -202,19 +208,24 @@
                                 </div>
                                 <div class="tab-pane" id="profile7" role="tabpanel">
                                     <div class="form-row m-3">
-                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                                            <<div class="card card-block user-card">
-                                                <ul class="scroll-list wave">
-                                                    <li>
-                                                        <h6>Item1</h6>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                             <form>
-                                                
+                                                <h4 class="sub-title">Invitar compañeros</h4>
+                                                <select id='public-methods' multiple='multiple'>
+                                                    <option ng-repeat="" value=""></option>
+                                                </select>
                                             </form>
+                                        </div>
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-t-15">
+                                            <h6 class="sub-title">Integrantes</h6>
+                                            <ul class="basic-list list-icons">
+                                                <li>
+                                                    <i class="icofont icofont-speech-comments text-primary p-absolute text-center d-block f-30"></i>
+                                                    <h6>Heading</h6>
+                                                    <p>Laborum nihil aliquam nulla praesentium illo libero
+                                                        nihil at odio maxime.</p>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
                                 </div>
@@ -253,6 +264,14 @@
         <script src="<%=context%>\files\assets\js\vartical-layout.min.js"></script>
         <script src="<%=context%>\files\assets\js\jquery.mCustomScrollbar.concat.min.js"></script>
         <script type="text/javascript" src="<%=context%>\files\assets\js\script.min.js"></script>
+        <!--List -->
+        <script src="<%=context%>\files\bower_components\stroll\js\stroll.js"></script>
+        <script type="text/javascript" src="<%=context%>\files\assets\pages\list-scroll\list-custom.js"></script>
+        <!--Select-->
+        <script type="text/javascript" src="<%=context%>\files\bower_components\select2\js\select2.full.min.js"></script>
+        <script type="text/javascript" src="<%=context%>\files\bower_components\bootstrap-multiselect\js\bootstrap-multiselect.js"></script>
+        <script type="text/javascript" src="<%=context%>\files\bower_components\multiselect\js\jquery.multi-select.js"></script>
+        <script type="text/javascript" src="<%=context%>\files\assets\js\jquery.quicksearch.js"></script>
         <!-- >Modal <-->
         <script type="text/javascript" src="<%=context%>\js\angular.js"></script>
         <script type="text/javascript" src="<%=context%>\js\control_estudiante.js"></script>

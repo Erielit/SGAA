@@ -268,6 +268,48 @@ public class DaoEstudiante {
         return asesorias;
     }
 
+    public int getGrupoEstudiante(int student) {
+        int resultado = 0;
+        try {
+            con = SQLConnection.getConnection();
+            cstm = con.prepareCall("{call sp_group_student(?)}");//grupo,estudiante
+            cstm.setInt(1, student);
+            rs = cstm.executeQuery();//Resultados
+            if (rs.next()) {
+                resultado = rs.getInt("id_group");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DaoUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            cerrarConexiones();
+        }
+        return resultado;
+    }
+
+    public List<BeanEstudiante> listEstudiantes(int student) {
+        BeanEstudiante estudiante = null;
+        List<BeanEstudiante> estudiantes = new ArrayList<>();
+        try {
+            con = SQLConnection.getConnection();
+            cstm = con.prepareCall("{call sp_list_students_gp(?,?)}");//grupo,estudiante
+            cstm.setInt(1, student);
+            rs = cstm.executeQuery();//Resultados
+            while (rs.next()) {
+                estudiante = new BeanEstudiante();
+                estudiante.setNombre(rs.getString("name"));
+                estudiante.setPrimer_apellido(rs.getString("last_name"));
+                estudiante.setSegundo_apellido(rs.getString("second_last_name"));
+                estudiante.setId_estudiante(rs.getInt("id_student"));
+                estudiantes.add(estudiante);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DaoUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            cerrarConexiones();
+        }
+        return estudiantes;
+    }
+
     public void cerrarConexiones() {
         try {
             if (con != null) {

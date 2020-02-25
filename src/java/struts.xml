@@ -6,6 +6,29 @@
 <struts>
     
     <package name="defaultPackage" extends="struts-default,json-default,packInterceptor">
+        <!--Cambiar rol-->
+        <action name="vista-cambiar-rol">
+            <result name="success">/combiarRol.jsp</result>
+        </action>
+        <action name="cambiar-rol" class="com.sgaa.controlAcceso.control.IniciarSesion" method="cambiarRol">
+            <result name="admin" type="redirectAction">
+                <param name="actionName">inicioAdmin</param>
+            </result>
+            <result name="estudiante" type="redirectAction">
+                <param name="actionName">asesorias</param>
+            </result>
+            <result name="docente" type="redirectAction">
+                <param name="actionName">inicioDocente</param>
+            </result>
+            <result name="tutor" type="redirectAction">
+                <param name="actionName">inicioTutor</param>
+            </result>
+            <result name="coordinador" type="redirectAction">
+                <param name="actionName">inicioCoordinador</param>
+            </result>
+        </action>
+        
+        
         <!--        Estudiante-->
         <action name="asesorias" class="com.sgaa.estudiante.control.ControlEstudiante" method="inicioEstudiante">
             <result name="success">/views/student/inicioEstudiante.jsp</result>
@@ -38,16 +61,6 @@
             <result name="success" type="json" />
         </action>
         <!--Fin Estudiante-->
-        <!--Docente-->
-        <action name="inicioDocente"> 
-            <result name="success">views/student/agendarAsesorias.jsp</result><!-- views/docent/inicioDocente.jsp -->
-        </action>
-        <!--Fin docente-->
-        <!--Tutor-->
-        <action name="inicioTutor" > <!-- Agrega la clase y el metodo -->
-            <result name="success">inicio</result>
-            <!--/views/tutor/inicioTutor.jsp-->
-        </action>
     </package>
     <package name="packInterceptor" extends="struts-default">
         <!--Interceptor: Todas mis peticiones van a pasar por aqui-->
@@ -72,5 +85,6 @@
     </package>
     <include file="sesion.xml" />
     <include file="docent.xml" />
-   
+    <include file="tutor.xml" />
+    <include file="admin.xml" />   
 </struts>

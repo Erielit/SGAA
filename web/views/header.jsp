@@ -23,7 +23,7 @@
                 <li class="header-notification">
                     <div class="dropdown-primary dropdown">
                         <div class="dropdown-toggle" data-toggle="dropdown">
-                            <i style="font-size: 20px" class="feather icon-bell"></i>
+                            <i class="feather icon-bell"></i>
                             <span class="badge bg-c-pink">5</span>
                         </div>
                         <ul class="show-notification notification-view dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
@@ -73,13 +73,13 @@
                         </div>
                         <ul class="show-notification profile-notification dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
                             <li>
-                                <a href="#!">
-                                    <i class="feather icon-settings"></i> Settings
+                                <a href="vista-cambiar-rol">
+                                    <i class="feather icon-settings"></i> Cambiar rol
                                 </a>
                             </li>
                             <li>
                                 <a href="user-profile.htm">
-                                    <i class="feather icon-user"></i> Profile
+                                    <i class="feather icon-user"></i> Perfil
                                 </a>
                             </li>
                             <li>
