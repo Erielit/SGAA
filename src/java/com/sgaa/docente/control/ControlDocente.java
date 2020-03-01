@@ -37,7 +37,7 @@ public class ControlDocente extends ActionSupport {
         if (persona == null) {
             return "NOLOGIN";
         }
-        System.out.println(persona.getId_persona());
+
         beanDocente = daoDocente.getInfoDocent(persona.getId_persona());
         session.put("docent", beanDocente);
 
