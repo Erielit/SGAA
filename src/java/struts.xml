@@ -60,6 +60,18 @@
         <action name="list-historial" class="com.sgaa.estudiante.control.ControlEstudiante" method="historialAsesorias">
             <result name="success" type="json" />
         </action>
+        <action name="list-classmates" class="com.sgaa.estudiante.control.ControlEstudiante" method="agregarEstudiantesAsesoria">
+            <result name="success" type="json" />
+        </action>
+        <action name="lista-estudiantes-asesoria" class="com.sgaa.estudiante.control.ControlEstudiante" method="listaEstudiantesAsesoria">
+            <result name="success" type="json" />
+        </action>
+        <action name="invitar-estudiantes" class="com.sgaa.estudiante.control.ControlEstudiante" method="invitarEstudiantes">
+            <result name="success" type="json" />
+        </action>
+        <action name="notifications" class="com.sgaa.estudiante.control.ControlEstudiante" method="notificaciones">
+            <result name="success" type="json"/>
+        </action>
         <!--Fin Estudiante-->
     </package>
     <package name="packInterceptor" extends="struts-default">

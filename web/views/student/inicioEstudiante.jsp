@@ -14,9 +14,10 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Bienvenido | Iniciar Sesión</title>
+        <title>SGAA | Estudiante</title>
         <!-- Required Fremwork -->
         <link rel="stylesheet" type="text/css" href="<%=context%>/css/bootstrap.css"/>
+        <link rel="stylesheet" type="text/css" href="<%=context%>/css/bootstrap-duallistbox.css"/>
         <link rel="stylesheet" type="text/css" href="<%=context%>/css/sweetalert2.css">
         <!-- themify-icons line icon -->
         <link rel="stylesheet" type="text/css" href="<%=context%>\files\assets\icon\themify-icons\themify-icons.css"/>
@@ -30,8 +31,7 @@
         <link rel="stylesheet" type="text/css" href="<%=context%>\files\assets\pages\list-scroll\list.css">
         <link rel="stylesheet" type="text/css" href="<%=context%>\files\bower_components\stroll\css\stroll.css">
         <!-- Multi Select css -->
-        <link rel="stylesheet" type="text/css" href="<%=context%>\files\bower_components\bootstrap-multiselect\css\bootstrap-multiselect.css">
-        <link rel="stylesheet" type="text/css" href="<%=context%>\files\bower_components\multiselect\css\multi-select.css">
+
         <!-- Callendar -->
         <link href='<%=context%>/packages/core/main.css' rel='stylesheet' />
         <link href='<%=context%>/packages/daygrid/main.css' rel='stylesheet' />
@@ -154,7 +154,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Cerrar</button>
-                                <button type="button" class="btn btn-info waves-effect" ng-disabled="form_agendar.$invalid" ng-click="confirmAsesoria(asesoria)">Confirm</button>
+                                <button type="button" class="btn btn-info waves-effect" ng-disabled="form_agendar.$invalid" ng-click="confirmAsesoria(asesoria)">Aceptar</button>
                             </div>
                         </div>
                     </div>
@@ -177,7 +177,11 @@
                                     <div class="slide"></div>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" data-toggle="tab" href="#profile7" role="tab"><i class="fa fa-share-alt"></i></i> Invitar</a>
+                                    <a class="nav-link" data-toggle="tab" id="invitarTab" href="#profile7" role="tab"><i class="fa fa-share-alt"></i></i> Invitar</a>
+                                    <div class="slide"></div>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" id="invitarTab" href="#integrantes" role="tab"><i class="fa fa-users"></i></i> Integrantes</a>
                                     <div class="slide"></div>
                                 </li>
                             </ul>
@@ -208,22 +212,34 @@
                                 </div>
                                 <div class="tab-pane" id="profile7" role="tabpanel">
                                     <div class="form-row m-3">
-                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                                            <form>
+                                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" ng-form="formInvitar">
+                                            <form novalidate="" class="needs-validation" ng-submit="invitarEstudiantes(ids)">
                                                 <h4 class="sub-title">Invitar compañeros</h4>
-                                                <select id='public-methods' multiple='multiple'>
-                                                    <option ng-repeat="" value=""></option>
+                                                <select id='invitarSelect' name="invitarSelect" ng-model="ids.list" ng-change="changeInvitarSelect(ids.list)" multiple='multiple' required="">
+                                                    <option ng-repeat="estudiante in estudiantesLista" value="{{estudiante.id_estudiante}}">
+                                                        {{estudiante.nombre + ' ' + estudiante.primer_apellido + ' ' + estudiante.segundo_apellido}}</option>
                                                 </select>
+                                                <div ng-show="!estado" style="margin-top: 10px; color: red;">
+                                                    Selecciona al menos un compañero.
+                                                </div>
+                                                <div class="form-row">
+                                                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 text-left">
+                                                        <button class="btn btn-success" type="submit" style="margin-top: 10px;" ng-disabled="!estado">Agregar compañeros</button>
+                                                    </div>
+                                                </div>
                                             </form>
                                         </div>
+                                    </div>
+                                </div>
+                                <div class="tab-pane" id="integrantes" role="tabpanel">
+                                    <div class="form-row m-3">
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 m-t-15">
                                             <h6 class="sub-title">Integrantes</h6>
                                             <ul class="basic-list list-icons">
-                                                <li>
+                                                <li ng-repeat="estudiantes in estudiantesListaAsesoria">
                                                     <i class="icofont icofont-speech-comments text-primary p-absolute text-center d-block f-30"></i>
-                                                    <h6>Heading</h6>
-                                                    <p>Laborum nihil aliquam nulla praesentium illo libero
-                                                        nihil at odio maxime.</p>
+                                                    <h6>{{estudiantes.matricula}}</h6>
+                                                    <p>{{estudiantes.nombre + ' ' + estudiantes.primer_apellido + ' ' + estudiantes.segundo_apellido}}</p>
                                                 </li>
                                             </ul>
                                         </div>
@@ -235,7 +251,7 @@
                             <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Cerrar</button>
                             <form method="post" action="cancelar-asesoria" id="form_cancelar">
                                 <input type="hidden" id="asesoria_cancelar" />
-                                <button class="btn btn-danger" ng-click="cancelarAsesoria()"  type="button">Cancelar asesoria</button>
+                                <button class="btn btn-danger" ng-click="cancelarAsesoria()"  type="button">Cancelar</button>
                             </form>
                         </div>
                     </div>
@@ -264,19 +280,17 @@
         <script src="<%=context%>\files\assets\js\vartical-layout.min.js"></script>
         <script src="<%=context%>\files\assets\js\jquery.mCustomScrollbar.concat.min.js"></script>
         <script type="text/javascript" src="<%=context%>\files\assets\js\script.min.js"></script>
-        <!--List -->
-        <script src="<%=context%>\files\bower_components\stroll\js\stroll.js"></script>
-        <script type="text/javascript" src="<%=context%>\files\assets\pages\list-scroll\list-custom.js"></script>
-        <!--Select-->
-        <script type="text/javascript" src="<%=context%>\files\bower_components\select2\js\select2.full.min.js"></script>
-        <script type="text/javascript" src="<%=context%>\files\bower_components\bootstrap-multiselect\js\bootstrap-multiselect.js"></script>
-        <script type="text/javascript" src="<%=context%>\files\bower_components\multiselect\js\jquery.multi-select.js"></script>
-        <script type="text/javascript" src="<%=context%>\files\assets\js\jquery.quicksearch.js"></script>
+        <!--dual -->
+        <script src="<%=context%>/js/jquery.bootstrap-duallistbox.js"></script>
         <!-- >Modal <-->
         <script type="text/javascript" src="<%=context%>\js\angular.js"></script>
         <script type="text/javascript" src="<%=context%>\js\control_estudiante.js"></script>
            <!--<script src="<%=context%>\files\bower_components\datatables.net-responsive-bs4\js\responsive.bootstrap4.min.js"></script>-->
         <script>
+                                    $(document).on("click", "#invitarTab", function () {
+                                        $("#bootstrap-duallistbox-nonselected-list_invitarSelect").dblclick();
+//                                        document.getElementById("bootstrap-duallistbox-nonselected-list_").dbclick();
+                                    });
                                     var mensaje = '<s:property value="mensaje" />' + "";
                                     var Toast = Swal.mixin({
                                         toast: true,

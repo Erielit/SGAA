@@ -12,6 +12,7 @@ import com.sgaa.docente.bean.BeanDocente;
 import com.sgaa.estudiante.bean.BeanEstudiante;
 import com.sgaa.horario.bean.BeanHorario;
 import com.sgaa.materia.bean.BeanMateria;
+import com.sgaa.notificacion.bean.BeanNotificacion;
 import com.sgaa.usuario.dao.DaoUsuario;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -187,6 +188,31 @@ public class DaoEstudiante {
         return docentes;
     }
 
+    public List<BeanNotificacion> listNotificaciones(int persona) {
+        BeanNotificacion notificacion = null;
+        List<BeanNotificacion> notificacions = new ArrayList<>();
+        try {
+            con = SQLConnection.getConnection();
+            cstm = con.prepareCall("{call sp_list_notifications(?)}");//Procedimiento y/o parámetros
+            cstm.setInt(1, persona);
+            rs = cstm.executeQuery();
+            while (rs.next()) {
+                notificacion = new BeanNotificacion();
+                System.out.println(rs.getString("subject"));
+                notificacion.setAsunto(rs.getString("subject"));
+                notificacion.setMensaje(rs.getString("message"));
+                notificacion.setFecha_registro(rs.getString("registry_date"));
+                notificacion.setVisto(rs.getInt("seen"));
+                notificacions.add(notificacion);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DaoEstudiante.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            cerrarConexiones();
+        }
+        return notificacions;
+    }
+
     public JSONObject detallesAsesoria(int asesoria) {
         JSONObject ob = null;
         try {
@@ -286,13 +312,15 @@ public class DaoEstudiante {
         return resultado;
     }
 
-    public List<BeanEstudiante> listEstudiantes(int student) {
+    public List<BeanEstudiante> listEstudiantes(int student, int id_grupo, String fecha) {
         BeanEstudiante estudiante = null;
         List<BeanEstudiante> estudiantes = new ArrayList<>();
         try {
             con = SQLConnection.getConnection();
-            cstm = con.prepareCall("{call sp_list_students_gp(?,?)}");//grupo,estudiante
-            cstm.setInt(1, student);
+            cstm = con.prepareCall("{call sp_list_students_gp(?,?,?)}");//grupo,estudiante
+            cstm.setInt(1, id_grupo);
+            cstm.setInt(2, student);
+            cstm.setString(3, fecha);
             rs = cstm.executeQuery();//Resultados
             while (rs.next()) {
                 estudiante = new BeanEstudiante();
@@ -308,6 +336,47 @@ public class DaoEstudiante {
             cerrarConexiones();
         }
         return estudiantes;
+    }
+
+    public List<BeanEstudiante> listEstudiantesAsesoria(int id_grupo) {
+        BeanEstudiante estudiante = null;
+        List<BeanEstudiante> estudiantes = new ArrayList<>();
+        try {
+            con = SQLConnection.getConnection();
+            cstm = con.prepareCall("{call  list_students_course(?)}");//grupo,estudiante
+            cstm.setInt(1, id_grupo);
+            rs = cstm.executeQuery();//Resultados
+            while (rs.next()) {
+                estudiante = new BeanEstudiante();
+                estudiante.setMatricula(rs.getString("matricula"));
+                estudiante.setNombre(rs.getString("name"));
+                estudiante.setPrimer_apellido(rs.getString("last_name"));
+                estudiante.setSegundo_apellido(rs.getString("second_last_name"));
+                estudiante.setId_estudiante(rs.getInt("id_student"));
+                estudiantes.add(estudiante);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DaoUsuario.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            cerrarConexiones();
+        }
+        return estudiantes;
+    }
+
+    public boolean agregarEstudiante(int estudiante, int asesoria) {
+        boolean result = false;
+        try {
+            con = SQLConnection.getConnection();
+            cstm = con.prepareCall("{call sp_add_students_course (?,?)}");
+            cstm.setInt(1, estudiante);
+            cstm.setInt(2, asesoria);
+            result = cstm.executeUpdate() == 1;
+        } catch (SQLException e) {
+            Logger.getLogger(DaoUsuario.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            cerrarConexiones();
+        }
+        return result;
     }
 
     public void cerrarConexiones() {

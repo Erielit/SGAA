@@ -20,63 +20,23 @@
 
         <div class="navbar-container container-fluid">
             <ul class="nav-right">
-                <li class="header-notification">
-                    <div class="dropdown-primary dropdown">
-                        <div class="dropdown-toggle" data-toggle="dropdown">
-                            <i class="feather icon-bell"></i>
-                            <span class="badge bg-c-pink">5</span>
-                        </div>
-                        <ul class="show-notification notification-view dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
-                            <li>
-                                <h6>Notifications</h6>
-                                <label class="label label-danger">New</label>
-                            </li>
-                            <li>
-                                <div class="media">
-                                    <img class="d-flex align-self-center img-radius" src="<%=context%>\files\assets\images\avatar-4.jpg" alt="Generic placeholder image">
-                                    <div class="media-body">
-                                        <h5 class="notification-user">John Doe</h5>
-                                        <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
-                                        <span class="notification-time">30 minutes ago</span>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="media">
-                                    <img class="d-flex align-self-center img-radius" src="<%=context%>\files\assets\images\avatar-3.jpg" alt="Generic placeholder image">
-                                    <div class="media-body">
-                                        <h5 class="notification-user">Joseph William</h5>
-                                        <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
-                                        <span class="notification-time">30 minutes ago</span>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="media">
-                                    <img class="d-flex align-self-center img-radius" src="<%=context%>\files\assets\images\avatar-4.jpg" alt="Generic placeholder image">
-                                    <div class="media-body">
-                                        <h5 class="notification-user">Sara Soudein</h5>
-                                        <p class="notification-msg">Lorem ipsum dolor sit amet, consectetuer elit.</p>
-                                        <span class="notification-time">30 minutes ago</span>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
-                    </div>
-                </li>
+                <jsp:include page="./notificaciones.jsp"/>
                 <li class="user-profile header-notification">
                     <div class="dropdown-primary dropdown">
                         <div class="dropdown-toggle" data-toggle="dropdown">
                             <img src="<%=context%>\images\user-64.png" class="img-radius" alt="User-Profile-Image">
-                            <span><s:property value="#session.persona.nombre"/></span>
+                            <span><s:property value="#session.persona.nombre + ' ' +#session.persona.primer_apellido + ' ' +#session.persona.segundo_apellido"/></span>
                             <i class="feather icon-chevron-down"></i>
                         </div>
                         <ul class="show-notification profile-notification dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
-                            <li>
-                                <a href="vista-cambiar-rol">
-                                    <i class="feather icon-settings"></i> Cambiar rol
-                                </a>
-                            </li>
+                            <s:if test="#session.persona.usuario.roles.size() > 1">
+                                <li>
+                                    <a href="vista-cambiar-rol">
+                                        <i class="feather icon-settings"></i> Cambiar rol
+                                    </a>
+                                </li>
+                            </s:if>
+
                             <li>
                                 <a href="user-profile.htm">
                                     <i class="feather icon-user"></i> Perfil

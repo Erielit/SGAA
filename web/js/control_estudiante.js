@@ -1,6 +1,19 @@
 
 var app = angular.module('my-app', []);
 var origin = window.location.origin + '/SGAA/';
+var mensaje1 = "Acción realizada correctamente.";
+var mensaje2 = "Ocurrió un error inténtalo nuevamente.";
+var Toast = Swal.mixin({
+    toast: true,
+    position: 'top-end',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    onOpen: function (toast) {
+        toast.addEventListener('mouseenter', Swal.stopTimer);
+        toast.addEventListener('mouseleave', Swal.resumeTimer);
+    }
+});
 var swalWithBootstrapButtons = Swal.mixin({
     customClass: {
         confirmButton: 'btn btn-success mr-3',
@@ -13,9 +26,16 @@ app.controller('agendarAsesoria', ['$scope', '$http', function ($scope, $http) {
         $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
         $scope.docentes = [];
         $scope.historial = [];
+        $scope.estudiantesLista = [];
+        $scope.estudiantesListaAsesoria = [];
+        $scope.asesoria_id = undefined;
+        $scope.total = undefined;
         $scope.asesoria = {};
         $scope.materia = undefined;
-
+        $scope.estado = false;
+        $scope.nuevas = true;
+        $scope.ids = {};
+        $scope.notifications;
         $scope.inicioEstudiante = function () {
             $http({
                 method: 'post',
@@ -61,13 +81,14 @@ app.controller('agendarAsesoria', ['$scope', '$http', function ($scope, $http) {
                     },
                     events: asesorias_up,
                     eventClick: function (event) {
+                        $scope.asesoria_id = event.event.id;
                         $scope.detalles(event.event.id);
                     }
                 });
                 calendar.render();
             });
+            $scope.notificaciones();
         };
-
         $scope.detalles = function (id) {
             $http({
                 method: 'post',
@@ -81,10 +102,62 @@ app.controller('agendarAsesoria', ['$scope', '$http', function ($scope, $http) {
                 $("#det_horario").text(horario[0].substring(1, 8) + " " + horario[1].substring(1, 8) + " PM");
                 $("#det_fecha").text(detalles.fecha);
                 $("#asesoria_cancelar").val(id);
+                $scope.listarEstudiantes(detalles.fecha);
+                $scope.listadoInvitados(id);
+                $scope.asesoria_id = id;
                 $("#cancelar-asesoria").modal('show');
             });
         };
-
+        $scope.changeInvitarSelect = function (e) {
+            if (e === undefined) {
+                $scope.estado = false;
+            } else if (e.length > 0) {
+                $scope.estado = true;
+            }
+        };
+        $scope.invitarEstudiantes = function (object) {
+            object.id = $scope.asesoria_id;
+            console.log(object);
+            return false;
+            $("#cancelar-asesoria").modal("hide");
+            $http({
+                method: 'post',
+                url: origin + 'invitar-estudiantes',
+                data: 'params=' + angular.toJson(object)
+            }).then(function (response) {
+                var mensaje = response.data.respuesta.mensaje;
+                if (mensaje === "1") {
+                    Toast.fire({
+                        icon: 'success',
+                        title: mensaje1
+                    }).then(function (result) {
+                        if (result.value) {
+                            $scope.inicioEstudiante();
+                        }
+                    });
+                } else if (mensaje === "2") {
+                    Toast.fire({
+                        icon: 'error',
+                        title: mensaje2
+                    }).then(function (result) {
+                        if (result.value) {
+                            $scope.inicioEstudiante();
+                        }
+                    });
+                }
+            });
+        };
+        $scope.listarEstudiantes = function (e) {
+            $("#invitarSelect").bootstrapDualListbox();
+            $http({
+                method: 'post',
+                url: origin + 'list-classmates',
+                data: "params=" + e
+            }).then(function (response) {
+                $scope.estudiantesLista = response.data.respuesta.compas;
+                $("#invitarSelect").bootstrapDualListbox('refresh');
+            });
+        };
         $scope.changeMateria = function (e) {
             $http({
                 method: 'post',
@@ -94,7 +167,6 @@ app.controller('agendarAsesoria', ['$scope', '$http', function ($scope, $http) {
                 $scope.docentes = response.data.respuesta.docentes;
             });
         };
-
         $scope.confirmAsesoria = function (asesoria) {
             var estudiante = document.getElementById('estudiante').value;
             var fecha = document.getElementById('fecha').value;
@@ -126,7 +198,6 @@ app.controller('agendarAsesoria', ['$scope', '$http', function ($scope, $http) {
                 }
             });
         };
-
         $scope.cancelarAsesoria = function () {
             $("#cancelar-asesoria").modal('hide');
             swalWithBootstrapButtons.fire({
@@ -144,29 +215,6 @@ app.controller('agendarAsesoria', ['$scope', '$http', function ($scope, $http) {
                 }
             });
         };
-
-        //        $scope.historialEstudiante = function () {
-//            $http({
-//                method: 'post',
-//                url: origin + 'list-historial',
-//                data: {}
-//            }).then(function (response) {
-//                var data = response.data.respuesta.asesoria;
-//                console.log(JSON.parse(data));
-//                $('#dt-ajax-array').DataTable({
-//                    "processing": true,
-//                    "data": JSON.parse(data),
-//                    columns: [
-//                        {title: "Docente"},
-//                        {title: "Materia"},
-//                        {title: "Fecha"},
-//                        {title: "Horario"},
-//                        {title: "Estado"}
-//                    ]
-//                });
-//            });
-//        };
-
         $scope.historialEstudiante = function () {
             $http({
                 method: 'post',
@@ -177,9 +225,41 @@ app.controller('agendarAsesoria', ['$scope', '$http', function ($scope, $http) {
 //                $('#dt-ajax-array').DataTable({ajax: data});
             });
         };
+        $scope.listadoInvitados = function (id) {
 
-        $scope.listadoInvita = function () {
-
+            $http({
+                method: 'post',
+                url: origin + 'lista-estudiantes-asesoria',
+                data: 'number_param=' + id
+            }).then(function (response) {
+                var data = response.data.respuesta.integrantes;
+                $scope.estudiantesListaAsesoria = data;
+                console.log($scope.estudiantesListaAsesoria);
+            });
         };
-        
+        $scope.notificaciones = function () {
+            $http({
+                method: 'post',
+                url: origin + 'notifications'
+            }).then(function (response) {
+                $scope.notifications = response.data.respuesta.notificaciones;
+                var total = 0;
+                $.each($scope.notifications, function (index, value) {
+                    if (value.visto === 0) {
+                        total = total + 1;
+                    }
+                });
+                $.each($scope.notifications, function (index, value) {
+                    if (value.visto === 0) {
+                        console.log("visto 0");
+                        $("#nuevasNotificaciones").css('visibility', 'visible');
+                        return false;
+                    }
+                });
+                if (total === 0) {
+                    $("#totalNotificaciones").css("visibility","hidden");
+                }
+                $("#totalNotificaciones").text(total);
+            });
+        };
     }]);
