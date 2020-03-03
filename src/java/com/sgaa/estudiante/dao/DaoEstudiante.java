@@ -379,6 +379,30 @@ public class DaoEstudiante {
         return result;
     }
 
+    public List<BeanNotificacion> getNewNotifications(int idStudent) {
+        BeanNotificacion beanNotificacion = null;
+        List<BeanNotificacion> listNotificacions = new ArrayList<>();
+        try {
+            con = SQLConnection.getConnection();
+            cstm = con.prepareCall("{call sp_getNotifications(?)}");
+            cstm.setInt(1, idStudent);
+            rs = cstm.executeQuery();
+            while (rs.next()) {
+                beanNotificacion = new BeanNotificacion();
+                beanNotificacion.setId_notificacion(rs.getInt("id_notification_directed"));
+                beanNotificacion.setMensaje(rs.getString("massage"));
+                beanNotificacion.setAsunto(rs.getString("subject"));
+                beanNotificacion.setFecha_registro(rs.getString("registry_date"));
+                listNotificacions.add(beanNotificacion);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error en el método getNewNotifications " + e.getMessage());
+        } finally {
+            cerrarConexiones();
+        }
+        return listNotificacions;
+    }
+
     public void cerrarConexiones() {
         try {
             if (con != null) {
