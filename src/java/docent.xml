@@ -12,5 +12,11 @@
         <action name="historialAsesorias" class="com.sgaa.docente.control.ControlDocente" method="historialAsesorias"> 
             <result name="success">views/docent/historialAsesorias.jsp</result>
         </action>
+        <action name="asesoria-aceptada" class="com.sgaa.docente.control.ControlDocente" method="aceptarAsesoria">
+            <result name="success" type="json"/>
+        </action>
+        <action name="asesoria-rechazada" class="com.sgaa.docente.control.ControlDocente" method="rechazarAsesoria">
+            <result name="success" type="json"/>
+        </action>
     </package>
 </struts>

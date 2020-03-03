@@ -95,7 +95,7 @@
                                     </div>
                                     <div class="row m-t-25 text-left">
                                         <div class="col-6">
-                                            <div class="forgot-phone text-right f-right">
+                                            <div class="forgot-phone">
                                                 <a href="#" class="text-right f-w-600">¿Olvidaste tu contraseña?</a>
                                             </div>
                                         </div>
@@ -105,7 +105,7 @@
                                             <button type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Acceder</button>
                                         </div>
                                     </div>
-                                    <p class="text-inverse text-left">¿No tienes una cuenta?<a href="auth-sign-up-social.htm"> <b class="f-w-600">Registrate aquí </b></a>!</p>
+                                    <p class="text-inverse text-left">¿No tienes una cuenta?<a href="<%=context%>/registro-estudiante"> <b class="f-w-600">Registrate aquí </b></a>!</p>
                                     <div class="row m-t-30">
                                         <div class="col-md-12">
                                             <s:if test="respuesta.mensaje != ''">

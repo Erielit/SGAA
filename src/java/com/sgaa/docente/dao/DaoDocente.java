@@ -62,6 +62,36 @@ public class DaoDocente {
         return beanDocente;
     }
 
+    public boolean aceptarAsesoria(int asesoria) {
+        boolean result = false;
+        try {
+            con = SQLConnection.getConnection();
+            cstm = con.prepareCall("{call sp_aceptar_course(?)}");
+            cstm.setInt(1, asesoria);
+            result = cstm.executeUpdate() == 1;
+        } catch (SQLException e) {
+            System.out.println("Error en el método SQL " + e.getMessage());
+        } finally {
+            cerrarConexiones();
+        }
+        return result;
+    }
+    
+    public boolean rechazarAsesoria(int asesoria) {
+        boolean result = false;
+        try {
+            con = SQLConnection.getConnection();
+            cstm = con.prepareCall("{call sp_rechazar_course(?)}");
+            cstm.setInt(1, asesoria);
+            result = cstm.executeUpdate() == 1;
+        } catch (SQLException e) {
+            System.out.println("Error en el método SQL " + e.getMessage());
+        } finally {
+            cerrarConexiones();
+        }
+        return result;
+    }
+
     public void cerrarConexiones() {
         try {
             if (con != null) {

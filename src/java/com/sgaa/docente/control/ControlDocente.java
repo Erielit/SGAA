@@ -25,6 +25,7 @@ import java.util.Map;
 public class ControlDocente extends ActionSupport {
 
     private Map respuesta = null;
+    private int param_integer;
 
     public String inicioDocente() {
         DaoAsesoria daoAsesoria = new DaoAsesoria();
@@ -72,6 +73,28 @@ public class ControlDocente extends ActionSupport {
         return SUCCESS;
     }
 
+    public String aceptarAsesoria() {
+        DaoDocente dao = new DaoDocente();
+        respuesta = new HashMap();
+        if (dao.aceptarAsesoria(param_integer)) {
+            respuesta.put("mensaje", "1");
+        } else {
+            respuesta.put("mensaje", "2");
+        }
+        return SUCCESS;
+    }
+
+    public String rechazarAsesoria() {
+        DaoDocente dao = new DaoDocente();
+        respuesta = new HashMap();
+        if (dao.rechazarAsesoria(param_integer)) {
+            respuesta.put("mensaje", "1");
+        } else {
+            respuesta.put("mensaje", "2");
+        }
+        return SUCCESS;
+    }
+
     public Map getRespuesta() {
         return respuesta;
     }
@@ -79,4 +102,9 @@ public class ControlDocente extends ActionSupport {
     public void setRespuesta(Map respuesta) {
         this.respuesta = respuesta;
     }
+
+    public void setParam_integer(int param_integer) {
+        this.param_integer = param_integer;
+    }
+
 }

@@ -10,7 +10,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html>
-<html lang="es" ng-app="my-app">
+<html lang="es">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -34,7 +34,7 @@
         <!-- Sidebar -->
         <link rel="stylesheet" type="text/css" href="<%=context%>\files\assets\css\jquery.mCustomScrollbar.css"/>
     </head>
-    <body>
+    <body >
         <!-- Pre-loader start -->
         <div class="theme-loader">
             <div class="ball-scale">
@@ -81,8 +81,8 @@
                 <div class="pcoded-main-container">
                     <div class="pcoded-wrapper">
                         <jsp:include page="../menuDocent.jsp"/>
-                        <div class="pcoded-content">
-                            <div class="pcoded-inner-content">
+                        <div class="pcoded-content" ng-app="docent-app">
+                            <div class="pcoded-inner-content"  ng-controller="asesorias">
                                 <div class="main-body">
                                     <div class="row">
                                         <s:iterator value="respuesta.listCourses" status="po">                       
@@ -99,8 +99,8 @@
                                                         <h5> <s:property value="horario.hora_inicio"/> - <s:property value="horario.hora_fin"/></h5>
                                                     </div>
                                                     <div class="card-footer">
-                                                        <a href="#" class="btn btn-primary">Aceptar</a>                                            
-                                                        <a href="#" class="btn btn-danger">Rechazar</a>
+                                                        <a href="#" ng-click="aceptarAsesoria(<s:property value="id_asesoria"/>)" class="btn btn-primary">Aceptar</a>                                            
+                                                        <a href="#" ng-click="rechazarAsesoria(<s:property value="id_asesoria"/>)" class="btn btn-danger">Rechazar</a>
                                                     </div>
                                                 </div>
                                             </div>
@@ -122,39 +122,33 @@
 <!--<script type="text/javascript" src="<%=context%>\files\assets\pages\dashboard\custom-dashboard.js"></script>-->
 
         <script type="text/javascript" src="<%=context%>\files\bower_components\jquery-slimscroll\js\jquery.slimscroll.js"></script>
-        <!-- Callendar-->
-        <script src='<%=context%>\packages\core\main.js'></script>
-        <script src='<%=context%>\packages/core/locales-all.js'></script>
-        <script src='<%=context%>/packages/interaction/main.js'></script>
-        <script src='<%=context%>/packages/daygrid/main.js'></script>
-        <script src='<%=context%>/packages/timegrid/main.js'></script>
-        <script src='<%=context%>/packages/list/main.js'></script>
         <!-- Sidebar -->
         <script src="<%=context%>\files\assets\js\pcoded.min.js"></script>
         <script src="<%=context%>\files\assets\js\vartical-layout.min.js"></script>
         <script src="<%=context%>\files\assets\js\jquery.mCustomScrollbar.concat.min.js"></script>
         <script type="text/javascript" src="<%=context%>\files\assets\js\script.min.js"></script>
-        <!-- >Modal <-->
+        <script type="text/javascript" src="<%=context%>\js\angular.js"></script>
+        <script type="text/javascript" src="<%=context%>\js\control_docente.js"></script>
            <!--<script src="<%=context%>\files\bower_components\datatables.net-responsive-bs4\js\responsive.bootstrap4.min.js"></script>-->
         <script>
 
-            (function () {
-                'use strict';
-                window.addEventListener('load', function () {
-                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                    var forms = document.getElementsByClassName('needs-validation');
-                    // Loop over them and prevent submission
-                    var validation = Array.prototype.filter.call(forms, function (form) {
-                        form.addEventListener('change', function (event) {
-                            if (form.checkValidity() === false) {
-                                event.preventDefault();
-                                event.stopPropagation();
-                            }
-                            form.classList.add('was-validated');
-                        }, false);
-                    });
-                }, false);
-            })();
+                                                                (function () {
+                                                                    'use strict';
+                                                                    window.addEventListener('load', function () {
+                                                                        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                                                                        var forms = document.getElementsByClassName('needs-validation');
+                                                                        // Loop over them and prevent submission
+                                                                        var validation = Array.prototype.filter.call(forms, function (form) {
+                                                                            form.addEventListener('change', function (event) {
+                                                                                if (form.checkValidity() === false) {
+                                                                                    event.preventDefault();
+                                                                                    event.stopPropagation();
+                                                                                }
+                                                                                form.classList.add('was-validated');
+                                                                            }, false);
+                                                                        });
+                                                                    }, false);
+                                                                })();
         </script>
     </body>
 </html>

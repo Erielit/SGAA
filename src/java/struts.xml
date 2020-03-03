@@ -72,6 +72,9 @@
         <action name="notifications" class="com.sgaa.estudiante.control.ControlEstudiante" method="notificaciones">
             <result name="success" type="json"/>
         </action>
+        <action name="registro-estudiante">
+            <result name="success">/views/student/registroEstudiante.jsp</result>
+        </action>
         <!--Fin Estudiante-->
     </package>
     <package name="packInterceptor" extends="struts-default">

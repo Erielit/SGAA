@@ -98,8 +98,9 @@ app.controller('agendarAsesoria', ['$scope', '$http', function ($scope, $http) {
                 var detalles = JSON.parse(response.data.respuesta.asesoria);
                 $("#det_materia").text(detalles.materia);
                 $("#det_docente").text(detalles.docente);
+                console.log(detalles);
                 var horario = detalles.horario.split(' ');
-                $("#det_horario").text(horario[0].substring(1, 8) + " " + horario[1].substring(1, 8) + " PM");
+                $("#det_horario").text(horario[0].substring(0, 8) + " " + horario[1].substring(0, 8) + " PM");
                 $("#det_fecha").text(detalles.fecha);
                 $("#asesoria_cancelar").val(id);
                 $scope.listarEstudiantes(detalles.fecha);
