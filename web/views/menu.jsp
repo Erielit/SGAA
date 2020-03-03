@@ -39,23 +39,15 @@
             </ul>
         </s:if>
         <s:if test="#session.rolActivo == 3">
-        <div class="pcoded-navigatio-lavel">Docente</div>
-        <ul class="pcoded-item pcoded-left-item">
-            <li class="">
-                <a href="<%=context%>/inicioDocente">
-                    <span class="pcoded-micon"><i class="feather icon-watch"></i></span>
-                    <span class="pcoded-mtext">Asesorias Pendientes</span>
-                </a>
-            </li>
-        </ul>
-        <ul class="pcoded-item pcoded-left-item">
-            <li class="">
-                <a href="<%=context%>/historialAsesorias">
-                    <span class="pcoded-micon"><i class="feather icon-watch"></i></span>
-                    <span class="pcoded-mtext">Historial de Asesorias</span>
-                </a>
-            </li>
-        </ul>
+            <div class="pcoded-navigatio-lavel">Asesorias</div>
+            <ul class="pcoded-item pcoded-left-item">
+                <li class="">
+                    <a href="#">
+                        <span class="pcoded-micon"><i class="feather icon-plus-square"></i></span>
+                        <span class="pcoded-mtext">Links del docente</span>
+                    </a>
+                </li>
+            </ul>
         </s:if>
         <s:if test="#session.rolActivo == 4">
             <div class="pcoded-navigatio-lavel">Asesorias</div>

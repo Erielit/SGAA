@@ -80,7 +80,7 @@
                 <!-- Sidebar inner chat end-->
                 <div class="pcoded-main-container">
                     <div class="pcoded-wrapper">
-                        <jsp:include page="../menu.jsp"/>
+                        <jsp:include page="../menuDocent.jsp"/>
                         <div class="pcoded-content">
                             <div class="pcoded-inner-content">
                                 <div class="main-body">

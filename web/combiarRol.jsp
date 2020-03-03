@@ -13,7 +13,7 @@
 <html lang="es">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Cambiar rol</title>
+        <title>Bienvenido | Iniciar Sesión</title>
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
         <!-- Required Fremwork -->
 
@@ -90,8 +90,7 @@
                                         <!-- CONTENT -->
                                         <div class="page-body">
                                             <div class="row">
-                                                <s:iterator value="#session.persona.usuario.roles" status="po">  
-                                                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                <s:iterator value="#session.persona.usuario.roles" status="po">                                                    <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                                                         <div class="card social-card bg-simple-c-blue">
                                                             <div class="card-block">
                                                                 <div class="row align-items-center">
