@@ -5,9 +5,12 @@
         "http://struts.apache.org/dtds/struts-2.5.dtd">
 <struts>
     
-    <package name="tutorPackage" extends="struts-default,json-default">
-        <action name="inicioTutor"> 
+    <package name="tutorPackage" extends="struts-default,json-default,packInterceptor">
+        <action name="inicioTutor" class="com.sgaa.docente.control.ControlDocente" method="inicioTutor"> 
             <result name="success">views/tutor/inicioTutor.jsp</result>
+        </action>
+        <action name="canalizarEstudiante" class="com.sgaa.docente.control.ControlDocente" method="canalizarEstudiante"> 
+            <result type="json"></result>
         </action>
     </package>
 </struts>
