@@ -21,6 +21,33 @@
         <div class="navbar-container container-fluid">
             <ul class="nav-right">
                 <jsp:include page="./notificaciones.jsp"/>
+                <li class="header-notification">
+                    <div class="dropdown-primary dropdown">
+                        <div class="dropdown-toggle" data-toggle="dropdown">
+                            <i class="feather icon-bell"></i>
+                            <span class="badge bg-c-pink"><s:property value="respuesta.noNotifications"/></span>
+                        </div>
+                        <ul class="show-notification notification-view dropdown-menu" data-dropdown-in="fadeIn" data-dropdown-out="fadeOut">
+                            <li>
+                                <h6>Notificaciones</h6>
+                                <label class="label label-danger">Sin atender</label>
+                            </li>
+                            <s:iterator value="respuesta.notifications" status="po">
+                                <li>
+                                    <div class="media">
+                                        <img class="d-flex align-self-center img-radius" src="<%=context%>/images/U_AZUL.png" alt="Generic placeholder image">
+                                        <div class="media-body">
+                                            <h5 class="notification-user"><s:property value="asunto"/></h5>
+                                            <p class="notification-msg"><s:property value="mensaje"/></p>
+                                            <span class="notification-time"><s:property value="fecha_registro"/></span>
+                                        </div>
+                                    </div>
+                                </li>    
+                            </s:iterator>
+
+                        </ul>
+                    </div>
+                </li>
                 <li class="user-profile header-notification">
                     <div class="dropdown-primary dropdown">
                         <div class="dropdown-toggle" data-toggle="dropdown">
