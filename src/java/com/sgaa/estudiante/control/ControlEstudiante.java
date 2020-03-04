@@ -47,7 +47,7 @@ public class ControlEstudiante extends ActionSupport {
         
         respuesta = new HashMap();
         List<BeanHorario> horarios = dao.listSchedules();
-        List<BeanNotificacion> listBeanNotificacions = dao.getNewNotifications(estudiante.getId_estudiante());
+        List<BeanNotificacion> listBeanNotificacions = dao.getNewNotifications(persona.getId_persona());
         respuesta.put("horarios", horarios);
         respuesta.put("materias", dao.listSubjects(estudiante.getCarrera().getId_carrera(), estudiante.getId_estudiante()));
         respuesta.put("notifications", listBeanNotificacions);

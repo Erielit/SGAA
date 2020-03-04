@@ -379,13 +379,13 @@ public class DaoEstudiante {
         return result;
     }
 
-    public List<BeanNotificacion> getNewNotifications(int idStudent) {
+    public List<BeanNotificacion> getNewNotifications(int idPersona) {
         BeanNotificacion beanNotificacion = null;
         List<BeanNotificacion> listNotificacions = new ArrayList<>();
         try {
             con = SQLConnection.getConnection();
             cstm = con.prepareCall("{call sp_getNotifications(?)}");
-            cstm.setInt(1, idStudent);
+            cstm.setInt(1, idPersona);
             rs = cstm.executeQuery();
             while (rs.next()) {
                 beanNotificacion = new BeanNotificacion();

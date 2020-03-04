@@ -15,7 +15,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Inicio Docente</title>
+        <title>SGAA | Tutor</title>
         <!-- Required Fremwork -->
         <link rel="stylesheet" type="text/css" href="<%=context%>/css/bootstrap.css"/>
         <link rel="stylesheet" type="text/css" href="<%=context%>/css/sweetalert2.css">
