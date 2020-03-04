@@ -44,10 +44,14 @@ public class ControlEstudiante extends ActionSupport {
         }
         BeanEstudiante estudiante = dao.datosEstudiante(persona.getId_persona());
         session.put("estudiante", estudiante);
+        
         respuesta = new HashMap();
         List<BeanHorario> horarios = dao.listSchedules();
+        List<BeanNotificacion> listBeanNotificacions = dao.getNewNotifications(estudiante.getId_estudiante());
         respuesta.put("horarios", horarios);
         respuesta.put("materias", dao.listSubjects(estudiante.getCarrera().getId_carrera(), estudiante.getId_estudiante()));
+        respuesta.put("notifications", listBeanNotificacions);
+        respuesta.put("noNotifications", listBeanNotificacions.size());
         return SUCCESS;
     }
 

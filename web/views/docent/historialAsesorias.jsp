@@ -80,30 +80,43 @@
                 <!-- Sidebar inner chat end-->
                 <div class="pcoded-main-container">
                     <div class="pcoded-wrapper">
-                        <jsp:include page="../menuDocent.jsp"/>
+                        <jsp:include page="../menu.jsp"/>
                         <div class="pcoded-content">
                             <div class="pcoded-inner-content">
                                 <div class="main-body">
                                     <div class="row">
-                                        <s:iterator value="respuesta.listCourses" status="po">                       
-                                            <div class="col-md-4">
-                                                    <div class="card text-center">
-                                                        <div class="card-header">
-                                                            <h4>Asesoria <s:property value="#po.count"/></h4>
-                                                        </div>
-                                                        <div class="card-body">
-                                                            <h5>Materia </h5>
-                                                            <h4><s:property value="materia.nombre"/></h4>
-                                                            <h5>Fecha</h5>
-                                                            <h5><s:property value="date"/></h5>
-                                                            <h5> <s:property value="horario.hora_inicio"/> - <s:property value="horario.hora_fin"/></h5>
-                                                        </div>
-                                                        <div class="card-footer">
-                                                            <s:property value="estado.estado"/>
-                                                        </div>
+                                        <div class="col-12">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                    <h5>Historial de Asesorias</h5>
+                                                </div>
+                                                <div class="card-block">
+                                                    <div class="table-responsive dt-responsive">
+                                                        <table id="dt-ajax-array" class="table compact table-striped table-bordered nowrap">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>No.</th>
+                                                                    <th>Materia</th>
+                                                                    <th>Fecha</th>
+                                                                    <th>Horario</th>
+                                                                    <th>Estado</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <s:iterator value="respuesta.listCourses" status="po"> 
+                                                                    <tr>
+                                                                        <td><s:property value="#po.count"/></td>
+                                                                        <td><s:property value="materia.nombre"/></td>
+                                                                        <td><s:property value="date"/></td>
+                                                                        <td><s:property value="horario.hora_inicio"/> - <s:property value="horario.hora_fin"/></td>
+                                                                        <td><s:property value="estado.estado"/></td>
+                                                                    </tr>
+                                                                </s:iterator>
+                                                            </tbody>
+                                                        </table>
                                                     </div>
                                                 </div>
-                                            </s:iterator>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

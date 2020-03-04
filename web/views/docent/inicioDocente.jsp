@@ -14,7 +14,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>Inicio Docente</title>
+        <title>SGAA | Docente</title>
         <!-- Required Fremwork -->
         <link rel="stylesheet" type="text/css" href="<%=context%>/css/bootstrap.css"/>
         <link rel="stylesheet" type="text/css" href="<%=context%>/css/sweetalert2.css">
@@ -80,7 +80,7 @@
                 <!-- Sidebar inner chat end-->
                 <div class="pcoded-main-container">
                     <div class="pcoded-wrapper">
-                        <jsp:include page="../menuDocent.jsp"/>
+                        <jsp:include page="../menu.jsp"/>
                         <div class="pcoded-content" ng-app="docent-app">
                             <div class="pcoded-inner-content"  ng-controller="asesorias">
                                 <div class="main-body">

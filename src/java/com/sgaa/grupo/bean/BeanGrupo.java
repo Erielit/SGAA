@@ -5,6 +5,7 @@
  */
 package com.sgaa.grupo.bean;
 
+import com.sgaa.carrera.bean.BeanCarrera;
 import com.sgaa.cuatrimestre.bean.BeanCuatrimestre;
 import com.sgaa.docente.bean.BeanDocente;
 import com.sgaa.letra.bean.BeanLetra;
@@ -15,23 +16,26 @@ import com.sgaa.numero_cuatrimestre.bean.BeanNumeroCuatri;
  * @author netmo
  */
 public class BeanGrupo {
+
     private int id_grupo;
     private BeanNumeroCuatri numero_cuatri;
     private BeanLetra letra;
     private BeanDocente docente;
     private BeanCuatrimestre cuatrimestre;
     private String fecha_registro;
+    private BeanCarrera carrera;
 
     public BeanGrupo() {
     }
 
-    public BeanGrupo(int id_grupo, BeanNumeroCuatri numero_cuatri, BeanLetra letra, BeanDocente docente, BeanCuatrimestre cuatrimestre, String fecha_registro) {
+    public BeanGrupo(int id_grupo, BeanNumeroCuatri numero_cuatri, BeanLetra letra, BeanDocente docente, BeanCuatrimestre cuatrimestre, String fecha_registro, BeanCarrera carrera) {
         this.id_grupo = id_grupo;
         this.numero_cuatri = numero_cuatri;
         this.letra = letra;
         this.docente = docente;
         this.cuatrimestre = cuatrimestre;
         this.fecha_registro = fecha_registro;
+        this.carrera = carrera;
     }
 
     public String getFecha_registro() {
@@ -81,5 +85,13 @@ public class BeanGrupo {
     public void setCuatrimestre(BeanCuatrimestre cuatrimestre) {
         this.cuatrimestre = cuatrimestre;
     }
-    
+
+    public BeanCarrera getCarrera() {
+        return carrera;
+    }
+
+    public void setCarrera(BeanCarrera carrera) {
+        this.carrera = carrera;
+    }
+
 }
