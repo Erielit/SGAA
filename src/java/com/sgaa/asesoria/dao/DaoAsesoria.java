@@ -52,7 +52,7 @@ public class DaoAsesoria {
         BeanMateria beanMateria = null;
         try {
             con = SQLConnection.getConnection();
-            cstm = con.prepareCall("{call sp_getPendingCourses(?)}");
+            cstm = con.prepareCall("{call sp_getCoursesRequests(?)}");
             cstm.setInt(1, idDocent);
             rs = cstm.executeQuery();
             while (rs.next()) {
@@ -125,6 +125,43 @@ public class DaoAsesoria {
         return listCourses;
     }
 
+        public List<BeanAsesoria> getPendingCourses(int idDocent) {
+        List<BeanAsesoria> listCourses = new ArrayList<>();
+        BeanAsesoria beanAsesoria = null;
+        BeanHorario beanHorario = null;
+        BeanMateria beanMateria = null;
+        try {
+            con = SQLConnection.getConnection();
+            cstm = con.prepareCall("{call sp_getPendingCourses(?)}");
+            cstm.setInt(1, idDocent);
+            rs = cstm.executeQuery();
+            while (rs.next()) {
+                beanAsesoria = new BeanAsesoria();
+                beanAsesoria.setId_asesoria(rs.getInt("id_course"));
+                beanAsesoria.setDate(rs.getString("registry_date"));
+
+                beanHorario = new BeanHorario();
+                beanHorario.setHora_inicio(rs.getString("advisory_start"));
+                beanHorario.setHora_fin(rs.getString("advisory_end"));
+
+                beanAsesoria.setHorario(beanHorario);
+                beanAsesoria.setId_student(rs.getInt("id_student"));
+                beanAsesoria.setSubject_diocent(rs.getInt("id_subject_docent"));
+
+                beanMateria = new BeanMateria();
+                beanMateria.setNombre(rs.getString("name"));
+                beanAsesoria.setMateria(beanMateria);
+
+                listCourses.add(beanAsesoria);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error en el método SQL " + e.getMessage());
+        } finally {
+            cerrarConexiones();
+        }
+        return listCourses;
+    }
+        
     public void cerrarConexiones() {
         try {
             if (con != null) {

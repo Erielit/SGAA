@@ -4,8 +4,7 @@
         "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
         "http://struts.apache.org/dtds/struts-2.5.dtd">
 <struts>
-    
-    <package name="docentPackage" extends="struts-default,json-default">
+    <package name="docentPackage" extends="struts-default,json-default,packInterceptor">
         <action name="inicioDocente" class="com.sgaa.docente.control.ControlDocente" method="inicioDocente"> 
             <result name="success">views/docent/inicioDocente.jsp</result>
         </action>
@@ -17,6 +16,9 @@
         </action>
         <action name="asesoria-rechazada" class="com.sgaa.docente.control.ControlDocente" method="rechazarAsesoria">
             <result name="success" type="json"/>
+        </action>
+        <action name="asesoriasActivas" class="com.sgaa.docente.control.ControlDocente" method="asesoriasActivas">
+            <result name="success">views/docent/asesoriasActivas.jsp</result>
         </action>
     </package>
 </struts>

@@ -47,13 +47,16 @@ public class ControlDocente extends ActionSupport {
         listCourses = daoAsesoria.getCourses(beanDocente.getId_docent());
 
         respuesta = new HashMap();
-        respuesta.put("listCourses", listCourses);
+        if (listCourses.size() > 0) {
+            respuesta.put("listCourses", listCourses);
+        } else {
+            respuesta.put("mensaje", "Sin solicitudes de asesorías.");
+        }
         return SUCCESS;
     }
 
     public String historialAsesorias() {
         DaoAsesoria daoAsesoria = new DaoAsesoria();
-        DaoDocente daoDocente = new DaoDocente();
         List<BeanAsesoria> listCourses;
         BeanDocente beanDocente;
 
@@ -66,7 +69,33 @@ public class ControlDocente extends ActionSupport {
         listCourses = daoAsesoria.getHistoryCourses(beanDocente.getId_docent());
 
         respuesta = new HashMap();
-        respuesta.put("listCourses", listCourses);
+        if (listCourses.size() > 0) {
+            respuesta.put("listCourses", listCourses);
+        } else {
+            respuesta.put("mensaje", "Sin asesorías canceladas o rechazadas.");
+        }
+        return SUCCESS;
+    }
+
+    public String asesoriasActivas() {
+        DaoAsesoria daoAsesoria = new DaoAsesoria();
+        List<BeanAsesoria> listCourses;
+        BeanDocente beanDocente;
+
+        Map session = ActionContext.getContext().getSession();
+        beanDocente = (BeanDocente) session.get("docent");
+        if (beanDocente == null) {
+            return "NOLOGIN";
+        }
+
+        listCourses = daoAsesoria.getPendingCourses(beanDocente.getId_docent());
+
+        respuesta = new HashMap();
+        if (listCourses.size() > 0) {
+            respuesta.put("listCourses", listCourses);
+        } else {
+            respuesta.put("mensaje", "Sin asesorías activas");
+        }
         return SUCCESS;
     }
 

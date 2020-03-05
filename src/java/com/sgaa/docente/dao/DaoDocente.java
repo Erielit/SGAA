@@ -86,7 +86,7 @@ public class DaoDocente {
         }
         return result;
     }
-    
+
     public boolean rechazarAsesoria(int asesoria) {
         boolean result = false;
         try {
@@ -102,7 +102,7 @@ public class DaoDocente {
         return result;
     }
 
-        public List<BeanEstudiante> getListStudents(int idDocent) {
+    public List<BeanEstudiante> getListStudents(int idDocent) {
         List<BeanEstudiante> listaEstudiantes = new ArrayList<>();
         BeanEstudiante beanEstudiante = null;
         BeanGrupo beanGrupo = null;
@@ -181,7 +181,7 @@ public class DaoDocente {
         }
         return canalized;
     }
-    
+
     public void cerrarConexiones() {
         try {
             if (con != null) {
