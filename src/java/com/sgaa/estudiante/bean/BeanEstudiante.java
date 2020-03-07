@@ -5,6 +5,7 @@
  */
 package com.sgaa.estudiante.bean;
 
+import com.sgaa.asesoriaEstudiante.bean.BeanAsesoriaEstudiante;
 import com.sgaa.carrera.bean.BeanCarrera;
 import com.sgaa.genero.bean.BeanGenero;
 import com.sgaa.grupo.bean.BeanGrupo;
@@ -16,23 +17,28 @@ import com.sgaa.usuario.bean.BeanUsuario;
  *
  * @author netmo
  */
-public class BeanEstudiante extends BeanPersona{
+public class BeanEstudiante extends BeanPersona {
+
     private int id_estudiante;
     private String matricula;
     private BeanCarrera carrera;
     private BeanGrupo grupo;
     private BeanGrupoEstudiante grupoEstudiante;
-    
+    private BeanAsesoriaEstudiante beanAsesoriaEstudiante;
+
     public BeanEstudiante() {
     }
 
-    public BeanEstudiante(int id_estudiante, String matricula, BeanCarrera carrera, BeanGrupo grupo, int id_persona, String curp, String nombre, String primer_apellido, String segundo_apellido, String fecha_nacimiento, BeanGenero genero, BeanUsuario usuario) {
+    public BeanEstudiante(int id_estudiante, String matricula, BeanCarrera carrera, BeanGrupo grupo, BeanGrupoEstudiante grupoEstudiante, BeanAsesoriaEstudiante beanAsesoriaEstudiante, int id_persona, String curp, String nombre, String primer_apellido, String segundo_apellido, String fecha_nacimiento, BeanGenero genero, BeanUsuario usuario) {
         super(id_persona, curp, nombre, primer_apellido, segundo_apellido, fecha_nacimiento, genero, usuario);
         this.id_estudiante = id_estudiante;
         this.matricula = matricula;
         this.carrera = carrera;
+        this.grupo = grupo;
+        this.grupoEstudiante = grupoEstudiante;
+        this.beanAsesoriaEstudiante = beanAsesoriaEstudiante;
     }
-    
+
     public BeanCarrera getCarrera() {
         return carrera;
     }
@@ -72,6 +78,12 @@ public class BeanEstudiante extends BeanPersona{
     public void setGrupoEstudiante(BeanGrupoEstudiante grupoEstudiante) {
         this.grupoEstudiante = grupoEstudiante;
     }
-    
-    
+
+    public BeanAsesoriaEstudiante getBeanAsesoriaEstudiante() {
+        return beanAsesoriaEstudiante;
+    }
+
+    public void setBeanAsesoriaEstudiante(BeanAsesoriaEstudiante beanAsesoriaEstudiante) {
+        this.beanAsesoriaEstudiante = beanAsesoriaEstudiante;
+    }
 }

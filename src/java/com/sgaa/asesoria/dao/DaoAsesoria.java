@@ -6,7 +6,9 @@
 package com.sgaa.asesoria.dao;
 
 import com.sgaa.asesoria.bean.BeanAsesoria;
+import com.sgaa.asesoriaEstudiante.bean.BeanAsesoriaEstudiante;
 import com.sgaa.estado.bean.BeanEstado;
+import com.sgaa.estudiante.bean.BeanEstudiante;
 import com.sgaa.horario.bean.BeanHorario;
 import com.sgaa.materia.bean.BeanMateria;
 import com.sgaa.usuario.dao.DaoUsuario;
@@ -125,7 +127,7 @@ public class DaoAsesoria {
         return listCourses;
     }
 
-        public List<BeanAsesoria> getPendingCourses(int idDocent) {
+    public List<BeanAsesoria> getPendingCourses(int idDocent) {
         List<BeanAsesoria> listCourses = new ArrayList<>();
         BeanAsesoria beanAsesoria = null;
         BeanHorario beanHorario = null;
@@ -161,7 +163,57 @@ public class DaoAsesoria {
         }
         return listCourses;
     }
-        
+
+    public List<BeanEstudiante> getStudentsCourse(int idCourse) {
+        List<BeanEstudiante> listEstudiantes = new ArrayList<>();
+        BeanEstudiante beanEstudiante = null;
+        BeanAsesoriaEstudiante beanAsesoriaEstudiante = null;
+        try {
+            con = SQLConnection.getConnection();
+            cstm = con.prepareCall("{call sp_getStudentsCourse(?)}");
+            cstm.setInt(1, idCourse);
+            rs = cstm.executeQuery();
+
+            while (rs.next()) {
+                beanEstudiante = new BeanEstudiante();
+                beanEstudiante.setId_estudiante(rs.getInt("id_student"));
+                beanEstudiante.setMatricula(rs.getString("matricula"));
+                beanEstudiante.setNombre(rs.getString("name"));
+                beanEstudiante.setPrimer_apellido(rs.getString("last_name"));
+                beanEstudiante.setSegundo_apellido(rs.getString("second_last_name"));
+                
+                beanAsesoriaEstudiante = new BeanAsesoriaEstudiante();
+                beanAsesoriaEstudiante.setAssists(rs.getInt("assists"));
+                
+                beanEstudiante.setBeanAsesoriaEstudiante(beanAsesoriaEstudiante);
+                listEstudiantes.add(beanEstudiante);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error en el método getStudentsCourse " + e.getMessage());
+        } finally {
+            cerrarConexiones();
+        }
+        return listEstudiantes;
+    }
+
+    public boolean attendanceList(int idStudent, int idCourse, int typeAttendance) {
+        boolean bandera = false;
+        try {
+            con = SQLConnection.getConnection();
+            cstm = con.prepareCall("{call sp_attendanceList(?, ?, ?)}");
+            cstm.setInt(1, idStudent);
+            cstm.setInt(2, idCourse);
+            cstm.setInt(3, typeAttendance);
+
+            bandera = cstm.executeUpdate() == 1;
+        } catch (SQLException e) {
+            System.out.println("Error en el método attendanceList " + e.getMessage());
+        } finally {
+            cerrarConexiones();
+        }
+        return bandera;
+    }
+
     public void cerrarConexiones() {
         try {
             if (con != null) {

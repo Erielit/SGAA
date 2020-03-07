@@ -20,5 +20,11 @@
         <action name="asesoriasActivas" class="com.sgaa.docente.control.ControlDocente" method="asesoriasActivas">
             <result name="success">views/docent/asesoriasActivas.jsp</result>
         </action>
+        <action name="estudiantesAsesoria" class="com.sgaa.docente.control.ControlDocente" method="estudiantesAsesoria">
+            <result name="success">views/docent/infoAsesoria.jsp</result>
+        </action>
+        <action name="pasarLista" class="com.sgaa.docente.control.ControlDocente" method="pasarLista">
+            <result type="json"></result>
+        </action>
     </package>
 </struts>

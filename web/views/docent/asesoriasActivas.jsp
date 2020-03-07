@@ -99,8 +99,8 @@
                                                         <h5> <s:property value="horario.hora_inicio"/> - <s:property value="horario.hora_fin"/></h5>
                                                     </div>
                                                     <div class="card-footer">
-                                                        <s:form action="estudiantesAsesorias" method="POST">
-                                                            <s:hidden name="respuesta.idAsesoria" value="%{id_asesoria}"/>
+                                                        <s:form action="estudiantesAsesoria" method="POST">
+                                                            <s:hidden name="param_integer" value="%{id_asesoria}"/>
                                                             <button class="btn btn-info">Visualizar</button> 
                                                         </s:form>
                                                     </div>

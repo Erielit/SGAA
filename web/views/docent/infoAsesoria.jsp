@@ -10,7 +10,7 @@
 <%@ page contentType="text/html; charset=UTF-8" %>
 <%@taglib prefix="s" uri="/struts-tags" %>
 <!DOCTYPE html>
-<html lang="es" ng-app="my-app">
+<html lang="es">
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -88,7 +88,8 @@
                                         <div class="col-12">
                                             <div class="card">
                                                 <div class="card-header">
-                                                    <h5>Historial de Asesorías</h5>
+                                                    <h5>Información Asesoría</h5>
+                                                    <s:hidden id="idCourse" value="%{respuesta.idCourse}"/>
                                                 </div>
                                                 <div class="card-block">
                                                     <div class="table-responsive dt-responsive">
@@ -96,20 +97,29 @@
                                                             <thead>
                                                                 <tr>
                                                                     <th>No.</th>
-                                                                    <th>Materia</th>
-                                                                    <th>Fecha</th>
-                                                                    <th>Horario</th>
-                                                                    <th>Estado</th>
+                                                                    <th>Estudiante</th>
+                                                                    <th>Matrícula</th>
+                                                                    <th>Asistencia</th>
                                                                 </tr>
                                                             </thead>
                                                             <tbody>
-                                                                <s:iterator value="respuesta.listCourses" status="po"> 
+                                                                <s:iterator value="respuesta.listStudents" status="po"> 
                                                                     <tr>
                                                                         <td><s:property value="#po.count"/></td>
-                                                                        <td><s:property value="materia.nombre"/></td>
-                                                                        <td><s:property value="date"/></td>
-                                                                        <td><s:property value="horario.hora_inicio"/> - <s:property value="horario.hora_fin"/></td>
-                                                                        <td><s:property value="estado.estado"/></td>
+                                                                        <td><s:property value="nombre"/> <s:property value="primer_apellido"/> <s:property value="segundo_apellido"/></td>
+                                                                        <td><s:property value="matricula"/></td>
+                                                                        <td class="text-center">
+                                                                            <div class="btn-group-toggle" data-toggle="buttons">
+                                                                                <s:if test="beanAsesoriaEstudiante.assists == 1">
+                                                                                    <label id="radio" class="btn btn-success">
+                                                                                        <input type="checkbox" value="<s:property value="beanAsesoriaEstudiante.assists"/>" id="btnAttendance<s:property value="id_estudiante"/>" onchange="paseLista(<s:property value="id_estudiante"/>)"> .
+                                                                                    </label>
+                                                                                </s:if><s:else>
+                                                                                    <label id="radio" class="btn btn-danger">
+                                                                                        <input type="checkbox" value="<s:property value="beanAsesoriaEstudiante.assists"/>" id="btnAttendance<s:property value="id_estudiante"/>" onchange="paseLista(<s:property value="id_estudiante"/>)"> .
+                                                                                    </label>
+                                                                                </s:else>                                                                                
+                                                                            </div>
                                                                     </tr>
                                                                 </s:iterator>
                                                             </tbody>
@@ -146,27 +156,29 @@
             <script src="<%=context%>\files\assets\js\vartical-layout.min.js"></script>
             <script src="<%=context%>\files\assets\js\jquery.mCustomScrollbar.concat.min.js"></script>
             <script type="text/javascript" src="<%=context%>\files\assets\js\script.min.js"></script>
+            <script type="text/javascript" src="<%=context%>\js\pase_lista.js"></script>
+
             <!-- >Modal <-->
                <!--<script src="<%=context%>\files\bower_components\datatables.net-responsive-bs4\js\responsive.bootstrap4.min.js"></script>-->
             <script>
 
-                (function () {
-                    'use strict';
-                    window.addEventListener('load', function () {
-                        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                        var forms = document.getElementsByClassName('needs-validation');
-                        // Loop over them and prevent submission
-                        var validation = Array.prototype.filter.call(forms, function (form) {
-                            form.addEventListener('change', function (event) {
-                                if (form.checkValidity() === false) {
-                                    event.preventDefault();
-                                    event.stopPropagation();
-                                }
-                                form.classList.add('was-validated');
-                            }, false);
-                        });
-                    }, false);
-                })();
+                                                                                        (function () {
+                                                                                            'use strict';
+                                                                                            window.addEventListener('load', function () {
+                                                                                                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                                                                                                var forms = document.getElementsByClassName('needs-validation');
+                                                                                                // Loop over them and prevent submission
+                                                                                                var validation = Array.prototype.filter.call(forms, function (form) {
+                                                                                                    form.addEventListener('change', function (event) {
+                                                                                                        if (form.checkValidity() === false) {
+                                                                                                            event.preventDefault();
+                                                                                                            event.stopPropagation();
+                                                                                                        }
+                                                                                                        form.classList.add('was-validated');
+                                                                                                    }, false);
+                                                                                                });
+                                                                                            }, false);
+                                                                                        })();
             </script>
     </body>
 </html>

@@ -18,6 +18,10 @@ import com.sgaa.persona.bean.BeanPersona;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *
@@ -155,6 +159,40 @@ public class ControlDocente extends ActionSupport {
             respuesta.put("mensaje", "1");
         } else {
             respuesta.put("mensaje", "2");
+        }
+        return SUCCESS;
+    }
+
+    public String estudiantesAsesoria() {
+        DaoAsesoria daoAsesoria = new DaoAsesoria();
+
+        Map session = ActionContext.getContext().getSession();
+        BeanPersona persona = (BeanPersona) session.get("persona");
+        if (persona == null) {
+            return "NOLOGIN";
+        }
+
+        respuesta = new HashMap();
+        List<BeanEstudiante> listEstudiantes = daoAsesoria.getStudentsCourse(param_integer);
+        respuesta.put("listStudents", listEstudiantes);
+        respuesta.put("idCourse", param_integer);
+        return SUCCESS;
+    }
+
+    public String pasarLista() {
+        DaoAsesoria daoAsesoria = new DaoAsesoria();
+        try {
+            JSONObject myObj = new JSONObject(datos);
+            int idStudent = myObj.getInt("idStudent");
+            int idCourse = myObj.getInt("idCourse");
+            int typeAttendance = myObj.getInt("checked");
+            if (daoAsesoria.attendanceList(idStudent, idCourse, typeAttendance)) {
+                return SUCCESS;
+            } else {
+                return ERROR;
+            }
+        } catch (JSONException ex) {
+            Logger.getLogger(ControlDocente.class.getName()).log(Level.SEVERE, null, ex);
         }
         return SUCCESS;
     }
