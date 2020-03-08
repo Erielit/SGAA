@@ -88,7 +88,7 @@
                                         <div class="col-12">
                                             <div class="card">
                                                 <div class="card-header">
-                                                    <h5>Información Asesoría</h5>
+                                                    <h2>Información Asesoría</h2>
                                                     <s:hidden id="idCourse" value="%{respuesta.idCourse}"/>
                                                 </div>
                                                 <div class="card-block">
@@ -112,11 +112,10 @@
                                                                             <div class="btn-group-toggle" data-toggle="buttons">
                                                                                 <s:if test="beanAsesoriaEstudiante.assists == 1">
                                                                                     <label id="radio" class="btn btn-success">
-                                                                                        <input type="checkbox" value="<s:property value="beanAsesoriaEstudiante.assists"/>" id="btnAttendance<s:property value="id_estudiante"/>" onchange="paseLista(<s:property value="id_estudiante"/>)"> .
-                                                                                    </label>
-                                                                                </s:if><s:else>
+                                                                                        <input type="checkbox" value="<s:property value="beanAsesoriaEstudiante.assists"/>" id="btnAttendance<s:property value="id_estudiante"/>" onchange="paseLista(<s:property value="id_estudiante"/>)">                                                                                    </label>
+                                                                                    </s:if><s:else>
                                                                                     <label id="radio" class="btn btn-danger">
-                                                                                        <input type="checkbox" value="<s:property value="beanAsesoriaEstudiante.assists"/>" id="btnAttendance<s:property value="id_estudiante"/>" onchange="paseLista(<s:property value="id_estudiante"/>)"> .
+                                                                                        <input type="checkbox" value="<s:property value="beanAsesoriaEstudiante.assists"/>" id="btnAttendance<s:property value="id_estudiante"/>" onchange="paseLista(<s:property value="id_estudiante"/>)">
                                                                                     </label>
                                                                                 </s:else>                                                                                
                                                                             </div>
@@ -162,23 +161,23 @@
                <!--<script src="<%=context%>\files\bower_components\datatables.net-responsive-bs4\js\responsive.bootstrap4.min.js"></script>-->
             <script>
 
-                                                                                        (function () {
-                                                                                            'use strict';
-                                                                                            window.addEventListener('load', function () {
-                                                                                                // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                                                                                                var forms = document.getElementsByClassName('needs-validation');
-                                                                                                // Loop over them and prevent submission
-                                                                                                var validation = Array.prototype.filter.call(forms, function (form) {
-                                                                                                    form.addEventListener('change', function (event) {
-                                                                                                        if (form.checkValidity() === false) {
-                                                                                                            event.preventDefault();
-                                                                                                            event.stopPropagation();
-                                                                                                        }
-                                                                                                        form.classList.add('was-validated');
-                                                                                                    }, false);
-                                                                                                });
-                                                                                            }, false);
-                                                                                        })();
+                                                                                            (function () {
+                                                                                                'use strict';
+                                                                                                window.addEventListener('load', function () {
+                                                                                                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                                                                                                    var forms = document.getElementsByClassName('needs-validation');
+                                                                                                    // Loop over them and prevent submission
+                                                                                                    var validation = Array.prototype.filter.call(forms, function (form) {
+                                                                                                        form.addEventListener('change', function (event) {
+                                                                                                            if (form.checkValidity() === false) {
+                                                                                                                event.preventDefault();
+                                                                                                                event.stopPropagation();
+                                                                                                            }
+                                                                                                            form.classList.add('was-validated');
+                                                                                                        }, false);
+                                                                                                    });
+                                                                                                }, false);
+                                                                                            })();
             </script>
     </body>
 </html>

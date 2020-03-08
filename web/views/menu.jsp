@@ -71,9 +71,9 @@
             <div class="pcoded-navigatio-lavel">Asesorias</div>
             <ul class="pcoded-item pcoded-left-item">
                 <li class="">
-                    <a href="#">
+                    <a href="<%=context%>/inicioTutor">
                         <span class="pcoded-micon"><i class="feather icon-plus-square"></i></span>
-                        <span class="pcoded-mtext">Links del tutor</span>
+                        <span class="pcoded-mtext">Alumnos Tutorados</span>
                     </a>
                 </li>
             </ul>

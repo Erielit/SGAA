@@ -89,34 +89,42 @@
                                         <div class="col-12">
                                             <div class="card">
                                                 <div class="card-header">
-                                                    <h5>Listado Alumnos  <s:property value="respuesta.carrera"/> <s:property value="respuesta.numeroCuatri"/> ° <s:property value="respuesta.letra"/> <s:property value="respuesta.cuatrimestre"/></h5>
+                                                    <h2>Listado Alumnos</h2>
                                                 </div>
-                                                <div class="card-block">
-                                                    <div class="table-responsive dt-responsive">
-                                                        <table id="dt-ajax-array" class="table compact table-striped table-bordered nowrap">
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>No.</th>
-                                                                    <th>Nombre</th>
-                                                                    <th>Matrícula</th>
-                                                                    <th>Correo Institucional</th>
-                                                                    <th>Canalizar</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                                <s:iterator value="respuesta.listaEstudiantes" status="po">
-                                                                    <tr>
-                                                                        <td><s:property value="#po.count"/></td>
-                                                                        <td><s:property value="nombre"/> <s:property value="primer_apellido"/> <s:property value="segundo_apellido"/></td>
-                                                                        <td><s:property value="matricula"/></td>
-                                                                        <td><s:property value="usuario.username"/></td>
-                                                                        <td class="text-center"><button id="btnCanalizar" onclick="canalizarEstudiante(<s:property value="grupoEstudiante.id_grupo_estudiante"/>)" class="btn btn-danger">Canalizar</button></td>
-                                                                    </tr>
-                                                                </s:iterator>
-                                                            </tbody>
-                                                        </table>
+                                                <s:if test="respuesta.mensaje != null">
+                                                    <div class="col-md-4">
+                                                        <label><s:property value="respuesta.mensaje"/></label>
                                                     </div>
-                                                </div>
+                                                </s:if>
+                                                <s:else>
+                                                    <div class="card-block">
+                                                        <div class="table-responsive dt-responsive">
+                                                            <h4>  <s:property value="respuesta.carrera"/> <s:property value="respuesta.numeroCuatri"/> ° <s:property value="respuesta.letra"/> <s:property value="respuesta.cuatrimestre"/></h4>
+                                                            <table id="dt-ajax-array" class="table compact table-striped table-bordered nowrap">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>No.</th>
+                                                                        <th>Nombre</th>
+                                                                        <th>Matrícula</th>
+                                                                        <th>Correo Institucional</th>
+                                                                        <th>Canalizar</th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <s:iterator value="respuesta.listaEstudiantes" status="po">
+                                                                        <tr>
+                                                                            <td><s:property value="#po.count"/></td>
+                                                                            <td><s:property value="nombre"/> <s:property value="primer_apellido"/> <s:property value="segundo_apellido"/></td>
+                                                                            <td><s:property value="matricula"/></td>
+                                                                            <td><s:property value="usuario.username"/></td>
+                                                                            <td class="text-center"><button id="btnCanalizar" onclick="canalizarEstudiante(<s:property value="grupoEstudiante.id_grupo_estudiante"/>)" class="btn btn-danger">Canalizar</button></td>
+                                                                        </tr>
+                                                                    </s:iterator>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </s:else>
                                             </div>
                                         </div>
                                     </div>
@@ -152,23 +160,23 @@
         <!-- >Modal <-->
            <!--<script src="<%=context%>\files\bower_components\datatables.net-responsive-bs4\js\responsive.bootstrap4.min.js"></script>-->
         <script>
-            (function () {
-                'use strict';
-                window.addEventListener('load', function () {
-                    // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                    var forms = document.getElementsByClassName('needs-validation');
-                    // Loop over them and prevent submission
-                    var validation = Array.prototype.filter.call(forms, function (form) {
-                        form.addEventListener('change', function (event) {
-                            if (form.checkValidity() === false) {
-                                event.preventDefault();
-                                event.stopPropagation();
-                            }
-                            form.classList.add('was-validated');
-                        }, false);
-                    });
-                }, false);
-            })();
+                                                                                (function () {
+                                                                                    'use strict';
+                                                                                    window.addEventListener('load', function () {
+                                                                                        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                                                                                        var forms = document.getElementsByClassName('needs-validation');
+                                                                                        // Loop over them and prevent submission
+                                                                                        var validation = Array.prototype.filter.call(forms, function (form) {
+                                                                                            form.addEventListener('change', function (event) {
+                                                                                                if (form.checkValidity() === false) {
+                                                                                                    event.preventDefault();
+                                                                                                    event.stopPropagation();
+                                                                                                }
+                                                                                                form.classList.add('was-validated');
+                                                                                            }, false);
+                                                                                        });
+                                                                                    }, false);
+                                                                                })();
         </script>
     </body>
 </html>

@@ -125,6 +125,8 @@ public class ControlDocente extends ActionSupport {
             respuesta.put("letra", listaEstudiantes.get(0).getGrupo().getLetra().getLetra());
             respuesta.put("cuatrimestre", listaEstudiantes.get(0).getGrupo().getCuatrimestre().getNombre());
             respuesta.put("listaEstudiantes", listaEstudiantes);
+        }else{
+            respuesta.put("mensaje", "No hay estudiantes registrados.");
         }
         return SUCCESS;
     }

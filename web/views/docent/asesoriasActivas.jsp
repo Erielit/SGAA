@@ -85,28 +85,38 @@
                             <div class="pcoded-inner-content">
                                 <div class="main-body">
                                     <div class="row">
-                                        <s:iterator value="respuesta.listCourses" status="po">                       
+                                        <div class="col-12">
+                                            <h2>Asesorías Activas</h2>
+                                        </div>
+                                        <s:if test="respuesta.mensaje != null">
                                             <div class="col-md-4">
-                                                <div class="card text-center">
-                                                    <div class="card-header">
-                                                        <h4>Asesoria <s:property value="#po.count"/></h4>
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <h5>Materia </h5>
-                                                        <h4><s:property value="materia.nombre"/></h4>
-                                                        <h5>Fecha</h5>
-                                                        <h5><s:property value="date"/></h5>
-                                                        <h5> <s:property value="horario.hora_inicio"/> - <s:property value="horario.hora_fin"/></h5>
-                                                    </div>
-                                                    <div class="card-footer">
-                                                        <s:form action="estudiantesAsesoria" method="POST">
-                                                            <s:hidden name="param_integer" value="%{id_asesoria}"/>
-                                                            <button class="btn btn-info">Visualizar</button> 
-                                                        </s:form>
+                                                <label><s:property value="respuesta.mensaje"/></label>
+                                            </div>
+                                        </s:if>
+                                        <s:else>
+                                            <s:iterator value="respuesta.listCourses" status="po">                       
+                                                <div class="col-md-4">
+                                                    <div class="card text-center">
+                                                        <div class="card-header">
+                                                            <h4>Asesoria <s:property value="#po.count"/></h4>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <h5>Materia </h5>
+                                                            <h4><s:property value="materia.nombre"/></h4>
+                                                            <h5>Fecha</h5>
+                                                            <h5><s:property value="date"/></h5>
+                                                            <h5> <s:property value="horario.hora_inicio"/> - <s:property value="horario.hora_fin"/></h5>
+                                                        </div>
+                                                        <div class="card-footer">
+                                                            <s:form action="estudiantesAsesoria" method="POST">
+                                                                <s:hidden name="param_integer" value="%{id_asesoria}"/>
+                                                                <button class="btn btn-info">Visualizar</button> 
+                                                            </s:form>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </s:iterator>
+                                            </s:iterator>
+                                        </s:else>
                                     </div>
                                 </div>
                             </div>

@@ -4,15 +4,12 @@ function paseLista(idStudent) {
     var idCourse = document.getElementById("idCourse").value;
     var checked = document.getElementById("btnAttendance" + idStudent).value;
     if (checked == 0) {
-        document.getElementById("btnAttendance" + idStudent).value = 1;
         checked = 1;
-        document.getElementById("radio").className = 'btn btn-success';
     } else {
-        document.getElementById("btnAttendance" + idStudent).value = 0;
         checked = 0;
-        document.getElementById("radio").className = 'btn btn-danger';
     }
-    var datos = {idCourse: idCourse,
+    var datos = {
+        idCourse: idCourse,
         idStudent: idStudent,
         checked: checked
     };
@@ -22,7 +19,13 @@ function paseLista(idStudent) {
             datos: JSON.stringify(datos)
         },
         success: function (r) {
-
+            if (checked == 1) {
+                document.getElementById("radio").className = 'btn btn-success';
+                document.getElementById("btnAttendance" + idStudent).value = 1;
+            } else {
+                document.getElementById("radio").className = 'btn btn-danger';
+                document.getElementById("btnAttendance" + idStudent).value = 0;
+            }
         },
         error: function (r) {
             Swal.fire({

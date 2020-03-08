@@ -85,26 +85,36 @@
                             <div class="pcoded-inner-content"  ng-controller="asesorias">
                                 <div class="main-body">
                                     <div class="row">
-                                        <s:iterator value="respuesta.listCourses" status="po">                       
+                                        <div class="col-12">
+                                            <h2>Solicitudes de Asesoría</h2>
+                                        </div>
+                                        <s:if test="respuesta.mensaje != null">
                                             <div class="col-md-4">
-                                                <div class="card text-center">
-                                                    <div class="card-header">
-                                                        <h4>Asesoria <s:property value="#po.count"/></h4>
-                                                    </div>
-                                                    <div class="card-body">
-                                                        <h5>Materia </h5>
-                                                        <h4><s:property value="materia.nombre"/></h4>
-                                                        <h5>Fecha</h5>
-                                                        <h5><s:property value="date"/></h5>
-                                                        <h5> <s:property value="horario.hora_inicio"/> - <s:property value="horario.hora_fin"/></h5>
-                                                    </div>
-                                                    <div class="card-footer">
-                                                        <a href="#" ng-click="aceptarAsesoria(<s:property value="id_asesoria"/>)" class="btn btn-primary">Aceptar</a>                                            
-                                                        <a href="#" ng-click="rechazarAsesoria(<s:property value="id_asesoria"/>)" class="btn btn-danger">Rechazar</a>
+                                                <label><s:property value="respuesta.mensaje"/></label>
+                                            </div>
+                                        </s:if>
+                                        <s:else>
+                                            <s:iterator value="respuesta.listCourses" status="po">                       
+                                                <div class="col-md-4">
+                                                    <div class="card text-center">
+                                                        <div class="card-header">
+                                                            <h4>Asesoria <s:property value="#po.count"/></h4>
+                                                        </div>
+                                                        <div class="card-body">
+                                                            <h5>Materia </h5>
+                                                            <h4><s:property value="materia.nombre"/></h4>
+                                                            <h5>Fecha</h5>
+                                                            <h5><s:property value="date"/></h5>
+                                                            <h5> <s:property value="horario.hora_inicio"/> - <s:property value="horario.hora_fin"/></h5>
+                                                        </div>
+                                                        <div class="card-footer">
+                                                            <a href="#" ng-click="aceptarAsesoria(<s:property value="id_asesoria"/>)" class="btn btn-primary">Aceptar</a>                                            
+                                                            <a href="#" ng-click="rechazarAsesoria(<s:property value="id_asesoria"/>)" class="btn btn-danger">Rechazar</a>
+                                                        </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        </s:iterator>
+                                            </s:iterator>
+                                        </s:else>
                                     </div>
                                 </div>
                             </div>
@@ -132,23 +142,23 @@
            <!--<script src="<%=context%>\files\bower_components\datatables.net-responsive-bs4\js\responsive.bootstrap4.min.js"></script>-->
         <script>
 
-                                                                (function () {
-                                                                    'use strict';
-                                                                    window.addEventListener('load', function () {
-                                                                        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                                                                        var forms = document.getElementsByClassName('needs-validation');
-                                                                        // Loop over them and prevent submission
-                                                                        var validation = Array.prototype.filter.call(forms, function (form) {
-                                                                            form.addEventListener('change', function (event) {
-                                                                                if (form.checkValidity() === false) {
-                                                                                    event.preventDefault();
-                                                                                    event.stopPropagation();
-                                                                                }
-                                                                                form.classList.add('was-validated');
-                                                                            }, false);
-                                                                        });
-                                                                    }, false);
-                                                                })();
+                                                                        (function () {
+                                                                        'use strict';
+                                                                                window.addEventListener('load', function () {
+                                                                                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                                                                                var forms = document.getElementsByClassName('needs-validation');
+                                                                                        // Loop over them and prevent submission
+                                                                                        var validation = Array.prototype.filter.call(forms, function (form) {
+                                                                                        form.addEventListener('change', function (event) {
+                                                                                        if (form.checkValidity() === false) {
+                                                                                        event.preventDefault();
+                                                                                                event.stopPropagation();
+                                                                                        }
+                                                                                        form.classList.add('was-validated');
+                                                                                        }, false);
+                                                                                        });
+                                                                                }, false);
+                                                                        })();
         </script>
     </body>
 </html>

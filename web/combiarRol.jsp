@@ -13,7 +13,7 @@
 <html lang="es">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Cambiar rol</title>
+        <title>SGAA | Roles</title>
         <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,800" rel="stylesheet">
         <!-- Required Fremwork -->
 
@@ -79,10 +79,6 @@
                 <jsp:include page="views/header.jsp"/>
                 <!-- Sidebar inner chat end-->
                 <div class="pcoded-main-container">
-                    <div class="pcoded-wrapper">
-                        <!-- SIDEBAR -->
-                        <jsp:include page="views/menu.jsp"/>
-                        <!--END SIDEBAR -->
                         <div class="pcoded-content">
                             <div class="pcoded-inner-content">
                                 <div class="main-body">
