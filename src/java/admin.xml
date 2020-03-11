@@ -6,8 +6,26 @@
 <struts>
     
     <package name="adminPackage" extends="struts-default,json-default">
-        <action name="inicioAdmin"> 
+        <action name="inicioAdmin" > 
             <result name="success">views/admin/inicioAdmin.jsp</result>
+        </action>
+        <action name="list-horarios" class="com.sgaa.admin.ControlAdmin" method="inicioHorario"> 
+            <result name="success">views/admin/inicioHorario.jsp</result>
+        </action>
+        <action name="horario"> 
+            <result name="success">views/admin/horario/registrarHorario.jsp</result>
+        </action>
+        <action name="registrar-horario" class="com.sgaa.admin.ControlAdmin" method="registrarHorario">
+            <result name="success" type="redirectAction">
+                <param name="actionName">list-horarios</param>
+                <param name="mensaje">${respuesta.mensaje}</param>
+            </result>
+        </action>
+        <action name="cambiar-estado-horario" class="com.sgaa.admin.ControlAdmin" method="cambiarEstado">
+            <result name="success" type="redirectAction">
+                <param name="actionName">list-horarios</param>
+                <param name="mensaje">${respuesta.mensaje}</param>
+            </result>
         </action>
     </package>
 </struts>

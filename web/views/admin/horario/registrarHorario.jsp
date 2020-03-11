@@ -14,7 +14,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-        <title>SGAA | Docente</title>
+        <title>SGAA | Horario</title>
         <!-- Required Fremwork -->
         <link rel="stylesheet" type="text/css" href="<%=context%>/css/bootstrap.css"/>
         <link rel="stylesheet" type="text/css" href="<%=context%>/css/sweetalert2.css">
@@ -78,53 +78,59 @@
         <div id="pcoded" class="pcoded">
             <div class="pcoded-overlay-box"></div>
             <div class="pcoded-container navbar-wrapper">
-                <jsp:include page="../header.jsp"/>
+                <jsp:include page="../../header.jsp"/>
                 <!-- Sidebar inner chat end-->
                 <div class="pcoded-main-container">
                     <div class="pcoded-wrapper">
-                        <jsp:include page="../menu.jsp"/>
+                        <jsp:include page="../../menu.jsp"/>
                         <div class="pcoded-content" ng-app="docent-app">
                             <div class="pcoded-inner-content"  ng-controller="administrador">
                                 <div class="main-body">
                                     <div class="card">
                                         <div class="card-header">
-                                            <div class="col-lg-6 col-md-6 col-sm-6 ">
-                                                <h2>Horarios</h2>
-                                            </div>
-                                            <div class="col-lg-6 col-md-6 col-sm-6">
-                                                <a href="#" class="btn btn-success">Registrar horario</a>
-                                            </div>
+                                            <h2>Horarios</h2>
                                         </div>
                                         <div class="card-block">
-                                            <div class="dt-responsive table-responsive">
-                                                <table id="simpletable" class="table table-striped table-bordered nowrap">
-                                                    <thead>
-                                                        <tr>
-                                                            <th>#</th>
-                                                            <th>Hora inicio</th>
-                                                            <th>Hora fin</th>
-                                                            <th>Estado</th>
-                                                            <th>Modificar</th>
-                                                            <th>Dehabilitar</th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody>
-                                                        <s:iterator value="respuesta.horarios" status="po">
-                                                            <tr>
-                                                                <td><s:property value="#po.count"/></td>
-                                                                <td><s:property value="hora_inicio"/></td>
-                                                                <td><s:property value="hora_fin"/></td>
-                                                                <td><s:property value="estado"/></td>
-                                                                <td>
-                                                                    <a>Modificar</a>
-                                                                </td>
-                                                                <td>
-                                                                    <a>Eliminar</a>
-                                                                </td>
-                                                            </tr>
-                                                        </s:iterator>
-                                                    </tbody>
-                                                </table>
+                                            <div class="row">
+                                                <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                                    <form class="needs-validation" novalidate="" method="post" id="registrar-horario" action="registrar-horario"> 
+                                                        <div class="form-row">
+                                                            <div class="col-6">
+                                                                <div class="form-group">
+                                                                    <label>Hora inicial</label>
+                                                                    <select name="horario.hora_inicio" required="" class="form-control" >
+                                                                        <option value="">Selecciona...</option>
+                                                                        <option value="13:00:00">13:00</option>
+                                                                        <option value="14:00:00">14:00</option>
+                                                                        <option value="15:00:00">15:00</option>
+                                                                        <option value="16:00:00">16:00</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-6">
+                                                                <div class="form-group">
+                                                                    <label>Hora final</label>
+                                                                    <select name="params" required="" class="form-control" >
+                                                                        <option value="">Selecciona...</option>
+                                                                        <option value="14:00:00">14:00</option>
+                                                                        <option value="15:00:00">15:00</option>
+                                                                        <option value="16:00:00">16:00</option>
+                                                                        <option value="17:00:00">17:00</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-row">
+                                                            <br/>
+                                                            <div class="col-12 text-right">
+                                                                <a class="btn btn-danger" href="<%=context%>/list-horarios">Cancelar</a>
+                                                                <button type="button" ng-click="confirmar()" class="btn btn-success" 
+                                                                        id="btn-horario">Registrar</button>
+                                                            </div>
+                                                        </div>
+                                                        <div></div>
+                                                    </form>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
