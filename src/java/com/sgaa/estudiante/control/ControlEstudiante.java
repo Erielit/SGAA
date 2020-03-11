@@ -7,10 +7,12 @@ package com.sgaa.estudiante.control;
 
 import com.opensymphony.xwork2.ActionSupport;
 import com.sgaa.asesoria.bean.BeanAsesoria;
+import com.sgaa.carrera.bean.BeanCarrera;
 import com.sgaa.cuatrimestre.bean.BeanCuatrimestre;
 import com.sgaa.docente.bean.BeanDocente;
 import com.sgaa.estudiante.bean.BeanEstudiante;
 import com.sgaa.estudiante.dao.DaoEstudiante;
+import com.sgaa.grupo.bean.BeanGrupo;
 import com.sgaa.horario.bean.BeanHorario;
 import com.sgaa.notificacion.bean.BeanNotificacion;
 import com.sgaa.persona.bean.BeanPersona;
@@ -44,7 +46,7 @@ public class ControlEstudiante extends ActionSupport {
         }
         BeanEstudiante estudiante = dao.datosEstudiante(persona.getId_persona());
         session.put("estudiante", estudiante);
-        
+
         respuesta = new HashMap();
         List<BeanHorario> horarios = dao.listSchedules();
         List<BeanNotificacion> listBeanNotificacions = dao.getNewNotifications(persona.getId_persona());
@@ -88,6 +90,7 @@ public class ControlEstudiante extends ActionSupport {
 
     public String cancelarAseoria() {
         DaoEstudiante dao = new DaoEstudiante();
+        System.out.println(number_param + "LSAOSJ");
         if (dao.cancelarAsesoria(number_param)) {
             mensaje = "1";
         } else {
@@ -195,6 +198,22 @@ public class ControlEstudiante extends ActionSupport {
         List<BeanEstudiante> listaEs = dao.listEstudiantesAsesoria(number_param);
         respuesta = new HashMap();
         respuesta.put("integrantes", listaEs);
+        return SUCCESS;
+    }
+
+    public String registroEstudiante() {
+        DaoEstudiante dao = new DaoEstudiante();
+        List<BeanCarrera> carreras = dao.consultarCarreras();
+        respuesta = new HashMap();
+        respuesta.put("carreras", carreras);
+        return SUCCESS;
+    }
+
+    public String grupos() {
+        DaoEstudiante dao = new DaoEstudiante();
+        List<BeanGrupo> grupos = dao.consultarGrupos(number_param);
+        respuesta = new HashMap();
+        respuesta.put("grupos", grupos);
         return SUCCESS;
     }
 

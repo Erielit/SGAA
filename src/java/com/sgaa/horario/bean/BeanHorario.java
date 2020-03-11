@@ -13,6 +13,7 @@ public class BeanHorario {
     private int id_horario;
     private String hora_inicio;
     private String hora_fin;
+    private String estado;
 
     public BeanHorario() {
     }
@@ -45,6 +46,14 @@ public class BeanHorario {
 
     public void setHora_inicio(String hora_inicio) {
         this.hora_inicio = hora_inicio;
+    }
+
+    public void setEstado(String estado) {
+        this.estado = estado;
+    }
+
+    public String getEstado() {
+        return estado;
     }
     
 }

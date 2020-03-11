@@ -28,12 +28,12 @@
             </ul>
         </s:if>
         <s:if test="#session.rolActivo == 1">
-            <div class="pcoded-navigatio-lavel">Asesorias</div>
+            <div class="pcoded-navigatio-lavel"></div>
             <ul class="pcoded-item pcoded-left-item">
                 <li class="">
-                    <a href="#">
-                        <span class="pcoded-micon"><i class="feather icon-book"></i></span>
-                        <span class="pcoded-mtext">Links del admin</span>
+                    <a href="list-horarios">
+                        <span class="pcoded-micon"><i class="feather icon-calendar"></i></span>
+                        <span class="pcoded-mtext">Horarios</span>
                     </a>
                 </li>
             </ul>

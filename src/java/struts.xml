@@ -72,8 +72,11 @@
         <action name="notifications" class="com.sgaa.estudiante.control.ControlEstudiante" method="notificaciones">
             <result name="success" type="json"/>
         </action>
-        <action name="registro-estudiante">
+        <action name="registro-estudiante" class="com.sgaa.estudiante.control.ControlEstudiante" method="registroEstudiante">
             <result name="success">/views/student/registroEstudiante.jsp</result>
+        </action>
+        <action name="grupos-carrera" class="com.sgaa.estudiante.control.ControlEstudiante" method="grupos">
+            <result type="json" name="success"/>
         </action>
         <!--Fin Estudiante-->
     </package>

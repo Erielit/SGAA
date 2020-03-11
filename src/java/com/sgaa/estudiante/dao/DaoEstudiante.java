@@ -10,9 +10,12 @@ import com.sgaa.carrera.bean.BeanCarrera;
 import com.sgaa.cuatrimestre.bean.BeanCuatrimestre;
 import com.sgaa.docente.bean.BeanDocente;
 import com.sgaa.estudiante.bean.BeanEstudiante;
+import com.sgaa.grupo.bean.BeanGrupo;
 import com.sgaa.horario.bean.BeanHorario;
+import com.sgaa.letra.bean.BeanLetra;
 import com.sgaa.materia.bean.BeanMateria;
 import com.sgaa.notificacion.bean.BeanNotificacion;
+import com.sgaa.numero_cuatrimestre.bean.BeanNumeroCuatri;
 import com.sgaa.usuario.dao.DaoUsuario;
 import java.sql.CallableStatement;
 import java.sql.Connection;
@@ -87,6 +90,7 @@ public class DaoEstudiante {
             con = SQLConnection.getConnection();
             cstm = con.prepareCall("{call sp_cancel_course(?)}");//Procedimiento y/o parámetros
             cstm.setInt(1, asesoria);
+            System.out.println("SSS");
             result = cstm.executeUpdate() == 1;
         } catch (SQLException ex) {
             Logger.getLogger(DaoUsuario.class.getName()).log(Level.SEVERE, null, ex);
@@ -108,6 +112,7 @@ public class DaoEstudiante {
                 horario.setId_horario(rs.getInt("id_schedule_details"));
                 horario.setHora_inicio(rs.getString("advisory_start"));
                 horario.setHora_fin(rs.getString("advisory_end"));
+                horario.setEstado(rs.getString("status_name"));
                 horarios.add(horario);
             }
         } catch (SQLException ex) {
@@ -401,6 +406,50 @@ public class DaoEstudiante {
             cerrarConexiones();
         }
         return listNotificacions;
+    }
+
+    public List<BeanCarrera> consultarCarreras() {
+        BeanCarrera carrera = null;
+        List<BeanCarrera> carreras = new ArrayList<>();
+        try {
+            con = SQLConnection.getConnection();
+            cstm = con.prepareCall("{call sp_list_careers}");
+            rs = cstm.executeQuery();
+            while (rs.next()) {
+                carrera = new BeanCarrera();
+                carrera.setId_carrera(rs.getInt("id_career"));
+                carrera.setNombre(rs.getString("name"));
+                carreras.add(carrera);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error en el método getNewNotifications " + e.getMessage());
+        } finally {
+            cerrarConexiones();
+        }
+        return carreras;
+    }
+
+    public List<BeanGrupo> consultarGrupos(int carrera) {
+        BeanGrupo grupo = null;
+        List<BeanGrupo> grupos = new ArrayList<>();
+        try {
+            con = SQLConnection.getConnection();
+            cstm = con.prepareCall("{call sp_list_groups_career(?)}");
+            cstm.setInt(1, carrera);
+            rs = cstm.executeQuery();
+            while (rs.next()) {
+                grupo = new BeanGrupo();
+                grupo.setId_grupo(rs.getInt("id_group"));
+                grupo.setLetra(new BeanLetra(0, rs.getString("ltter")));
+                grupo.setNumero_cuatri(new BeanNumeroCuatri(0, rs.getInt("id_quarter_number")));
+                grupos.add(grupo);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error en el método getNewNotifications " + e.getMessage());
+        } finally {
+            cerrarConexiones();
+        }
+        return grupos;
     }
 
     public void cerrarConexiones() {

@@ -250,7 +250,7 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Cerrar</button>
                             <form method="post" action="cancelar-asesoria" id="form_cancelar">
-                                <input type="hidden" id="asesoria_cancelar" />
+                                <input type="hidden" id="asesoria_cancelar" name="number_param" />
                                 <button class="btn btn-danger" ng-click="cancelarAsesoria()"  type="button">Cancelar</button>
                             </form>
                         </div>

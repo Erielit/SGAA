@@ -349,17 +349,17 @@ $.extend( $.validator, {
 	},
 
 	messages: {
-		required: "This field is required.",
-		remote: "Please fix this field.",
-		email: "Please enter a valid email address.",
+		required: "Este campo es obligatorio.",
+		remote: "Campo inválido.",
+		email: "Ingresa un correo electrónico correcto.",
 		url: "Please enter a valid URL.",
-		date: "Please enter a valid date.",
+		date: "Ingresa un fecha correcta.",
 		dateISO: "Please enter a valid date (ISO).",
-		number: "Please enter a valid number.",
+		number: "Ingresa un número correcto.",
 		digits: "Please enter only digits.",
 		equalTo: "Please enter the same value again.",
-		maxlength: $.validator.format( "Please enter no more than {0} characters." ),
-		minlength: $.validator.format( "Please enter at least {0} characters." ),
+		maxlength: $.validator.format( "Ingresa no más de {0} caracteres." ),
+		minlength: $.validator.format( "Ingresa mínimo {0} de caracteres." ),
 		rangelength: $.validator.format( "Please enter a value between {0} and {1} characters long." ),
 		range: $.validator.format( "Please enter a value between {0} and {1}." ),
 		max: $.validator.format( "Please enter a value less than or equal to {0}." ),
@@ -994,7 +994,7 @@ $.extend( $.validator, {
 		errorsFor: function( element ) {
 			var name = this.escapeCssMeta( this.idOrName( element ) ),
 				describer = $( element ).attr( "aria-describedby" ),
-				selector = "label[for='" + name + "'], label[for='" + name + "'] *";
+				selector = "label[for='" + 'name' + "'], label[for='" + name + "'] *";
 
 			// 'aria-describedby' should directly reference the error element
 			if ( describer ) {
