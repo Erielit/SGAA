@@ -10,19 +10,22 @@ package com.sgaa.asesoriaEstudiante.bean;
  * @author netmo
  */
 public class BeanAsesoriaEstudiante {
+
     private int id_course_student;
     private int id_course;
     private int id_student;
     private int assists;
+    private String date;
 
     public BeanAsesoriaEstudiante() {
     }
 
-    public BeanAsesoriaEstudiante(int id_course_student, int id_course, int id_student, int assists) {
+    public BeanAsesoriaEstudiante(int id_course_student, int id_course, int id_student, int assists, String date) {
         this.id_course_student = id_course_student;
         this.id_course = id_course;
         this.id_student = id_student;
         this.assists = assists;
+        this.date = date;
     }
 
     public int getAssists() {
@@ -56,5 +59,13 @@ public class BeanAsesoriaEstudiante {
     public void setId_student(int id_student) {
         this.id_student = id_student;
     }
-    
-}   
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+}

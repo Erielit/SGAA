@@ -184,6 +184,7 @@ public class DaoAsesoria {
                 
                 beanAsesoriaEstudiante = new BeanAsesoriaEstudiante();
                 beanAsesoriaEstudiante.setAssists(rs.getInt("assists"));
+                beanAsesoriaEstudiante.setDate(rs.getString("registry_date"));
                 
                 beanEstudiante.setBeanAsesoriaEstudiante(beanAsesoriaEstudiante);
                 listEstudiantes.add(beanEstudiante);

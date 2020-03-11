@@ -15,6 +15,7 @@ import com.sgaa.estudiante.bean.BeanEstudiante;
 import com.sgaa.materia.bean.BeanMateria;
 import com.sgaa.materia.dao.DaoMateria;
 import com.sgaa.persona.bean.BeanPersona;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -125,7 +126,7 @@ public class ControlDocente extends ActionSupport {
             respuesta.put("letra", listaEstudiantes.get(0).getGrupo().getLetra().getLetra());
             respuesta.put("cuatrimestre", listaEstudiantes.get(0).getGrupo().getCuatrimestre().getNombre());
             respuesta.put("listaEstudiantes", listaEstudiantes);
-        }else{
+        } else {
             respuesta.put("mensaje", "No hay estudiantes registrados.");
         }
         return SUCCESS;
@@ -178,6 +179,22 @@ public class ControlDocente extends ActionSupport {
         List<BeanEstudiante> listEstudiantes = daoAsesoria.getStudentsCourse(param_integer);
         respuesta.put("listStudents", listEstudiantes);
         respuesta.put("idCourse", param_integer);
+
+        String courseDate = listEstudiantes.get(0).getBeanAsesoriaEstudiante().getDate();
+        Calendar c = Calendar.getInstance();
+
+        String month = Integer.toString(c.get(Calendar.MONTH) + 1);
+        if (Integer.parseInt(month) < 10) {
+            month = '0' + month;
+        }
+        
+        String currentDate = Integer.toString(c.get(Calendar.YEAR)) + "-" + month + "-" + Integer.toString(c.get(Calendar.DATE));
+
+        int active = 0;
+        if (courseDate.equals(currentDate)) {
+            active = 1;
+        }
+        respuesta.put("active", active);
         return SUCCESS;
     }
 
