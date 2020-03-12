@@ -35,6 +35,10 @@
                         <span class="pcoded-micon"><i class="feather icon-calendar"></i></span>
                         <span class="pcoded-mtext">Horarios</span>
                     </a>
+                    <a href="list-grupos">
+                        <span class="pcoded-micon"><i class="feather icon-users"></i></span>
+                        <span class="pcoded-mtext">Grupos</span>
+                    </a>
                 </li>
             </ul>
         </s:if>

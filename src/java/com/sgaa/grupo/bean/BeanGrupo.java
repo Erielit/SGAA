@@ -8,6 +8,7 @@ package com.sgaa.grupo.bean;
 import com.sgaa.carrera.bean.BeanCarrera;
 import com.sgaa.cuatrimestre.bean.BeanCuatrimestre;
 import com.sgaa.docente.bean.BeanDocente;
+import com.sgaa.estado.bean.BeanEstado;
 import com.sgaa.letra.bean.BeanLetra;
 import com.sgaa.numero_cuatrimestre.bean.BeanNumeroCuatri;
 
@@ -24,6 +25,15 @@ public class BeanGrupo {
     private BeanCuatrimestre cuatrimestre;
     private String fecha_registro;
     private BeanCarrera carrera;
+    private BeanEstado estado;
+
+    public BeanEstado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(BeanEstado estado) {
+        this.estado = estado;
+    }
 
     public BeanGrupo() {
     }
