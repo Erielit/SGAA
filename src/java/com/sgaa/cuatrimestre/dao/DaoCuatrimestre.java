@@ -6,6 +6,8 @@
 package com.sgaa.cuatrimestre.dao;
 
 import com.sgaa.cuatrimestre.bean.BeanCuatrimestre;
+import com.sgaa.docente.bean.BeanDocente;
+import com.sgaa.docente.dao.DaoDocente;
 import com.sgaa.estado.bean.BeanEstado;
 import com.sgaa.usuario.dao.DaoUsuario;
 import java.sql.CallableStatement;
@@ -28,19 +30,28 @@ public class DaoCuatrimestre {
     CallableStatement cstm;
     ResultSet rs;
 
-    public boolean CambiarContrasena(String contrasena) {
-        boolean result = false;
+    public List<BeanCuatrimestre> listCuatrimestres() {
+        BeanCuatrimestre cuatrimestre = null;
+
+        List<BeanCuatrimestre> cuatrimestres = new ArrayList<>();
         try {
             con = SQLConnection.getConnection();
-            cstm = con.prepareCall("call procedureName(?,?)");//Procedimiento y/o parámetros
-            rs = cstm.executeQuery();//Resultados
-            result = cstm.executeUpdate() == 1;//se cambió o no
+            cstm = con.prepareCall("{call sp_list_quarter()}");
+            rs = cstm.executeQuery();
+            while (rs.next()) {
+                cuatrimestre = new BeanCuatrimestre();
+
+                cuatrimestre.setId_cuatrimestre(rs.getInt(1));
+                cuatrimestre.setNombre(rs.getString(2));
+
+                cuatrimestres.add(cuatrimestre);
+            }
         } catch (SQLException ex) {
-            Logger.getLogger(DaoUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DaoCuatrimestre.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             cerrarConexiones();
         }
-        return result;
+        return cuatrimestres;
     }
 
     public List<BeanCuatrimestre> getQuarters() {

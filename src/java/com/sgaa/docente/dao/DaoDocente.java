@@ -169,29 +169,29 @@ public class DaoDocente {
     }
 
     public List<BeanDocente> listDocentes() {
-        BeanDocente Docente = null;
+        BeanDocente docente = null;
 
-        List<BeanDocente> Docentes = new ArrayList<>();
+        List<BeanDocente> docentes = new ArrayList<>();
         try {
             con = SQLConnection.getConnection();
             cstm = con.prepareCall("{call sp_list_docent()}");
             rs = cstm.executeQuery();
             while (rs.next()) {
-                Docente = new BeanDocente();
+                docente = new BeanDocente();
 
-                Docente.setId_docent(rs.getInt(1));
-                Docente.setNombre(rs.getString(7));
-                Docente.setPrimer_apellido(rs.getString(8));
-                Docente.setSegundo_apellido(rs.getString(9));
+                docente.setId_docent(rs.getInt(1));
+                docente.setNombre(rs.getString(7));
+                docente.setPrimer_apellido(rs.getString(8));
+                docente.setSegundo_apellido(rs.getString(9));
 
-                Docentes.add(Docente);
+                docentes.add(docente);
             }
         } catch (SQLException ex) {
             Logger.getLogger(DaoDocente.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             cerrarConexiones();
         }
-        return Docentes;
+        return docentes;
     }
 
     public void cerrarConexiones() {

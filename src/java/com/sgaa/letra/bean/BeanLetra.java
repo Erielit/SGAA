@@ -21,6 +21,10 @@ public class BeanLetra {
         this.letra = letra;
     }
 
+    public BeanLetra(int id_letra) {
+        this.id_letra = id_letra;
+    }
+
     public String getLetra() {
         return letra;
     }

@@ -41,9 +41,25 @@ app.controller('administrador', function ($scope, $http) {
         });
     };
 
+    $scope.confirmarGrupo = function () {
+        swalWithBootstrapButtons.fire({
+            title: 'Registrar grupo',
+            text: "Confirmar para continuar la acción.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Aceptar',
+            cancelButtonText: 'Cancelar'
+        }).then(function (result) {
+            console.log("Result" + result.value);
+            if (result.value) {
+                $("#registrar-grupo").submit();
+            }
+        });
+    };
+
     $scope.confirmarEstado = function (form) {
         swalWithBootstrapButtons.fire({
-            title: 'Estado grupo',
+            title: 'Estado Horario',
             text: "Confirmar para continuar la acción.",
             icon: 'warning',
             showCancelButton: true,

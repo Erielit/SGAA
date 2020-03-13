@@ -94,45 +94,104 @@
                                     <div class="row">
                                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                                             <form class="needs-validation" novalidate="" method="post"
-                                                  id="registrar-horario" action="registrar-horario">
+                                                  id="registrar-grupo" action="registrar-grupo">
                                                 <div class="form-row">
                                                     <div class="col-6">
                                                         <div class="form-group">
-                                                            <label>Hora inicial</label>
-                                                            <select name="horario.hora_inicio" required=""
+                                                            <label>Número de cuatrimestre</label>
+                                                            <select name="grupo.numero_cuatri.id_numero_cuatri"
+                                                                    required=""
                                                                     class="form-control">
                                                                 <option value="">Selecciona...</option>
-                                                                <option value="13:00:00">13:00</option>
-                                                                <option value="14:00:00">14:00</option>
-                                                                <option value="15:00:00">15:00</option>
-                                                                <option value="16:00:00">16:00</option>
+                                                                <s:iterator value="respuesta.numeroCuatris" status="po">
+                                                                    <option value="<s:property value="id_numero_cuatri"/>">
+                                                                        <s:property value="numero"/></option>
+                                                                </s:iterator>
                                                             </select>
                                                         </div>
                                                     </div>
                                                     <div class="col-6">
                                                         <div class="form-group">
-                                                            <label>Hora final</label>
-                                                            <select name="params" required="" class="form-control">
+                                                            <label>Nombre de cuatrimestre</label>
+                                                            <select name="idCuatrimestre"
+                                                                    required=""
+                                                                    class="form-control">
                                                                 <option value="">Selecciona...</option>
-                                                                <option value="14:00:00">14:00</option>
-                                                                <option value="15:00:00">15:00</option>
-                                                                <option value="16:00:00">16:00</option>
-                                                                <option value="17:00:00">17:00</option>
+                                                                <s:iterator value="respuesta.cuatrimestres" status="po">
+                                                                    <option value="<s:property value="id_cuatrimestre"/>">
+                                                                        <s:property value="nombre"/></option>
+                                                                </s:iterator>
                                                             </select>
                                                         </div>
                                                     </div>
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <label>Carrera</label>
+                                                            <select name="idCarrera" required=""
+                                                                    class="form-control">
+                                                                <option value="">Selecciona...</option>
+                                                                <s:iterator value="respuesta.carreras" status="po">
+                                                                    <option value="<s:property value="id_carrera"/>">
+                                                                        <s:property value="nombre"/></option>
+                                                                </s:iterator>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <label>Docente</label>
+                                                            <select name="idDocente" required=""
+                                                                    class="form-control">
+                                                                <option value="">Selecciona...</option>
+                                                                <s:iterator value="respuesta.docentes" status="po">
+                                                                    <option value="<s:property value="id_docent"/>">
+                                                                        <s:property value="nombre"/> <s:property
+                                                                            value="primer_apellido"/></option>
+                                                                </s:iterator>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <label>Letra</label>
+                                                            <select name="idLetra" required=""
+                                                                    class="form-control">
+                                                                <option value="">Selecciona...</option>
+                                                                <s:iterator value="respuesta.letras" status="po">
+                                                                    <option value="<s:property value="id_letra"/>">
+                                                                        <s:property value="letra"/></option>
+                                                                </s:iterator>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-6">
+                                                        <div class="form-group">
+                                                            <label>Estado</label>
+                                                            <select name="idEstado" required=""
+                                                                    class="form-control">
+                                                                <option value="">Selecciona...</option>
+                                                                <s:iterator value="respuesta.estados" status="po">
+                                                                    <option value="<s:property value="id_estado"/>">
+                                                                        <s:property value="estado"/></option>
+                                                                </s:iterator>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+
                                                 </div>
                                                 <div class="form-row">
                                                     <br/>
                                                     <div class="col-12 text-right">
-                                                        <a class="btn btn-danger" href="<%=context%>/list-horarios">Cancelar</a>
-                                                        <button type="button" ng-click="confirmar()"
+                                                        <a class="btn btn-danger" href="<%=context%>/list-grupos">Cancelar</a>
+                                                        <button type="button" ng-click="confirmarGrupo()"
                                                                 class="btn btn-success"
                                                                 id="btn-horario">Registrar
                                                         </button>
                                                     </div>
                                                 </div>
-                                                <div></div>
+                                                <div>
+
+                                                </div>
                                             </form>
                                         </div>
                                     </div>

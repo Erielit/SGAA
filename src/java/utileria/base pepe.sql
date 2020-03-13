@@ -87,7 +87,7 @@ end;
 
 -----------------------------------------------------------------------------------------------------------------------
 
-create procedure sp_list_letter
+    create procedure sp_list_letter
     as
     select *
     from letter;
@@ -96,25 +96,98 @@ go
 -----------------------------------------------------------------------------------------------------------------------
 
 create procedure sp_list_estatus
-    as
-    select *
-    from status;
+as
+select *
+from status;
 go
 
 -----------------------------------------------------------------------------------------------------------------------
 
 create procedure sp_list_quarter_number
-    as
-    select *
-    from quarter_number qn INNER JOIN  status s on qn.id_status = s.id_status where s.status = 'Activo';
+as
+select *
+from quarter_number qn
+         INNER JOIN status s on qn.id_status = s.id_status
+where s.status = 'Activo';
 go
 
 -----------------------------------------------------------------------------------------------------------------------
 
 create procedure sp_list_docent
-    as
-    select *
-    from docent d inner join person p on d.id_person = p.id_person
+as
+select *
+from docent d
+         inner join person p on d.id_person = p.id_person
+go
+
+-----------------------------------------------------------------------------------------------------------------------
+
+create procedure sp_list_quarter
+as
+select *
+from quarter q
+         inner join status s on q.id_status = s.id_status
+where s.status = 'Activo'
+go
+
+-----------------------------------------------------------------------------------------------------------------------
+
+create procedure change_all_status_career
+as
+begin
+    DECLARE @activo int;
+
+    SELECT @activo = id_status from status where status = 'Activo';
+    update career set id_status = @activo;
+end;
+go
+
+exec change_all_status_career;
+go
+-----------------------------------------------------------------------------------------------------------------------
+
+create procedure sp_list_career
+as
+select *
+from career c
+         inner join status s on c.id_status = s.id_status
+where s.status = 'Activo';
+go
+
+-----------------------------------------------------------------------------------------------------------------------
+
+create procedure sp_new_group(@numero_cuatri int,
+                              @letra int,
+                              @docente int,
+                              @cuatrimestre int,
+                              @carrera int,
+                              @estado int)
+as
+begin
+
+    DECLARE @rol_tutor_base int;
+    DECLARE @rol_tutor_docente int;
+
+    set @rol_tutor_docente = 0;
+
+    SELECT @rol_tutor_base = id_role from role where name = 'TUTOR';
+    SELECT @rol_tutor_docente = ur.id_rol
+    from docent d
+             inner join person p on d.id_person = p.id_person
+             inner join users u on p.id_person = u.id_person
+             inner join user_role ur on u.id_user = ur.id_user
+             inner join role r2 on ur.id_rol = r2.id_role
+    where d.id_docent = @docente
+      and r2.name = 'TUTOR';
+
+
+    if (@rol_tutor_base != @rol_tutor_docente)
+        insert into user_role (id_rol, id_user) VALUES (@rol_tutor_base, @docente);
+
+    insert into groups (id_quarter_number, id_letter, id_docent, id_quarter, id_career, id_status)
+    VALUES (@numero_cuatri, @letra, @docente, @cuatrimestre, @carrera, @estado);
+end;
+
 go
 
 -----------------------------------------------------------------------------------------------------------------------

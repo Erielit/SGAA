@@ -29,6 +29,10 @@ public class BeanCarrera {
         this.division = division;
     }
 
+    public BeanCarrera(int id_carrera) {
+        this.id_carrera = id_carrera;
+    }
+
     public BeanDivisionAcademica getDivision() {
         return division;
     }

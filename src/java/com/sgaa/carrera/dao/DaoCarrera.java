@@ -1,10 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package com.sgaa.numero_cuatrimestre.dao;
+package com.sgaa.carrera.dao;
 
+import com.sgaa.carrera.bean.BeanCarrera;
 import com.sgaa.numero_cuatrimestre.bean.BeanNumeroCuatri;
 import com.sgaa.usuario.dao.DaoUsuario;
 import utileria.SQLConnection;
@@ -18,36 +14,35 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * @author netmo
- */
-public class DaoNumeroCuatrimestre {
+public class DaoCarrera {
+
     Connection con;
     CallableStatement cstm;
     ResultSet rs;
 
-    public List<BeanNumeroCuatri> listNumeroCuatris() {
-        BeanNumeroCuatri numeroCuatri = null;
+    public List<BeanCarrera> listCarreras() {
+        BeanCarrera carrera = null;
 
-        List<BeanNumeroCuatri> numeroCuatris = new ArrayList<>();
+        List<BeanCarrera> carreras = new ArrayList<>();
         try {
             con = SQLConnection.getConnection();
-            cstm = con.prepareCall("{call sp_list_quarter_number()}");
+            cstm = con.prepareCall("{call sp_list_career()}");
             rs = cstm.executeQuery();
             while (rs.next()) {
-                numeroCuatri = new BeanNumeroCuatri();
+                carrera = new BeanCarrera();
 
-                numeroCuatri.setId_numero_cuatri(rs.getInt(1));
-                numeroCuatri.setNumero(rs.getInt(3));
+                carrera.setId_carrera(rs.getInt(1));
+                carrera.setNombre(rs.getString(2));
+                carrera.setSiglas(rs.getString(3));
 
-                numeroCuatris.add(numeroCuatri);
+                carreras.add(carrera);
             }
         } catch (SQLException ex) {
-            Logger.getLogger(DaoUsuario.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DaoCarrera.class.getName()).log(Level.SEVERE, null, ex);
         } finally {
             cerrarConexiones();
         }
-        return numeroCuatris;
+        return carreras;
     }
 
     public void cerrarConexiones() {
@@ -65,4 +60,5 @@ public class DaoNumeroCuatrimestre {
             Logger.getLogger(DaoUsuario.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
 }
