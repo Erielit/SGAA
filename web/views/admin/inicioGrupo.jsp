@@ -124,7 +124,7 @@
                                                                   id="inactivo<s:property value="id_grupo"/>">
                                                                 <input name="params" type="hidden" value="<s:property value="id_grupo"/>">
                                                                 <a href="javascript:void(0)" class="btn btn-danger"
-                                                                   ng-click="confirmarEstado('inactivo<s:property value="id_grupo"/>')">
+                                                                   ng-click="confirmarGrupoCambio('inactivo<s:property value="id_grupo"/>')">
                                                                     <i class="ti-close"></i>
                                                                 </a>
                                                             </form>
@@ -134,7 +134,7 @@
                                                                   id="activo<s:property value="id_grupo"/>">
                                                                 <input name="params" type="hidden" value="<s:property value="id_grupo"/>">
                                                                 <a href="javascript:void(0)" class="btn btn-success"
-                                                                   ng-click="confirmarEstado('activo<s:property value="id_grupo"/>')">
+                                                                   ng-click="confirmarGrupoCambio('activo<s:property value="id_grupo"/>')">
                                                                     <i class="ti-check"></i>
                                                                 </a>
                                                             </form>

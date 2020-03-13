@@ -70,5 +70,20 @@ app.controller('administrador', function ($scope, $http) {
                 $('#' + form).submit();
             }
         });
+    }
+
+    $scope.confirmarGrupoCambio = function (form) {
+        swalWithBootstrapButtons.fire({
+            title: 'Estado Grupo',
+            text: "Confirmar para continuar la acción.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Aceptar',
+            cancelButtonText: 'Cancelar'
+        }).then(function (result) {
+            if (result.value) {
+                $('#' + form).submit();
+            }
+        });
     };
 });
