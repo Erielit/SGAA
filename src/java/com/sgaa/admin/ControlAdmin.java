@@ -116,6 +116,23 @@ public class ControlAdmin extends ActionSupport {
         return SUCCESS;
     }
 
+    public String modificarGrupo() {
+        respuesta = new HashMap();
+        DaoGrupo daoGrupo = new DaoGrupo();
+        grupo.setCuatrimestre(new BeanCuatrimestre(idCuatrimestre));
+        grupo.setCarrera(new BeanCarrera(idCarrera));
+        grupo.setDocente(new BeanDocente(idDocente));
+        grupo.setLetra(new BeanLetra(idLetra));
+        grupo.setEstado(new BeanEstado(idEstado));
+        grupo.setId_grupo(param_integer);
+        if (daoGrupo.modificarGrupo(grupo)) {
+            respuesta.put("mensaje", "1");
+        } else {
+            respuesta.put("mensaje", "2");
+        }
+        return SUCCESS;
+    }
+
     public String cambiarEstado() {
         DaoHorario dao = new DaoHorario();
         respuesta = new HashMap();
@@ -192,6 +209,40 @@ public class ControlAdmin extends ActionSupport {
         return SUCCESS;
     }
 
+    public String infoGrupo() {
+        System.out.println("Entra al metodo");
+        DaoGrupo dao = new DaoGrupo();
+        DaoEstado daoEstado = new DaoEstado();
+        DaoLetra daoLetra = new DaoLetra();
+        DaoDocente daoDocente = new DaoDocente();
+        DaoNumeroCuatrimestre daoNumeroCuatrimestre = new DaoNumeroCuatrimestre();
+        DaoCuatrimestre daoCuatrimestre = new DaoCuatrimestre();
+        DaoCarrera daoCarrera = new DaoCarrera();
+
+        grupo = dao.getGrupo(param_integer);
+
+        respuesta = new HashMap();
+        respuesta.put("idCuatrimestre", grupo.getCuatrimestre().getId_cuatrimestre());
+        respuesta.put("idNumeroCuatri", grupo.getNumero_cuatri().getId_numero_cuatri());
+        respuesta.put("idCuatrimestre", grupo.getCuatrimestre().getId_cuatrimestre());
+        respuesta.put("idCarrera", grupo.getCarrera().getId_carrera());
+        respuesta.put("idDocente", grupo.getDocente().getId_docent());
+        respuesta.put("idLetra", grupo.getLetra().getId_letra());
+        respuesta.put("idEstado", grupo.getEstado().getId_estado());
+        respuesta.put("idGrupo", grupo.getId_grupo());
+        respuesta.put("mensaje", mensaje);
+        respuesta.put("grupo", grupo);
+        respuesta.put("numeroCuatris", daoNumeroCuatrimestre.listNumeroCuatris());
+        respuesta.put("letras", daoLetra.listLetras());
+        respuesta.put("docentes", daoDocente.listDocentes());
+        respuesta.put("cuatrimestres", daoCuatrimestre.listCuatrimestres());
+        respuesta.put("carreras", daoCarrera.listCarreras());
+        respuesta.put("estados", daoEstado.listEstados());
+        respuesta.put("grupos", dao.listGrupos());
+
+        return SUCCESS;
+    }
+
     public String modificarPeriodo() {
         DaoCuatrimestre daoCuatrimestre = new DaoCuatrimestre();
         BeanCuatrimestre beanCuatrimestre = null;
@@ -261,5 +312,33 @@ public class ControlAdmin extends ActionSupport {
 
     public void setIdEstado(int idEstado) {
         this.idEstado = idEstado;
+    }
+
+    public int getIdNumero_cuatri() {
+        return idNumero_cuatri;
+    }
+
+    public int getIdLetra() {
+        return idLetra;
+    }
+
+    public int getIdDocente() {
+        return idDocente;
+    }
+
+    public int getIdCuatrimestre() {
+        return idCuatrimestre;
+    }
+
+    public int getIdFecha_registro() {
+        return idFecha_registro;
+    }
+
+    public int getIdCarrera() {
+        return idCarrera;
+    }
+
+    public int getIdEstado() {
+        return idEstado;
     }
 }

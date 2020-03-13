@@ -57,6 +57,22 @@ app.controller('administrador', function ($scope, $http) {
         });
     };
 
+    $scope.confirmarGrupoModificar = function () {
+        swalWithBootstrapButtons.fire({
+            title: 'Modificar grupo',
+            text: "Confirmar para continuar la acción.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Aceptar',
+            cancelButtonText: 'Cancelar'
+        }).then(function (result) {
+            console.log("Result" + result.value);
+            if (result.value) {
+                $("#modificar-grupo").submit();
+            }
+        });
+    };
+
     $scope.confirmarEstado = function (form) {
         swalWithBootstrapButtons.fire({
             title: 'Estado Horario',
@@ -70,7 +86,7 @@ app.controller('administrador', function ($scope, $http) {
                 $('#' + form).submit();
             }
         });
-    }
+    };
 
     $scope.confirmarGrupoCambio = function (form) {
         swalWithBootstrapButtons.fire({

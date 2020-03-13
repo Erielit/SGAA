@@ -33,6 +33,12 @@
                 <param name="mensaje">${respuesta.mensaje}</param>
             </result>
         </action>
+        <action name="modificar-grupo" class="com.sgaa.admin.ControlAdmin" method="modificarGrupo">
+            <result name="success" type="redirectAction">
+                <param name="actionName">list-grupos</param>
+                <param name="mensaje">${respuesta.mensaje}</param>
+            </result>
+        </action>
         <action name="cambiar-estado-horario" class="com.sgaa.admin.ControlAdmin" method="cambiarEstado">
             <result name="success" type="redirectAction">
                 <param name="actionName">list-horarios</param>
@@ -53,6 +59,9 @@
         </action>
         <action name="infoPeriodo" class="com.sgaa.admin.ControlAdmin" method="infoPeriodo">
             <result name="success">views/admin/periodo/infoPeriodo.jsp</result>
+        </action>
+        <action name="infoGrupo" class="com.sgaa.admin.ControlAdmin" method="infoGrupo">
+            <result name="success">views/admin/grupo/modificarGrupo.jsp</result>
         </action>
         <action name="modificarPeriodo" class="com.sgaa.admin.ControlAdmin" method="modificarPeriodo">
             <result type="json"></result>

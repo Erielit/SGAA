@@ -189,3 +189,85 @@ end;
 go
 
 -----------------------------------------------------------------------------------------------------------------------
+-- LOS DE GERA
+-----------------------------------------------------------------------------------------------------------------------
+
+CREATE PROCEDURE sp_getInfoQuarter(@idQuarter INT)
+AS
+SELECT *
+FROM quarter
+WHERE id_quarter = @idQuarter;
+GO
+
+-----------------------------------------------------------------------------------------------------------------------
+
+CREATE PROCEDURE sp_getQuarters
+AS
+SELECT *
+FROM quarter;
+GO
+
+
+-----------------------------------------------------------------------------------------------------------------------
+-- LOS SEGUNDOS DESPUES DE QUE AVISE
+-----------------------------------------------------------------------------------------------------------------------
+
+
+create procedure sp_get_group(@idGrupo int)
+as
+select *
+from groups g
+         inner join quarter_number qn on g.id_quarter_number = qn.id_quarter_number
+         inner join letter l on g.id_letter = l.id_letter
+         inner join docent d on g.id_docent = d.id_docent
+         inner join person p on d.id_person = p.id_person
+         inner join quarter q on g.id_quarter = q.id_quarter
+         inner join career c on g.id_career = c.id_career
+         INNER JOIN status s on g.id_status = s.id_status
+where g.id_group = @idGrupo
+    ;
+go
+-----------------------------------------------------------------------------------------------------------------------
+
+create procedure sp_mod_group(@numero_cuatri int,
+                              @letra int,
+                              @docente int,
+                              @cuatrimestre int,
+                              @carrera int,
+                              @estado int,
+                              @grupo int)
+as
+begin
+
+    DECLARE @rol_tutor_base int;
+    DECLARE @rol_tutor_docente int;
+
+    set @rol_tutor_docente = 0;
+
+    SELECT @rol_tutor_base = id_role from role where name = 'TUTOR';
+    SELECT @rol_tutor_docente = ur.id_rol
+    from docent d
+             inner join person p on d.id_person = p.id_person
+             inner join users u on p.id_person = u.id_person
+             inner join user_role ur on u.id_user = ur.id_user
+             inner join role r2 on ur.id_rol = r2.id_role
+    where d.id_docent = @docente
+      and r2.name = 'TUTOR';
+
+
+    if (@rol_tutor_base != @rol_tutor_docente)
+        insert into user_role (id_rol, id_user) VALUES (@rol_tutor_base, @docente);
+
+    update groups
+    set id_quarter_number= @numero_cuatri,
+        id_letter= @letra,
+        id_docent= @docente,
+        id_quarter= @cuatrimestre,
+        id_career= @carrera,
+        id_status= @estado
+    where id_group = @grupo
+end;
+
+    select * from letter;
+
+go

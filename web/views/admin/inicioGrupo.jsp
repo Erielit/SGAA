@@ -103,7 +103,7 @@
                                                 <th>Docente</th>
                                                 <th>Carrera</th>
                                                 <th>Fecha de registro</th>
-                                                <th>Estatus</th>
+                                                <th>Cambiar estado</th>
                                                 <!--<th>Modificar</th>-->
                                                 <th>Modificar</th>
                                             </tr>
@@ -122,7 +122,8 @@
                                                         <s:if test="estado.estado.equals('Activo')">
                                                             <form action="cambiar-estado-grupo" method="post"
                                                                   id="inactivo<s:property value="id_grupo"/>">
-                                                                <input name="params" type="hidden" value="<s:property value="id_grupo"/>">
+                                                                <input name="params" type="hidden"
+                                                                       value="<s:property value="id_grupo"/>">
                                                                 <a href="javascript:void(0)" class="btn btn-danger"
                                                                    ng-click="confirmarGrupoCambio('inactivo<s:property value="id_grupo"/>')">
                                                                     <i class="ti-close"></i>
@@ -132,17 +133,23 @@
                                                         <s:else>
                                                             <form action="cambiar-estado-grupo" method="post"
                                                                   id="activo<s:property value="id_grupo"/>">
-                                                                <input name="params" type="hidden" value="<s:property value="id_grupo"/>">
+                                                                <input name="params" type="hidden"
+                                                                       value="<s:property value="id_grupo"/>">
                                                                 <a href="javascript:void(0)" class="btn btn-success"
                                                                    ng-click="confirmarGrupoCambio('activo<s:property value="id_grupo"/>')">
                                                                     <i class="ti-check"></i>
                                                                 </a>
                                                             </form>
                                                         </s:else>
-
-                                                                                                            </td>
-                                                    <td><a>Modificar</a></td>
-
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <form action="infoGrupo" method="post">
+                                                            <input type="hidden" value="<s:property value="id_grupo"/>" name="param_integer">
+                                                            <button type="submit" class="btn btn-warning">
+                                                                <i class="ti-pencil"></i>
+                                                            </button>
+                                                        </form>
+                                                    </td>
                                                 </tr>
                                             </s:iterator>
                                             </tbody>
