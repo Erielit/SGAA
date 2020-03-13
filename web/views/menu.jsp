@@ -39,6 +39,10 @@
                         <span class="pcoded-micon"><i class="feather icon-users"></i></span>
                         <span class="pcoded-mtext">Grupos</span>
                     </a>
+                    <a href="list-docentes">
+                        <span class="pcoded-micon"><i class="feather icon-user"></i></span>
+                        <span class="pcoded-mtext">Docentes</span>
+                    </a>
                 </li>
                 <li class="">
                     <a href="<%=context%>/inicioPeriodos">

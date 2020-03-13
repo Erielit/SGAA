@@ -8,8 +8,11 @@ package com.sgaa.docente.dao;
 import com.sgaa.carrera.bean.BeanCarrera;
 import com.sgaa.cuatrimestre.bean.BeanCuatrimestre;
 import com.sgaa.docente.bean.BeanDocente;
+import com.sgaa.estado.bean.BeanEstado;
 import com.sgaa.estudiante.bean.BeanEstudiante;
+import com.sgaa.genero.bean.BeanGenero;
 import com.sgaa.grupo.bean.BeanGrupo;
+import com.sgaa.grupo.dao.DaoGrupo;
 import com.sgaa.grupoEstudiante.bean.BeanGrupoEstudiante;
 import com.sgaa.letra.bean.BeanLetra;
 import com.sgaa.numero_cuatrimestre.bean.BeanNumeroCuatri;
@@ -192,6 +195,106 @@ public class DaoDocente {
             cerrarConexiones();
         }
         return docentes;
+    }
+
+    public List<BeanDocente> listAllDocentes() {
+        BeanDocente docente = null;
+
+        BeanGenero beanGenero = null;
+        BeanUsuario beanUsuario = null;
+        BeanEstado beanEstado = null;
+
+        List<BeanDocente> docentes = new ArrayList<>();
+        try {
+            con = SQLConnection.getConnection();
+            cstm = con.prepareCall("{call sp_list_all_docent()}");
+            rs = cstm.executeQuery();
+            while (rs.next()) {
+                docente = new BeanDocente();
+
+                beanGenero = new BeanGenero();
+                beanUsuario = new BeanUsuario();
+                beanEstado = new BeanEstado();
+
+                docente.setId_docent(rs.getInt(1));
+                docente.setCedula(rs.getString(2));
+                docente.setDesc(rs.getString(3));
+                docente.setCurp(rs.getString(6));
+                docente.setNombre(rs.getString(7));
+                docente.setPrimer_apellido(rs.getString(8));
+                docente.setSegundo_apellido(rs.getString(9));
+                docente.setFecha_nacimiento(rs.getString(10));
+
+                beanGenero.setId_genero(rs.getInt(13));
+                beanGenero.setGenero(rs.getString(14));
+
+                beanEstado.setId_estado(rs.getInt(15));
+                beanEstado.setEstado(rs.getString(16));
+
+                beanUsuario.setId_usuario(rs.getInt(17));
+                beanUsuario.setUsername(rs.getString(18));
+                beanUsuario.setPassword(rs.getString(19));
+
+                docente.setGenero(beanGenero);
+                docente.setEstado(beanEstado);
+                docente.setUsuario(beanUsuario);
+
+                docentes.add(docente);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DaoDocente.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            cerrarConexiones();
+        }
+        return docentes;
+    }
+
+    public boolean cambiarEstadoDocente(String docente) {
+        boolean result = false;
+        try {
+            con = SQLConnection.getConnection();
+            cstm = con.prepareCall("{call change_status_docent(?)}");
+            cstm.setString(1, docente);
+            result = cstm.executeUpdate() == 1;
+        } catch (SQLException ex) {
+            Logger.getLogger(DaoGrupo.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            cerrarConexiones();
+        }
+        return result;
+    }
+
+    public boolean nuevoDocente(BeanDocente docente) {
+        boolean result = false;
+        try {
+            con = SQLConnection.getConnection();
+            cstm = con.prepareCall("{call sp_new_docent(?,?,?,?,?,?,?,?,?,?)}");
+            cstm.setString(1, docente.getCurp());
+            System.out.println("docente.getCurp()" + docente.getCurp());
+            cstm.setString(2, docente.getNombre());
+            System.out.println("docente.getNombre()" + docente.getNombre());
+            cstm.setString(3, docente.getPrimer_apellido());
+            System.out.println("docente.getPrimer_apellido()" + docente.getPrimer_apellido());
+            cstm.setString(4, docente.getSegundo_apellido());
+            System.out.println("docente.getSegundo_apellido()" + docente.getSegundo_apellido());
+            cstm.setString(5, docente.getFecha_nacimiento());
+            System.out.println("docente.getFecha_nacimiento()" + docente.getFecha_nacimiento());
+            cstm.setString(6, docente.getUsuario().getUsername());
+            System.out.println("docente.getUsuario().getUsername()" + docente.getUsuario().getUsername());
+            cstm.setString(7, docente.getUsuario().getPassword());
+            System.out.println("docente.getUsuario().getPassword()" + docente.getUsuario().getPassword());
+            cstm.setString(8, docente.getCedula());
+            System.out.println("docente.getCedula()" + docente.getCedula());
+            cstm.setString(9, docente.getDesc());
+            System.out.println("docente.getDesc()" + docente.getDesc());
+            cstm.setInt(10, docente.getGenero().getId_genero());
+            result = cstm.executeUpdate() == 1;
+        } catch (SQLException ex) {
+            Logger.getLogger(DaoDocente.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            cerrarConexiones();
+        }
+        return result;
     }
 
     public List<BeanEstudiante> obtenerEstudiantes(String matricula, int asesoria) {

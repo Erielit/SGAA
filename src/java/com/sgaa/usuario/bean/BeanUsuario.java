@@ -6,10 +6,10 @@
 package com.sgaa.usuario.bean;
 
 import com.sgaa.role.bean.BeanRole;
+
 import java.util.List;
 
 /**
- *
  * @author netmo
  */
 public class BeanUsuario {
@@ -17,9 +17,14 @@ public class BeanUsuario {
     private String username;
     private String password;
     private String reset_code;
-    private List<BeanRole> roles;   
+    private List<BeanRole> roles;
 
     public BeanUsuario() {
+    }
+
+    public BeanUsuario(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 
     public BeanUsuario(int id_usuario, String username, String password, String reset_code, List<BeanRole> roles) {
@@ -69,6 +74,6 @@ public class BeanUsuario {
     public void setRoles(List<BeanRole> roles) {
         this.roles = roles;
     }
-    
-    
+
+
 }

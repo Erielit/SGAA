@@ -16,6 +16,8 @@ import com.sgaa.docente.dao.DaoDocente;
 import com.sgaa.estado.bean.BeanEstado;
 import com.sgaa.estado.dao.DaoEstado;
 import com.sgaa.estudiante.dao.DaoEstudiante;
+import com.sgaa.genero.bean.BeanGenero;
+import com.sgaa.genero.dao.DaoGenero;
 import com.sgaa.grupo.bean.BeanGrupo;
 import com.sgaa.grupo.dao.DaoGrupo;
 import com.sgaa.horario.bean.BeanHorario;
@@ -25,6 +27,7 @@ import com.sgaa.letra.dao.DaoLetra;
 import com.sgaa.numero_cuatrimestre.bean.BeanNumeroCuatri;
 import com.sgaa.numero_cuatrimestre.dao.DaoNumeroCuatrimestre;
 import com.sgaa.persona.bean.BeanPersona;
+import com.sgaa.usuario.bean.BeanUsuario;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -47,7 +50,17 @@ public class ControlAdmin extends ActionSupport {
     int idFecha_registro;
     int idCarrera;
     int idEstado;
+    int idGenero;
     String mensaje;
+    String cedula;
+    String desc;
+    String curp;
+    String nombre;
+    String primer_apellido;
+    String segundo_apellido;
+    String fecha_nacimiento;
+    String username;
+    String password;
     int param_integer;
     private BeanHorario horario;
     private BeanGrupo grupo;
@@ -68,6 +81,14 @@ public class ControlAdmin extends ActionSupport {
         return SUCCESS;
     }
 
+    public String inicioDocente() {
+        DaoDocente daoDocente = new DaoDocente();
+        respuesta = new HashMap();
+        respuesta.put("mensaje", mensaje);
+        respuesta.put("docentes", daoDocente.listAllDocentes());
+        return SUCCESS;
+    }
+
     public String prepararRegistrarGrupo() {
         DaoGrupo dao = new DaoGrupo();
         DaoEstado daoEstado = new DaoEstado();
@@ -85,6 +106,14 @@ public class ControlAdmin extends ActionSupport {
         respuesta.put("carreras", daoCarrera.listCarreras());
         respuesta.put("estados", daoEstado.listEstados());
         respuesta.put("grupos", dao.listGrupos());
+        return SUCCESS;
+    }
+
+    public String prepararRegistrarDocente() {
+        DaoGenero daoGenero = new DaoGenero();
+        respuesta = new HashMap();
+        respuesta.put("mensaje", mensaje);
+        respuesta.put("generos", daoGenero.listGeneros());
         return SUCCESS;
     }
 
@@ -109,6 +138,27 @@ public class ControlAdmin extends ActionSupport {
         grupo.setLetra(new BeanLetra(idLetra));
         grupo.setEstado(new BeanEstado(idEstado));
         if (daoGrupo.nuevoGrupo(grupo)) {
+            respuesta.put("mensaje", "1");
+        } else {
+            respuesta.put("mensaje", "2");
+        }
+        return SUCCESS;
+    }
+
+    public String registrarDocente() {
+        respuesta = new HashMap();
+        DaoDocente daoDocente = new DaoDocente();
+        BeanDocente beanDocente = new BeanDocente();
+        beanDocente.setUsuario(new BeanUsuario(username, password));
+        beanDocente.setGenero(new BeanGenero(idGenero));
+        beanDocente.setFecha_nacimiento(fecha_nacimiento);
+        beanDocente.setCurp(curp);
+        beanDocente.setNombre(nombre);
+        beanDocente.setPrimer_apellido(primer_apellido);
+        beanDocente.setSegundo_apellido(segundo_apellido);
+        beanDocente.setCedula(cedula);
+        beanDocente.setDesc(desc);
+        if (daoDocente.nuevoDocente(beanDocente)) {
             respuesta.put("mensaje", "1");
         } else {
             respuesta.put("mensaje", "2");
@@ -151,6 +201,18 @@ public class ControlAdmin extends ActionSupport {
         respuesta = new HashMap();
         System.out.println("paramsparamsparamsparamsparams+." + params);
         if (dao.cambiarEstadoGrupo(params)) {
+            respuesta.put("mensaje", "1");
+        } else {
+            respuesta.put("mensaje", "2");
+        }
+        return SUCCESS;
+    }
+
+    public String cambiarEstadoDocente() {
+        DaoDocente daoDocente = new DaoDocente();
+        respuesta = new HashMap();
+        System.out.println("paramsparamsparamsparamsparams+." + params);
+        if (daoDocente.cambiarEstadoDocente(params)) {
             respuesta.put("mensaje", "1");
         } else {
             respuesta.put("mensaje", "2");
@@ -340,5 +402,85 @@ public class ControlAdmin extends ActionSupport {
 
     public int getIdEstado() {
         return idEstado;
+    }
+
+    public int getIdGenero() {
+        return idGenero;
+    }
+
+    public void setIdGenero(int idGenero) {
+        this.idGenero = idGenero;
+    }
+
+    public String getCedula() {
+        return cedula;
+    }
+
+    public void setCedula(String cedula) {
+        this.cedula = cedula;
+    }
+
+    public String getDesc() {
+        return desc;
+    }
+
+    public void setDesc(String desc) {
+        this.desc = desc;
+    }
+
+    public String getCurp() {
+        return curp;
+    }
+
+    public void setCurp(String curp) {
+        this.curp = curp;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getPrimer_apellido() {
+        return primer_apellido;
+    }
+
+    public void setPrimer_apellido(String primer_apellido) {
+        this.primer_apellido = primer_apellido;
+    }
+
+    public String getSegundo_apellido() {
+        return segundo_apellido;
+    }
+
+    public void setSegundo_apellido(String segundo_apellido) {
+        this.segundo_apellido = segundo_apellido;
+    }
+
+    public String getFecha_nacimiento() {
+        return fecha_nacimiento;
+    }
+
+    public void setFecha_nacimiento(String fecha_nacimiento) {
+        this.fecha_nacimiento = fecha_nacimiento;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }

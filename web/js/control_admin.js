@@ -57,6 +57,22 @@ app.controller('administrador', function ($scope, $http) {
         });
     };
 
+    $scope.confirmarDocente = function () {
+        swalWithBootstrapButtons.fire({
+            title: 'Registrar docente',
+            text: "Confirmar para continuar la acción.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Aceptar',
+            cancelButtonText: 'Cancelar'
+        }).then(function (result) {
+            console.log("Result" + result.value);
+            if (result.value) {
+                $("#registrar-docente").submit();
+            }
+        });
+    };
+
     $scope.confirmarGrupoModificar = function () {
         swalWithBootstrapButtons.fire({
             title: 'Modificar grupo',
@@ -91,6 +107,21 @@ app.controller('administrador', function ($scope, $http) {
     $scope.confirmarGrupoCambio = function (form) {
         swalWithBootstrapButtons.fire({
             title: 'Estado Grupo',
+            text: "Confirmar para continuar la acción.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Aceptar',
+            cancelButtonText: 'Cancelar'
+        }).then(function (result) {
+            if (result.value) {
+                $('#' + form).submit();
+            }
+        });
+    };
+
+    $scope.confirmarDocenteCambio = function (form) {
+        swalWithBootstrapButtons.fire({
+            title: 'Estado Docente',
             text: "Confirmar para continuar la acción.",
             icon: 'warning',
             showCancelButton: true,

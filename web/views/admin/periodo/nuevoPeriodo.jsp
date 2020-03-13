@@ -93,7 +93,7 @@
                                                 <div class="col-md-6 offset-3">
                                                     <form class="needs-validation">
                                                         <div class="form-group">
-                                                            <label for="nombreQuarter">Nombre</label>
+                                                            <label for="nombre">Nombre</label>
                                                             <input type="text" class="form-control" required="" id="nombre" aria-describedby="Nombre Cuatrimestre" placeholder="Escribe un nombre...">
                                                         </div>
                                                         <div class="form-group">

@@ -84,10 +84,10 @@
                                 <div class="card-header">
                                     <div class="row">
                                         <div class="col-lg-6 col-md-6 col-sm-6 ">
-                                            <h2>Grupos</h2>
+                                            <h2>Docentes</h2>
                                         </div>
                                         <div class="col-lg-6 col-md-6 col-sm-6 text-right">
-                                            <a href="<%=context%>/grupo" class="btn btn-success">Registrar grupos</a>
+                                            <a href="<%=context%>/docente" class="btn btn-success">Registrar docentes</a>
                                         </div>
                                     </div>
                                 </div>
@@ -98,58 +98,51 @@
                                             <thead>
                                             <tr>
                                                 <th>#</th>
-                                                <th>Cuatrimeste</th>
-                                                <th>Letra</th>
-                                                <th>Docente</th>
-                                                <th>Carrera</th>
-                                                <th>Fecha de registro</th>
+                                                <th>Nombre</th>
+                                                <th>Apellido Paterno</th>
+                                                <th>Apellido Materno</th>
+                                                <th>CURP</th>
+                                                <th>Cédula Profesional</th>
+                                                <th>Fecha de nacimiento</th>
+                                                <th>Género</th>
                                                 <th>Cambiar estado</th>
                                                 <!--<th>Modificar</th>-->
-                                                <th>Modificar</th>
                                             </tr>
                                             </thead>
                                             <tbody>
-                                            <s:iterator value="respuesta.grupos" status="po">
+                                            <s:iterator value="respuesta.docentes" status="po">
                                                 <tr>
                                                     <td><s:property value="#po.count"/></td>
-                                                    <td><s:property value="cuatrimestre.nombre"/></td>
-                                                    <td><s:property value="letra.letra"/></td>
-                                                    <td><s:property value="docente.nombre"/> <s:property
-                                                            value="docente.primer_apellido"/></td>
-                                                    <td><s:property value="carrera.nombre"/></td>
-                                                    <td><s:property value="fecha_registro"/></td>
+                                                    <td><s:property value="nombre"/></td>
+                                                    <td><s:property value="primer_apellido"/></td>
+                                                    <td><s:property value="segundo_apellido"/></td>
+                                                    <td><s:property value="curp"/></td>
+                                                    <td><s:property value="cedula"/></td>
+                                                    <td><s:property value="estado.estado"/></td>
+                                                    <td><s:property value="genero.genero"/></td>
                                                     <td class="text-center">
                                                         <s:if test="estado.estado.equals('Activo')">
-                                                            <form action="cambiar-estado-grupo" method="post"
-                                                                  id="inactivo<s:property value="id_grupo"/>">
+                                                            <form action="cambiar-estado-docente" method="post"
+                                                                  id="inactivo<s:property value="id_docent"/>">
                                                                 <input name="params" type="hidden"
-                                                                       value="<s:property value="id_grupo"/>">
+                                                                       value="<s:property value="id_docent"/>">
                                                                 <a href="javascript:void(0)" class="btn btn-danger"
-                                                                   ng-click="confirmarGrupoCambio('inactivo<s:property value="id_grupo"/>')">
+                                                                   ng-click="confirmarDocenteCambio('inactivo<s:property value="id_docent"/>')">
                                                                     <i class="ti-close"></i>
                                                                 </a>
                                                             </form>
                                                         </s:if>
                                                         <s:else>
-                                                            <form action="cambiar-estado-grupo" method="post"
-                                                                  id="activo<s:property value="id_grupo"/>">
+                                                            <form action="cambiar-estado-docente" method="post"
+                                                                  id="activo<s:property value="id_docent"/>">
                                                                 <input name="params" type="hidden"
-                                                                       value="<s:property value="id_grupo"/>">
+                                                                       value="<s:property value="id_docent"/>">
                                                                 <a href="javascript:void(0)" class="btn btn-success"
-                                                                   ng-click="confirmarGrupoCambio('activo<s:property value="id_grupo"/>')">
+                                                                   ng-click="confirmarDocenteCambio('activo<s:property value="id_docent"/>')">
                                                                     <i class="ti-check"></i>
                                                                 </a>
                                                             </form>
                                                         </s:else>
-                                                    </td>
-                                                    <td class="text-center">
-                                                        <form action="infoGrupo" method="post">
-                                                            <input type="hidden" value="<s:property value="id_grupo"/>"
-                                                                   name="param_integer">
-                                                            <button type="submit" class="btn btn-warning">
-                                                                <i class="ti-pencil"></i>
-                                                            </button>
-                                                        </form>
                                                     </td>
                                                 </tr>
                                             </s:iterator>

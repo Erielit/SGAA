@@ -5,11 +5,16 @@
  */
 package com.sgaa.genero.dao;
 
+import com.sgaa.carrera.bean.BeanCarrera;
+import com.sgaa.carrera.dao.DaoCarrera;
+import com.sgaa.genero.bean.BeanGenero;
 import com.sgaa.usuario.dao.DaoUsuario;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import utileria.SQLConnection;
@@ -22,20 +27,29 @@ public class DaoGenero {
      Connection con;
     CallableStatement cstm;
     ResultSet rs;
-    
-    public boolean CambiarContrasena(String contrasena){
-        boolean result = false;
+
+    public List<BeanGenero> listGeneros() {
+        BeanGenero genero = null;
+
+        List<BeanGenero> generos = new ArrayList<>();
         try {
             con = SQLConnection.getConnection();
-            cstm = con.prepareCall("call procedureName(?,?)");//Procedimiento y/o parámetros
-            rs = cstm.executeQuery();//Resultados
-            result = cstm.executeUpdate() == 1;//se cambió o no
+            cstm = con.prepareCall("{call sp_list_gender()}");
+            rs = cstm.executeQuery();
+            while (rs.next()) {
+                genero = new BeanGenero();
+
+                genero.setId_genero(rs.getInt(1));
+                genero.setGenero(rs.getString(2));
+
+                generos.add(genero);
+            }
         } catch (SQLException ex) {
-            Logger.getLogger(DaoUsuario.class.getName()).log(Level.SEVERE, null, ex);
-        }finally{
+            Logger.getLogger(DaoGenero.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
             cerrarConexiones();
         }
-        return result;
+        return generos;
     }
 
     public void cerrarConexiones() {

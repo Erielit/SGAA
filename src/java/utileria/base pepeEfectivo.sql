@@ -81,14 +81,15 @@ begin
     ELSE
         update groups set id_status = @activo where id_group = @grupo;
 end;
+go
 
 
 -----------------------------------------------------------------------------------------------------------------------
 
-    create procedure sp_list_letter
-    as
-    select *
-    from letter;
+create procedure sp_list_letter
+as
+select *
+from letter;
 go
 
 -----------------------------------------------------------------------------------------------------------------------
@@ -268,6 +269,98 @@ begin
     where id_group = @grupo
 end;
 
-    select * from letter;
+select *
+from letter;
 
 go
+
+-----------------------------------------------------------------------------------------------------------------------
+
+create procedure sp_list_all_docent
+as
+select *
+from docent d
+         inner join person p on d.id_person = p.id_person
+         inner join gender g on p.gender_id_gender = g.id_gender
+         inner join status s on p.id_status = s.id_status
+         inner join users u on p.id_person = u.id_person
+go
+
+-----------------------------------------------------------------------------------------------------------------------
+create procedure change_status_docent(@docente int)
+as
+begin
+    DECLARE @activo int;
+    DECLARE @inactivo int;
+    DECLARE @actual int;
+    DECLARE @persona int;
+
+    SELECT @activo = id_status from status where status = 'Activo';
+    SELECT @inactivo = id_status from status where status = 'Inactivo';
+    SELECT @persona = id_person
+    from docent
+    where id_docent = @docente;
+    SELECT @actual = id_status
+    from docent d
+             inner join person p on d.id_person = p.id_person
+    where id_docent = @docente;
+
+    if (@actual = @activo)
+        update person set id_status = @inactivo where id_person = @persona;
+    ELSE
+        update person set id_status = @activo where id_person = @persona;
+
+end;
+
+go
+
+-----------------------------------------------------------------------------------------------------------------------
+
+create procedure sp_list_gender
+as
+select *
+from gender ;
+go
+
+
+-----------------------------------------------------------------------------------------------------------------------
+
+create procedure sp_new_docent(@curp varchar(50),
+                               @nombre varchar(50),
+                               @primer_apellido varchar(50),
+                               @segundo_apellido varchar(50),
+                               @fecha_nacimiento varchar(50),
+                               @username varchar(50),
+                               @password varchar(50),
+                               @cedula varchar(50),
+                               @desc varchar(50),
+                               @genero int)
+as
+begin
+
+    DECLARE @activo int;
+    DECLARE @rol_docente int;
+    DECLARE @persona int;
+    DECLARE @user int;
+
+    SELECT @activo = id_status from status where status = 'Activo';
+    SELECT @rol_docente = id_role from role where name = 'DOCENTE';
+
+    insert into person (curp, name, last_name, second_last_name, day_birth, gender_id_gender, id_status)
+    VALUES (@curp, @nombre, @primer_apellido, @segundo_apellido, @fecha_nacimiento, @genero, @activo)
+    SET @persona = SCOPE_IDENTITY();
+    insert into users (email, password, id_person)
+    VALUES (@username, @password, @persona)
+    SET @user = SCOPE_IDENTITY();
+
+    insert into docent (professional_id, description, id_person)
+    VALUES (@cedula, @desc, @persona);
+
+    insert into user_role (id_rol, id_user)
+    VALUES (@rol_docente, @user)
+
+    select * from docent
+end;
+
+
+-----------------------------------------------------------------------------------------------------------------------
