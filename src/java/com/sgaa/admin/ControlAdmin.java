@@ -5,7 +5,10 @@
  */
 package com.sgaa.admin;
 
+import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
+import com.sgaa.cuatrimestre.bean.BeanCuatrimestre;
+import com.sgaa.cuatrimestre.dao.DaoCuatrimestre;
 import com.sgaa.cuatrimestre.dao.DaoCuatrimestre;
 import com.sgaa.estado.dao.DaoEstado;
 import com.sgaa.estudiante.dao.DaoEstudiante;
@@ -15,9 +18,13 @@ import com.sgaa.horario.bean.BeanHorario;
 import com.sgaa.horario.dao.DaoHorario;
 import com.sgaa.letra.dao.DaoLetra;
 import com.sgaa.numero_cuatrimestre.dao.DaoNumeroCuatrimestre;
-
+import com.sgaa.persona.bean.BeanPersona;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  * @author netmo
@@ -94,6 +101,76 @@ public class ControlAdmin extends ActionSupport {
         } else {
             respuesta.put("mensaje", "2");
         }
+        return SUCCESS;
+    }
+
+    public String inicioPeriodos() {
+        DaoCuatrimestre daoCuatrimestre = new DaoCuatrimestre();
+
+        Map session = ActionContext.getContext().getSession();
+        BeanPersona persona = (BeanPersona) session.get("persona");
+        if (persona == null) {
+            return "NOLOGIN";
+        }
+
+        respuesta = new HashMap();
+        respuesta.put("listQuarters", daoCuatrimestre.getQuarters());
+        return SUCCESS;
+    }
+
+    public String registrarPeriodo() {
+        DaoCuatrimestre daoCuatrimestre = new DaoCuatrimestre();
+        BeanCuatrimestre beanCuatrimestre = new BeanCuatrimestre();
+
+        try {
+            JSONObject myObj = new JSONObject(mensaje);
+            beanCuatrimestre.setNombre(myObj.getString("nombre"));
+            beanCuatrimestre.setFecha_inicio(myObj.getString("fechaInicio"));
+            beanCuatrimestre.setFecha_fin(myObj.getString("fechaFin"));
+        } catch (JSONException ex) {
+            Logger.getLogger(ControlAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        respuesta = new HashMap();
+        respuesta.put("bandera", daoCuatrimestre.newQuarter(beanCuatrimestre));
+        return SUCCESS;
+    }
+
+    public String modificarEstado() {
+        DaoCuatrimestre daoCuatrimestre = new DaoCuatrimestre();
+
+        respuesta = new HashMap();
+        if (daoCuatrimestre.editStatusQuarter(param_integer)) {
+            respuesta.put("bandera", true);
+        } else {
+            respuesta.put("bandera", false);
+        }
+        return SUCCESS;
+    }
+
+    public String infoPeriodo() {
+        DaoCuatrimestre daoCuatrimestre = new DaoCuatrimestre();
+
+        respuesta = new HashMap();
+        respuesta.put("cuatrimestre", daoCuatrimestre.getInfoQuarter(param_integer));
+        return SUCCESS;
+    }
+
+    public String modificarPeriodo(){
+        DaoCuatrimestre daoCuatrimestre = new DaoCuatrimestre();
+        BeanCuatrimestre beanCuatrimestre = null;
+        try {
+            JSONObject myObj = new JSONObject(mensaje);
+            beanCuatrimestre = new BeanCuatrimestre();
+            beanCuatrimestre.setId_cuatrimestre(myObj.getInt("idCuatrimestre"));
+            beanCuatrimestre.setNombre(myObj.getString("nombre"));
+            beanCuatrimestre.setFecha_inicio(myObj.getString("fechaInicio"));
+            beanCuatrimestre.setFecha_fin(myObj.getString("fechaFin"));
+        } catch (JSONException ex) {
+            Logger.getLogger(ControlAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        respuesta = new HashMap();
+        respuesta.put("bandera", daoCuatrimestre.editQuarter(beanCuatrimestre));
         return SUCCESS;
     }
 

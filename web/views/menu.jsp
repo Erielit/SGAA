@@ -40,6 +40,12 @@
                         <span class="pcoded-mtext">Grupos</span>
                     </a>
                 </li>
+                <li class="">
+                    <a href="<%=context%>/inicioPeriodos">
+                        <span class="pcoded-micon"><i class="feather icon-clock"></i></span>
+                        <span class="pcoded-mtext">Periodos</span>
+                    </a>
+                </li>
             </ul>
         </s:if>
         <s:if test="#session.rolActivo == 3">
