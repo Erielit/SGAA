@@ -6,10 +6,15 @@
 package com.sgaa.admin;
 
 import com.opensymphony.xwork2.ActionSupport;
+import com.sgaa.cuatrimestre.dao.DaoCuatrimestre;
+import com.sgaa.estado.dao.DaoEstado;
 import com.sgaa.estudiante.dao.DaoEstudiante;
+import com.sgaa.grupo.bean.BeanGrupo;
 import com.sgaa.grupo.dao.DaoGrupo;
 import com.sgaa.horario.bean.BeanHorario;
 import com.sgaa.horario.dao.DaoHorario;
+import com.sgaa.letra.dao.DaoLetra;
+import com.sgaa.numero_cuatrimestre.dao.DaoNumeroCuatrimestre;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -24,6 +29,7 @@ public class ControlAdmin extends ActionSupport {
     String mensaje;
     int param_integer;
     private BeanHorario horario;
+    private BeanGrupo grupo;
 
     public String inicioHorario() {
         DaoEstudiante dao = new DaoEstudiante();
@@ -37,6 +43,20 @@ public class ControlAdmin extends ActionSupport {
         DaoGrupo dao = new DaoGrupo();
         respuesta = new HashMap();
         respuesta.put("mensaje", mensaje);
+        respuesta.put("grupos", dao.listGrupos());
+        return SUCCESS;
+    }
+
+    public String prepararRegistrarGrupo() {
+        DaoGrupo dao = new DaoGrupo();
+        DaoEstado daoEstado = new DaoEstado();
+        DaoLetra daoLetra = new DaoLetra();
+        DaoNumeroCuatrimestre daoNumeroCuatrimestre = new DaoNumeroCuatrimestre();
+        respuesta = new HashMap();
+        respuesta.put("mensaje", mensaje);
+        respuesta.put("letras", daoLetra.listLetras());
+        respuesta.put("estados", daoEstado.listEstados());
+        respuesta.put("numeroCuatris", daoNumeroCuatrimestre.listNumeroCuatris());
         respuesta.put("grupos", dao.listGrupos());
         return SUCCESS;
     }
@@ -68,7 +88,7 @@ public class ControlAdmin extends ActionSupport {
     public String cambiarEstadoGrupo() {
         DaoGrupo dao = new DaoGrupo();
         respuesta = new HashMap();
-        System.out.println(params);
+        System.out.println("paramsparamsparamsparamsparams+."+params);
         if (dao.cambiarEstadoGrupo(params)) {
             respuesta.put("mensaje", "1");
         } else {

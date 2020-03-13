@@ -165,6 +165,7 @@ public class DaoAsesoria {
     }
 
     public List<BeanEstudiante> getStudentsCourse(int idCourse) {
+        System.out.println("idCourse" + idCourse);
         List<BeanEstudiante> listEstudiantes = new ArrayList<>();
         BeanEstudiante beanEstudiante = null;
         BeanAsesoriaEstudiante beanAsesoriaEstudiante = null;
@@ -194,6 +195,8 @@ public class DaoAsesoria {
         } finally {
             cerrarConexiones();
         }
+        System.out.println("lista que recupera " + listEstudiantes);
+        System.out.println("lista que recupera.size() " + listEstudiantes.size());
         return listEstudiantes;
     }
 

@@ -87,7 +87,7 @@
                                                     <h2>Horarios</h2>
                                                 </div>
                                                 <div class="col-lg-6 col-md-6 col-sm-6 text-right">
-                                                    <a href="<%=context%>/horario" class="btn btn-success">Registrar horario</a>
+                                                    <a href="<%=context%>/horario" class="btn btn-success">Registrar horario 2</a>
                                                 </div>
                                             </div>
                                         </div>

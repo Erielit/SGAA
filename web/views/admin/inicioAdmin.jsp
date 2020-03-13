@@ -92,7 +92,7 @@
                                                 <h2>Horarios</h2>
                                             </div>
                                             <div class="col-lg-6 col-md-6 col-sm-6">
-                                                <a href="#" class="btn btn-success">Registrar horario</a>
+                                                <a href="#" class="btn btn-success">Registrar horario 1</a>
                                             </div>
                                         </div>
                                         <div class="card-block">

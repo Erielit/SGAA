@@ -180,6 +180,7 @@ public class ControlDocente extends ActionSupport {
         respuesta.put("listStudents", listEstudiantes);
         respuesta.put("idCourse", param_integer);
 
+        System.out.println("listEstudiantes" + listEstudiantes.size());
         String courseDate = listEstudiantes.get(0).getBeanAsesoriaEstudiante().getDate();
         Calendar c = Calendar.getInstance();
 

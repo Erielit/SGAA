@@ -15,18 +15,18 @@ import com.sgaa.letra.bean.BeanLetra;
 import com.sgaa.numero_cuatrimestre.bean.BeanNumeroCuatri;
 import com.sgaa.usuario.bean.BeanUsuario;
 import com.sgaa.usuario.dao.DaoUsuario;
+import utileria.SQLConnection;
+
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import utileria.SQLConnection;
-import java.util.List;
 
 /**
- *
  * @author netmo
  */
 public class DaoDocente {
@@ -35,20 +35,6 @@ public class DaoDocente {
     CallableStatement cstm;
     ResultSet rs;
 
-    public boolean CambiarContrasena(String contrasena) {
-        boolean result = false;
-        try {
-            con = SQLConnection.getConnection();
-            cstm = con.prepareCall("call procedureName(?,?)");//Procedimiento y/o parámetros
-            rs = cstm.executeQuery();//Resultados
-            result = cstm.executeUpdate() == 1;//se cambió o no
-        } catch (SQLException ex) {
-            Logger.getLogger(DaoUsuario.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            cerrarConexiones();
-        }
-        return result;
-    }
 
     public BeanDocente getInfoDocent(int idPerson) {
         BeanDocente beanDocente = null;
@@ -180,6 +166,32 @@ public class DaoDocente {
             cerrarConexiones();
         }
         return canalized;
+    }
+
+    public List<BeanDocente> listDocentes() {
+        BeanDocente Docente = null;
+
+        List<BeanDocente> Docentes = new ArrayList<>();
+        try {
+            con = SQLConnection.getConnection();
+            cstm = con.prepareCall("{call sp_list_docent()}");
+            rs = cstm.executeQuery();
+            while (rs.next()) {
+                Docente = new BeanDocente();
+
+                Docente.setId_docent(rs.getInt(1));
+                Docente.setNombre(rs.getString(7));
+                Docente.setPrimer_apellido(rs.getString(8));
+                Docente.setSegundo_apellido(rs.getString(9));
+
+                Docentes.add(Docente);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DaoDocente.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            cerrarConexiones();
+        }
+        return Docentes;
     }
 
     public void cerrarConexiones() {

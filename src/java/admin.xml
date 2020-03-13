@@ -15,10 +15,10 @@
         <action name="list-grupos" class="com.sgaa.admin.ControlAdmin" method="inicioGrupo">
             <result name="success">views/admin/inicioGrupo.jsp</result>
         </action>
-        <action name="horario" class="com.sgaa.admin.ControlAdmin" method="inicioGrupo">
+        <action name="horario">
             <result name="success">views/admin/horario/registrarHorario.jsp</result>
         </action>
-        <action name="grupo">
+        <action name="grupo"  class="com.sgaa.admin.ControlAdmin" method="prepararRegistrarGrupo">
             <result name="success">views/admin/grupo/registrarGrupo.jsp</result>
         </action>
         <action name="registrar-horario" class="com.sgaa.admin.ControlAdmin" method="registrarHorario">

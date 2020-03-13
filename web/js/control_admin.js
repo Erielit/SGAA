@@ -27,7 +27,8 @@ app.controller('administrador', function ($scope, $http) {
 
     $scope.confirmar = function () {
         swalWithBootstrapButtons.fire({
-            title: 'Registrar Horario',
+            title: '' +
+                'Registrar Horario',
             text: "Confirmar para continuar la acción.",
             icon: 'warning',
             showCancelButton: true,
@@ -42,7 +43,7 @@ app.controller('administrador', function ($scope, $http) {
 
     $scope.confirmarEstado = function (form) {
         swalWithBootstrapButtons.fire({
-            title: 'Estado Horario',
+            title: 'Estado grupo',
             text: "Confirmar para continuar la acción.",
             icon: 'warning',
             showCancelButton: true,
