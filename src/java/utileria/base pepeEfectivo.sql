@@ -26,8 +26,6 @@ select *
 from group_student;
 
 -----------------------------------------------------------------------------------------------------------------------
-----------------------------------------------Usar solo apartir de aqui------------------------------------------------
------------------------------------------------------------------------------------------------------------------------
 
 --Correcion procedimiento de gera
 CREATE PROCEDURE sp_getStudentsCourse(@idCourse INT)
@@ -191,25 +189,3 @@ end;
 go
 
 -----------------------------------------------------------------------------------------------------------------------
-
-INSERT INTO groups (id_quarter_number, id_letter, id_docent, id_quarter, id_career, id_status)
-VALUES (8, 1, 1, 1, 1, 1);
-INSERT INTO groups (id_quarter_number, id_letter, id_docent, id_quarter, id_career, id_status)
-VALUES (8, 1, 1, 1, 1, 1);
-INSERT INTO groups (id_quarter_number, id_letter, id_docent, id_quarter, id_career, id_status)
-VALUES (8, 1, 2, 1, 1, 1);
-INSERT INTO groups (id_quarter_number, id_letter, id_docent, id_quarter, id_career, id_status)
-VALUES (8, 1, 3, 1, 2, 1);
-INSERT INTO groups (id_quarter_number, id_letter, id_docent, id_quarter, id_career, id_status)
-VALUES (8, 1, 4, 1, 2, 1);
-INSERT INTO groups (id_quarter_number, id_letter, id_docent, id_quarter, id_career, id_status)
-VALUES (8, 1, 5, 1, 3, 1);
-INSERT INTO groups (id_quarter_number, id_letter, id_docent, id_quarter, id_career, id_status)
-VALUES (8, 1, 6, 1, 3, 1);
-INSERT INTO groups (id_quarter_number, id_letter, id_docent, id_quarter, id_career, id_status)
-VALUES (8, 1, 7, 1, 4, 1);
-INSERT INTO groups (id_quarter_number, id_letter, id_docent, id_quarter, id_career, id_status)
-VALUES (8, 1, 8, 1, 4, 1);
-GO
-
-
