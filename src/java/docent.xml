@@ -26,5 +26,11 @@
         <action name="pasarLista" class="com.sgaa.docente.control.ControlDocente" method="pasarLista">
             <result type="json"></result>
         </action>
+        <action name="obtenerEstudiantesSearch" class="com.sgaa.docente.control.ControlDocente" method="obtenerEstudiantesSearch">
+            <result type="json"/>
+        </action>
+        <action name="asignarEstudianteAsesoria" class="com.sgaa.docente.control.ControlDocente" method="asignarEstudianteAsesoria">
+            <result type="json"/>
+        </action>
     </package>
 </struts>

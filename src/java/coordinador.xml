@@ -8,5 +8,8 @@
         <action name="inicio-coordinador">
             <result name="success">views/coordinador/inicioCoordinador.jsp</result>
         </action>
+        <action name="stadistics-coor" class="com.sgaa.coordinador.control.ControlCoordinador" method="inicioCoordinador">
+            <result type="json"/>
+        </action>
     </package>
 </struts>

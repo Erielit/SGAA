@@ -217,6 +217,25 @@ public class ControlDocente extends ActionSupport {
         return SUCCESS;
     }
 
+    public String obtenerEstudiantesSearch() {
+        DaoDocente dao = new DaoDocente();
+        List<BeanEstudiante> estudiantes = dao.obtenerEstudiantes(datos, param_integer);
+        respuesta = new HashMap();
+        respuesta.put("estudiantes", estudiantes);
+        return SUCCESS;
+    }
+
+    public String asignarEstudianteAsesoria() {
+        DaoDocente dao = new DaoDocente();
+        respuesta = new HashMap();
+        if (dao.asignarEstudiante(param_integer, Integer.parseInt(datos))) {
+            respuesta.put("mensaje", "1");
+        } else {
+            respuesta.put("mensaje", "2");
+        }
+        return SUCCESS;
+    }
+
     public Map getRespuesta() {
         return respuesta;
     }
