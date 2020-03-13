@@ -40,7 +40,7 @@
                             </s:if>
 
                             <li>
-                                <a href="user-profile.htm">
+                                <a href="verPerfil">
                                     <i class="feather icon-user"></i> Perfil
                                 </a>
                             </li>

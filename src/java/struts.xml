@@ -27,6 +27,12 @@
                 <param name="actionName">inicio-coordinador</param>
             </result>
         </action>
+        <action name="verPerfil" class="com.sgaa.admin.ControlAdmin" method="verPerfil">
+            <result name="success">views/verPerfil.jsp</result>
+        </action>
+        <action name="modificarPerfil" class="com.sgaa.admin.ControlAdmin" method="modificarPerfil">
+            <result type="json"></result>
+        </action>
         
         
         <!--        Estudiante-->

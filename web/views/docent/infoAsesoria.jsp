@@ -113,10 +113,13 @@
                                                                                 <div class="btn-group-toggle" data-toggle="buttons">
                                                                                     <s:if test="beanAsesoriaEstudiante.assists == 1">
                                                                                         <label id="radio" class="btn btn-success">
-                                                                                            <input type="checkbox" value="<s:property value="beanAsesoriaEstudiante.assists"/>" id="btnAttendance<s:property value="id_estudiante"/>" onchange="paseLista(<s:property value="id_estudiante"/>)">                                                                                    </label>
-                                                                                        </s:if><s:else>
+                                                                                            <input type="checkbox" value="<s:property value="beanAsesoriaEstudiante.assists"/>" id="btnAttendance<s:property value="id_estudiante"/>" onchange="paseLista(<s:property value="id_estudiante"/>)">
+                                                                                            <i id="icon" class="ti-check"></i>
+                                                                                        </label>
+                                                                                    </s:if><s:else>
                                                                                         <label id="radio" class="btn btn-danger">
                                                                                             <input type="checkbox" value="<s:property value="beanAsesoriaEstudiante.assists"/>" id="btnAttendance<s:property value="id_estudiante"/>" onchange="paseLista(<s:property value="id_estudiante"/>)">
+                                                                                            <i id="icon" class="ti-close"></i>
                                                                                         </label>
                                                                                     </s:else>                                                                                
                                                                                 </div>
