@@ -275,7 +275,7 @@ $.extend( $.validator, {
 		ignoreTitle: false,
 		onfocusin: function( element ) {
 			this.lastActive = element;
-
+                        
 			// Hide error label and remove error class on focus if enabled
 			if ( this.settings.focusCleanup ) {
 				if ( this.settings.unhighlight ) {
@@ -285,9 +285,10 @@ $.extend( $.validator, {
 			}
 		},
 		onfocusout: function( element ) {
-			if ( !this.checkable( element ) && ( element.name in this.submitted || !this.optional( element ) ) ) {
-				this.element( element );
-			}
+                    console.log('focusout');
+//			if ( !this.checkable( element ) && ( element.name in this.submitted || !this.optional( element ) ) ) {
+//				this.element( element );
+//			}
 		},
 		onkeyup: function( element, event ) {
 
@@ -305,16 +306,16 @@ $.extend( $.validator, {
 			// Insert      => 45
 			// Num lock    => 144
 			// AltGr key   => 225
-			var excludedKeys = [
-				16, 17, 18, 20, 35, 36, 37,
-				38, 39, 40, 45, 144, 225
-			];
-
-			if ( event.which === 9 && this.elementValue( element ) === "" || $.inArray( event.keyCode, excludedKeys ) !== -1 ) {
-				return;
-			} else if ( element.name in this.submitted || element.name in this.invalid ) {
-				this.element( element );
-			}
+//			var excludedKeys = [
+//				16, 17, 18, 20, 35, 36, 37,
+//				38, 39, 40, 45, 144, 225
+//			];
+//
+//			if ( event.which === 9 && this.elementValue( element ) === "" || $.inArray( event.keyCode, excludedKeys ) !== -1 ) {
+//				return;
+//			} else if ( element.name in this.submitted || element.name in this.invalid ) {
+//				this.element( element );
+//			}
 		},
 		onclick: function( element ) {
 

@@ -24,7 +24,7 @@
                 <param name="actionName">inicioTutor</param>
             </result>
             <result name="coordinador" type="redirectAction">
-                <param name="actionName">inicioCoordinador</param>
+                <param name="actionName">inicio-coordinador</param>
             </result>
         </action>
         
@@ -78,6 +78,9 @@
         <action name="grupos-carrera" class="com.sgaa.estudiante.control.ControlEstudiante" method="grupos">
             <result type="json" name="success"/>
         </action>
+        <action name="registrarse" class="com.sgaa.estudiante.control.ControlEstudiante" method="registrarse">
+            <result name="success">index.jsp</result>
+        </action>
         <!--Fin Estudiante-->
     </package>
     <package name="packInterceptor" extends="struts-default">
@@ -105,4 +108,5 @@
     <include file="docent.xml" />
     <include file="tutor.xml" />
     <include file="admin.xml" />   
+    <include file="coordinador.xml" />   
 </struts>

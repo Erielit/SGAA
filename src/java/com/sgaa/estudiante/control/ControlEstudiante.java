@@ -12,10 +12,12 @@ import com.sgaa.cuatrimestre.bean.BeanCuatrimestre;
 import com.sgaa.docente.bean.BeanDocente;
 import com.sgaa.estudiante.bean.BeanEstudiante;
 import com.sgaa.estudiante.dao.DaoEstudiante;
+import com.sgaa.genero.bean.BeanGenero;
 import com.sgaa.grupo.bean.BeanGrupo;
 import com.sgaa.horario.bean.BeanHorario;
 import com.sgaa.notificacion.bean.BeanNotificacion;
 import com.sgaa.persona.bean.BeanPersona;
+import com.sgaa.usuario.bean.BeanUsuario;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -36,6 +38,8 @@ public class ControlEstudiante extends ActionSupport {
     private String params;
     private int number_param;
     String mensaje;
+    String nombre, primer_apellido, segundo_apellido, matricula, curp, fecha_nacimiento, email;
+    int carrera, grupo, genero;
 
     public String inicioEstudiante() {
         DaoEstudiante dao = new DaoEstudiante();
@@ -217,6 +221,28 @@ public class ControlEstudiante extends ActionSupport {
         return SUCCESS;
     }
 
+    public String registrarse() {
+        DaoEstudiante dao = new DaoEstudiante();
+        BeanEstudiante estudiante = new BeanEstudiante();
+        System.out.println(matricula + "->" + nombre + "->" + primer_apellido + "->" + segundo_apellido + "->" + curp
+                + "->" + fecha_nacimiento);
+        System.out.println(genero + "->" + email + "->" + params + "->" + carrera + "->" + grupo);
+        estudiante.setMatricula(matricula);
+        estudiante.setNombre(nombre);
+        estudiante.setPrimer_apellido(primer_apellido);
+        estudiante.setSegundo_apellido(segundo_apellido);
+        estudiante.setCurp(curp);
+        estudiante.setFecha_nacimiento(fecha_nacimiento);
+        estudiante.setGenero(new BeanGenero(genero, ""));
+        estudiante.setUsuario(new BeanUsuario(0, email, params, "", null));
+        if (dao.registrarse(estudiante, carrera, grupo)) {
+            mensaje = "1";
+        } else {
+            mensaje = "2";
+        }
+        return SUCCESS;
+    }
+
     public Map getRespuesta() {
         return respuesta;
     }
@@ -235,6 +261,46 @@ public class ControlEstudiante extends ActionSupport {
 
     public void setMensaje(String mensaje) {
         this.mensaje = mensaje;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setPrimer_apellido(String primer_apellido) {
+        this.primer_apellido = primer_apellido;
+    }
+
+    public void setSegundo_apellido(String segundo_apellido) {
+        this.segundo_apellido = segundo_apellido;
+    }
+
+    public void setMatricula(String matricula) {
+        this.matricula = matricula;
+    }
+
+    public void setCurp(String curp) {
+        this.curp = curp;
+    }
+
+    public void setFecha_nacimiento(String fecha_nacimiento) {
+        this.fecha_nacimiento = fecha_nacimiento;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setCarrera(int carrera) {
+        this.carrera = carrera;
+    }
+
+    public void setGrupo(int grupo) {
+        this.grupo = grupo;
+    }
+
+    public void setGenero(int genero) {
+        this.genero = genero;
     }
 
 }

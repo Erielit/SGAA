@@ -384,12 +384,37 @@ public class DaoEstudiante {
         return result;
     }
 
+    public boolean registrarse(BeanEstudiante estudiante, int carrera, int grupo) {
+        boolean result = false;
+        try {
+            con = SQLConnection.getConnection();
+            cstm = con.prepareCall("{call sp_add_student (?,?,?,?,?,?,?,?,?,?,?)}");
+            cstm.setString(1, estudiante.getNombre());
+            cstm.setString(2, estudiante.getPrimer_apellido());
+            cstm.setString(3, estudiante.getSegundo_apellido());
+            cstm.setString(4, estudiante.getMatricula());
+            cstm.setString(5, estudiante.getCurp());
+            cstm.setString(6, estudiante.getFecha_nacimiento());
+            cstm.setInt(7, estudiante.getGenero().getId_genero());
+            cstm.setString(8, estudiante.getUsuario().getUsername());
+            cstm.setString(9, estudiante.getUsuario().getPassword());
+            cstm.setInt(10, grupo);
+            cstm.setInt(11, carrera);
+            result = cstm.executeUpdate() == 1;
+        } catch (SQLException e) {
+            Logger.getLogger(DaoUsuario.class.getName()).log(Level.SEVERE, null, e);
+        } finally {
+            cerrarConexiones();
+        }
+        return result;
+    }
+
     public List<BeanNotificacion> getNewNotifications(int idPersona) {
         BeanNotificacion beanNotificacion = null;
         List<BeanNotificacion> listNotificacions = new ArrayList<>();
         try {
             con = SQLConnection.getConnection();
-            cstm = con.prepareCall("{call sp_getNotifications(?)}");
+            cstm = con.prepareCall("{call sp_list_notifications(?)}");
             cstm.setInt(1, idPersona);
             rs = cstm.executeQuery();
             while (rs.next()) {
@@ -440,7 +465,7 @@ public class DaoEstudiante {
             while (rs.next()) {
                 grupo = new BeanGrupo();
                 grupo.setId_grupo(rs.getInt("id_group"));
-                grupo.setLetra(new BeanLetra(0, rs.getString("ltter")));
+                grupo.setLetra(new BeanLetra(0, rs.getString("letter")));
                 grupo.setNumero_cuatri(new BeanNumeroCuatri(0, rs.getInt("id_quarter_number")));
                 grupos.add(grupo);
             }

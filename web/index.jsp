@@ -127,8 +127,9 @@
         </section>
 
         <script type="text/javascript" src="<%=context%>\files\bower_components\jquery\js\jquery.min.js"></script>
-        <script type="text/javascript" src="<%=context%>\files\bower_components\popper.js\js\popper.min.js"></script>
-        <script type="text/javascript" src="<%=context%>\files\bower_components\bootstrap\js\bootstrap.min.js"></script>
+        <script type="text/javascript" src="<%=context%>\js\popper.js"></script>
+        <script type="text/javascript" src="<%=context%>\js\bootstrap.js"></script>
+        <script type="text/javascript" src="<%=context%>\js\sweetalert2.js"></script>
         <!--<script type="text/javascript" src="<%=context%>\files\assets\pages\dashboard\custom-dashboard.js"></script>-->
         <script src="<%=context%>\files\assets\js\jquery.mCustomScrollbar.concat.min.js"></script>
         <script type="text/javascript" src="<%=context%>\files\bower_components\jquery-slimscroll\js\jquery.slimscroll.js"></script>
@@ -154,10 +155,33 @@
             })();
         </script>
         <script>
+            var Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                onOpen: function (toast) {
+                    toast.addEventListener('mouseenter', Swal.stopTimer);
+                    toast.addEventListener('mouseleave', Swal.resumeTimer);
+                }
+            });
             $(document).ready(function () {
-                setTimeout(function(){
+            <s:if test="mensaje == '1'">
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Registro realizado correctamente.'
+                });
+            </s:if>
+            <s:if test="mensaje == '2'">
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Ocurrió un error, inténtalo nuevamente.'
+                });
+            </s:if>
+                setTimeout(function () {
                     document.getElementById('close').click();
-                }, 2000);
+                }, 2500);
             });
         </script>
     </body>

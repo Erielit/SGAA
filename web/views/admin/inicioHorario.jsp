@@ -168,8 +168,12 @@
     <script type="text/javascript" src="<%=context%>\files\assets\js\script.min.js"></script>
     <script type="text/javascript" src="<%=context%>\js\angular.js"></script>
     <script type="text/javascript" src="<%=context%>\js\control_admin.js"></script>
-    <script src="<%=context%>\js\datatables.js"></script>
-       <!--<script src="<%=context%>\files\bower_components\datatables.net-responsive-bs4\js\responsive.bootstrap4.min.js"></script>-->
+    <!--<script src="<%=context%>\js\datatables.js"></script>-->
+    <script src="<%=context%>\files\bower_components\datatables.net\js\jquery.dataTables.min.js"></script>
+    <script src="<%=context%>\files\bower_components\datatables.net-buttons\js\dataTables.buttons.min.js"></script>
+    <script src="<%=context%>\files\bower_components\datatables.net-bs4\js\dataTables.bootstrap4.min.js"></script>
+    <script src="<%=context%>\files\bower_components\datatables.net-responsive\js\dataTables.responsive.min.js"></script>
+    <script src="<%=context%>\files\bower_components\datatables.net-responsive-bs4\js\responsive.bootstrap4.min.js"></script>
     <script>
 
                                                                                    $(document).ready(function () {
