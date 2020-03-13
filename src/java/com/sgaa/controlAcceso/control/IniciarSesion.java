@@ -51,6 +51,10 @@ public class IniciarSesion extends ActionSupport {
                         case 4:
                             session.put("rolActivo", 4);
                             result = "tutor";
+                        case 5:
+                            session.put("rolActivo", 5);
+                            result = "coordinador";
+                            break;
                         default:
                             throw new AssertionError();
                     }

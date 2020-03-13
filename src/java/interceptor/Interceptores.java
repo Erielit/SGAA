@@ -3,6 +3,7 @@ package mx.edu.utez.interceptor;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionInvocation;
 import com.opensymphony.xwork2.interceptor.AbstractInterceptor;
+import com.sgaa.persona.bean.BeanPersona;
 
 import java.util.Map;
 
@@ -21,10 +22,11 @@ public class Interceptores extends AbstractInterceptor {
     @Override
     public String intercept(ActionInvocation ai) throws Exception {
         Map session = ActionContext.getContext().getSession();
-        System.out.println(session.get("persona"));
-        if (session.get("persona") != null) {
+        BeanPersona persona = (BeanPersona) session.get("persona");
+        if (persona == null) {
+            return "NOLOGIN";
+        } else {
             return ai.invoke();
         }
-        return "NOLOGIN";
     }
 }
