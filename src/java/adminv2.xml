@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+<struts>
+    <package name="adminv2Package" extends="struts-default,json-default">
+        <action name="inicioCarrera" >
+            <result name="success">views/carrer/inicioCarrera.jsp</result>
+            <result name="error">/index.jsp</result>
+        </action>
+        <action name="registrarCarrera" >
+            <result name="success">views/carrer/registrarCarrera.jsp</result>
+            <result name="error">/index.jsp</result>
+        </action>
+        <action name="inicioCarrerasJson" class="com.sgaa.carrera.control.ControlCarrera" method="inicioCarreras">
+            <result name="success" type="json"/>
+        </action>
+        <action name="registrarCarreraJson" class="com.sgaa.carrera.control.ControlCarrera" method="registrarCarrera">
+            <result name="success">views/carrer/inicioCarrera.jsp</result>
+        </action>
+        
+        <action name="modificarCarreraJson" class="com.sgaa.carrera.control.ControlCarrera" method="modificarCarreraJson">
+            <result name="success">views/carrer/inicioCarrera.jsp</result>
+            <result name="error">/index.jsp</result>
+        </action>
+        <action name="estadoCarrera" class="com.sgaa.carrera.control.ControlCarrera" method="estadoCarrera">
+            <result name="success">views/carrer/inicioCarrera.jsp</result>
+            <result name="error">/index.jsp</result>
+        </action>
+        <action  name="consultaIndividualCarrera" 
+                 class="com.sgaa.carrera.control.ControlCarrera"
+                 method="consultaIndividualCarrera">
+            <result name="success">views/carrer/modificarCarrera.jsp</result>
+            <result name="error">/index.jsp</result>
+        </action>
+
+        <action name="registrarMateriaJson" class="com.sgaa.materia.control.ControlMateria" method="registrarMateria">
+                <result name="success">views/subject/inicioMateria.jsp</result>
+            <result name="error">/index.jsp</result>
+        </action>
+        
+        <action name="registrarMateriaDocente" class="com.sgaa.materia_docente.control.ControlMateriaDocente" method="registrarMateriaDocente">
+                <result name="success">views/subject/inicioMateria.jsp</result>
+            <result name="error">/index.jsp</result>
+        </action>
+      
+     
+
+        <action name="inicioMateriasJson" class="com.sgaa.materia.control.ControlMateria" method="inicioMaterias">
+            <result name="success" type="json"/>
+        </action>
+        <action name="inicioDocentes" class="com.sgaa.materia.control.ControlMateria" method="inicioDocentes">
+            <result name="success" type="json"/>
+        </action>
+        
+        <action name="inicioMateria" class="com.sgaa.materia.control.ControlMateria" method="inicioMaterias" >
+            <result name="success">views/subject/inicioMateria.jsp</result>
+            <result name="error">/index.jsp</result>
+        </action>
+        
+       
+        <action name="registrarMateria" >
+            <result name="success">views/subject/registrarMateria.jsp</result>
+            <result name="error">/index.jsp</result>
+        </action>
+        <action name="modify">
+            <result name="success">views/subject/inicioMateria.jsp</result>
+        </action>
+        
+        <action name="modificarMateria" class="com.sgaa.materia.control.ControlMateria" method="modificarMateria">
+            <result name="exito">views/subject/inicioMateria.jsp</result>
+        </action>
+        
+         <action name="estadoMateria" class="com.sgaa.materia.control.ControlMateria" method="estadoMateria">
+           <result name="success">views/subject/inicioMateria.jsp</result>
+            <result name="error">/index.jsp</result>
+        </action>
+        
+        <action  name="consultaIndividualMateria" 
+                 class="com.sgaa.materia.control.ControlMateria"
+                 method="consultaIndividualMateria">
+             <result name="success">views/subject/modificarMateria.jsp</result>
+            <result name="error">/index.jsp</result>
+        </action>
+
+    </package>
+</struts>

@@ -6,6 +6,7 @@
 package com.sgaa.carrera.bean;
 
 import com.sgaa.divisionAcademica.bean.BeanDivisionAcademica;
+import com.sgaa.estado.bean.BeanEstado;
 
 /**
  *
@@ -17,8 +18,12 @@ public class BeanCarrera {
     private String siglas;
     private String descripciont;
     private BeanDivisionAcademica division;
+    private BeanEstado estado;
 
     public BeanCarrera() {
+    }
+    public BeanCarrera(String nombre) {
+         this.nombre = nombre;
     }
 
     public BeanCarrera(int id_carrera, String nombre, String siglas, String descripciont, BeanDivisionAcademica division) {
@@ -28,6 +33,25 @@ public class BeanCarrera {
         this.descripciont = descripciont;
         this.division = division;
     }
+
+    public BeanCarrera(int id_carrera, String nombre, String siglas, String descripciont, BeanDivisionAcademica division, BeanEstado estado) {
+        this.id_carrera = id_carrera;
+        this.nombre = nombre;
+        this.siglas = siglas;
+        this.descripciont = descripciont;
+        this.division = division;
+        this.estado = estado;
+    }
+
+    public BeanEstado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(BeanEstado estado) {
+        this.estado = estado;
+    }
+    
+    
 
     public BeanDivisionAcademica getDivision() {
         return division;

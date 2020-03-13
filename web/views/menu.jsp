@@ -36,6 +36,18 @@
                         <span class="pcoded-mtext">Horarios</span>
                     </a>
                 </li>
+                <li class="">
+                    <a href="inicioCarrera">
+                        <span class="pcoded-micon"><i class="feather icon-calculations"></i></span>
+                        <span class="pcoded-mtext">Carreras</span>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="inicioMateria">
+                        <span class="pcoded-micon"><i class="feather icon-book"></i></span>
+                        <span class="pcoded-mtext">Materia</span>
+                    </a>
+                </li>
             </ul>
         </s:if>
         <s:if test="#session.rolActivo == 3">

@@ -105,4 +105,5 @@
     <include file="docent.xml" />
     <include file="tutor.xml" />
     <include file="admin.xml" />   
+    <include file="adminv2.xml" />   
 </struts>

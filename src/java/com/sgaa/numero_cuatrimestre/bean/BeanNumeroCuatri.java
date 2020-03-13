@@ -20,6 +20,10 @@ public class BeanNumeroCuatri {
         this.id_numero_cuatri = id_numero_cuatri;
         this.numero = numero;
     }
+    public BeanNumeroCuatri( int numero) {
+        
+        this.numero = numero;
+    }
 
     public int getNumero() {
         return numero;
