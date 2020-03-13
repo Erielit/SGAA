@@ -18,6 +18,7 @@
         <!-- Required Fremwork -->
         <link rel="stylesheet" type="text/css" href="<%=context%>/css/bootstrap.css"/>
         <link rel="stylesheet" type="text/css" href="<%=context%>/css/sweetalert2.css">
+        <link rel="stylesheet" type="text/css" href="<%=context%>\files\assets\pages\list-scroll\list.css"/>
         <!-- themify-icons line icon -->
         <link rel="stylesheet" type="text/css" href="<%=context%>\files\assets\icon\themify-icons\themify-icons.css"/>
         <!-- ico font -->
@@ -33,8 +34,9 @@
         <link rel="stylesheet" type="text/css" href="<%=context%>\files\assets\css\style.css"/>
         <!-- Sidebar -->
         <link rel="stylesheet" type="text/css" href="<%=context%>\files\assets\css\jquery.mCustomScrollbar.css"/>
+
     </head>
-    <body>
+    <body ng-app="docent-app" ng-controller="buscarEstudiantes">
         <!-- Pre-loader start -->
         <div class="theme-loader">
             <div class="ball-scale">
@@ -92,6 +94,14 @@
                                                     <s:hidden id="idCourse" value="%{respuesta.idCourse}"/>
                                                 </div>
                                                 <div class="card-block">
+                                                    <div class="row">
+                                                        <div class="col-lg-12 text-right">
+                                                            <button class="btn btn-success" data-toggle="modal" data-target="#agregar-participante">
+                                                                <i class=""></i> Agregar participante
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <br/>
                                                     <div class="table-responsive dt-responsive">
                                                         <table id="dt-ajax-array" class="table compact table-striped table-bordered nowrap">
                                                             <thead>
@@ -140,14 +150,65 @@
                     </div>
                 </div>       
             </div>
-
+            <div class="modal fade" id="agregar-participante" tabindex="-1" role="dialog">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Agregar estudiante</h4>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <label>Matrícula: </label><br/>
+                                    <input hidden="" type="text" value="<s:property value="%{respuesta.idCourse}"/>" id="course" />
+                                    <input class="form-control col-md-6" type="text" ng-change="obtenerEstudiantes(bean)" ng-model="bean.matricula"/><br/>
+                                    <div class="row">
+                                        <div class="col-md-6 col-lg-4" ng-show="loading">
+                                            <div class="preloader3 loader-block">
+                                                <div class="circ1"></div>
+                                                <div class="circ2"></div>
+                                                <div class="circ3"></div>
+                                                <div class="circ4"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-12" ng-show="!loading">
+                                            <div ng-repeat="estudiante in estudiantes" class="row" style="margin: 4px;border-top: 1px solid #d1d1d1; border-bottom: 1px solid #d1d1d1; ">
+                                                <div class="col-sm-6">
+                                                    <label>{{estudiante.matricula}} {{estudiante.nombre + ' ' + estudiante.primer_apellido + ' ' + estudiante.segundo_apellido}} <span>{{estudiante.fecha_nacimiento}}</span></label>
+                                                </div>
+                                                <div class="col-sm-6 text-center" >
+                                                    <input type="hidden" ng-value="estudiante.id_estudiante" id="estudiante" />
+                                                    <button class="btn" id="btnAsignar" onclick="deshabilitar(this)" ng-click="asignarEstudiante(bean)"><i class="ti-plus"></i></button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default waves-effect " data-dismiss="modal">Cerrar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <form method="post" action="<%=context%>/estudiantesAsesoria" id="recargar">
+                <s:hidden name="param_integer" value="%{respuesta.idCourse}"/>
+            </form>
             <script type="text/javascript" src="<%=context%>\files\bower_components\jquery\js\jquery.min.js"></script>
             <script type="text/javascript" src="<%=context%>\js\popper.js"></script>
             <script type="text/javascript" src="<%=context%>\js\bootstrap.js"></script>
             <script type="text/javascript" src="<%=context%>\js\sweetalert2.js"></script>
-
+            <script type="text/javascript" src="<%=context%>\js\angular.js"></script>
+            <script src="<%=context%>/js/control_docente.js"></script>
 <!--<script type="text/javascript" src="<%=context%>\files\assets\pages\dashboard\custom-dashboard.js"></script>-->
-
+            <script src="<%=context%>\files\bower_components\stroll\js\stroll.js"></script>
+            <script type="text/javascript" src="<%=context%>\files\assets\pages\list-scroll\list-custom.js"></script>
             <script type="text/javascript" src="<%=context%>\files\bower_components\jquery-slimscroll\js\jquery.slimscroll.js"></script>
             <!-- Callendar-->
             <script src='<%=context%>\packages\core\main.js'></script>
@@ -166,7 +227,12 @@
             <!-- >Modal <-->
                <!--<script src="<%=context%>\files\bower_components\datatables.net-responsive-bs4\js\responsive.bootstrap4.min.js"></script>-->
             <script>
-
+                                                                $("#agregar-participante").on("hidden.bs.modal", function () {
+                                                                    $("#recargar").submit();
+                                                                });
+                                                                function deshabilitar(e) {
+                                                                    $("#"+e.id).attr("disabled","disabled");
+                                                                }
                                                                                                 (function () {
                                                                                                     'use strict';
                                                                                                     window.addEventListener('load', function () {

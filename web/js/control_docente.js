@@ -28,24 +28,45 @@ app.controller('buscarEstudiantes', function ($scope, $http) {
     $scope.obtenerEstudiantes = function (bean) {
         $scope.loading = true;
         bean.asesoria = document.getElementById('course').value;
-        console.log(bean);
         $http({
             method: 'post',
             url: raiz + 'obtenerEstudiantesSearch',
             data: "datos=" + bean.matricula + "&param_integer=" + bean.asesoria
         }).then(function (response) {
-            console.log(response.data);
             $scope.estudiantes = response.data.respuesta.estudiantes;
             $scope.loading = false;
         });
     };
+    $scope.asignarEstudiante = function (e) {
+        e.asesoria = document.getElementById("course").value;
+        e.estudiante = document.getElementById("estudiante").value;
+        console.log(e);
+        $http({
+            method: 'post',
+            url: raiz + 'asignarEstudianteAsesoria',
+            data: "datos=" + e.asesoria + "&param_integer=" + e.estudiante
+        }).then(function (response) {
+            var mensaje = response.data.respuesta.mensaje;
+            if (mensaje === "1") {
+                Toast.fire({
+                    icon: 'success',
+                    text: mensaje1
+                });
+            } else if (mensaje === "2") {
+                Toast.fire({
+                    icon: 'error',
+                    text: mensaje2
+                });
+            }
+        });
+    };
+
 });
 
 app.controller('asesorias', function ($scope, $http) {
     $http.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=utf-8';
 
     $scope.aceptarAsesoria = function (id) {
-        console.log(id);
         swalWithBootstrapButtons.fire({
             title: 'Aceptar asesoria',
             text: "Confirmar para continuar la acción.",
@@ -79,7 +100,6 @@ app.controller('asesorias', function ($scope, $http) {
     };
 
     $scope.rechazarAsesoria = function (id) {
-        console.log(id);
         swalWithBootstrapButtons.fire({
             title: 'Rechazar asesoria',
             text: "Confirmar para continuar la acción.",
