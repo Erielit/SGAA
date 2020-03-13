@@ -24,6 +24,10 @@ public class BeanEstado {
         this.id_estado = id_estado;
     }
 
+    public BeanEstado(int id_estado) {
+        this.id_estado = id_estado;
+    }
+
     public String getEstado() {
         return estado;
     }

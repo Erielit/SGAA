@@ -35,6 +35,20 @@
                         <span class="pcoded-micon"><i class="feather icon-calendar"></i></span>
                         <span class="pcoded-mtext">Horarios</span>
                     </a>
+                    <a href="list-grupos">
+                        <span class="pcoded-micon"><i class="feather icon-users"></i></span>
+                        <span class="pcoded-mtext">Grupos</span>
+                    </a>
+                    <a href="list-docentes">
+                        <span class="pcoded-micon"><i class="feather icon-user"></i></span>
+                        <span class="pcoded-mtext">Docentes</span>
+                    </a>
+                </li>
+                <li class="">
+                    <a href="<%=context%>/inicioPeriodos">
+                        <span class="pcoded-micon"><i class="feather icon-clock"></i></span>
+                        <span class="pcoded-mtext">Periodos</span>
+                    </a>
                 </li>
                 <li class="">
                     <a href="inicioCarrera">

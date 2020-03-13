@@ -21,9 +21,11 @@ function paseLista(idStudent) {
         success: function (r) {
             if (checked == 1) {
                 document.getElementById("radio").className = 'btn btn-success';
+                document.getElementById("icon").className = 'ti-check';
                 document.getElementById("btnAttendance" + idStudent).value = 1;
             } else {
                 document.getElementById("radio").className = 'btn btn-danger';
+                document.getElementById("icon").className = 'ti-close';
                 document.getElementById("btnAttendance" + idStudent).value = 0;
             }
         },

@@ -8,11 +8,11 @@ package com.sgaa.grupo.bean;
 import com.sgaa.carrera.bean.BeanCarrera;
 import com.sgaa.cuatrimestre.bean.BeanCuatrimestre;
 import com.sgaa.docente.bean.BeanDocente;
+import com.sgaa.estado.bean.BeanEstado;
 import com.sgaa.letra.bean.BeanLetra;
 import com.sgaa.numero_cuatrimestre.bean.BeanNumeroCuatri;
 
 /**
- *
  * @author netmo
  */
 public class BeanGrupo {
@@ -24,6 +24,7 @@ public class BeanGrupo {
     private BeanCuatrimestre cuatrimestre;
     private String fecha_registro;
     private BeanCarrera carrera;
+    private BeanEstado estado;
 
     public BeanGrupo() {
     }
@@ -36,6 +37,14 @@ public class BeanGrupo {
         this.cuatrimestre = cuatrimestre;
         this.fecha_registro = fecha_registro;
         this.carrera = carrera;
+    }
+
+    public BeanEstado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(BeanEstado estado) {
+        this.estado = estado;
     }
 
     public String getFecha_registro() {
@@ -92,6 +101,20 @@ public class BeanGrupo {
 
     public void setCarrera(BeanCarrera carrera) {
         this.carrera = carrera;
+    }
+
+    @Override
+    public String toString() {
+        return "BeanGrupo{" +
+                "id_grupo=" + id_grupo +
+                ", numero_cuatri=" + numero_cuatri +
+                ", letra=" + letra +
+                ", docente=" + docente +
+                ", cuatrimestre=" + cuatrimestre +
+                ", fecha_registro='" + fecha_registro + '\'' +
+                ", carrera=" + carrera +
+                ", estado=" + estado +
+                '}';
     }
 
 }

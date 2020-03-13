@@ -5,6 +5,7 @@
  */
 package com.sgaa.persona.bean;
 
+import com.sgaa.estado.bean.BeanEstado;
 import com.sgaa.genero.bean.BeanGenero;
 import com.sgaa.usuario.bean.BeanUsuario;
 
@@ -21,6 +22,7 @@ public class BeanPersona {
     private String fecha_nacimiento;
     private BeanGenero genero;
     private BeanUsuario usuario;
+    private BeanEstado estado;
 
     public BeanPersona() {
     }
@@ -99,6 +101,12 @@ public class BeanPersona {
     public void setGenero(BeanGenero genero) {
         this.genero = genero;
     }
-    
-    
+
+    public BeanEstado getEstado() {
+        return estado;
+    }
+
+    public void setEstado(BeanEstado estado) {
+        this.estado = estado;
+    }
 }

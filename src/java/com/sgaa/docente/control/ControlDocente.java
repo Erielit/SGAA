@@ -45,7 +45,7 @@ public class ControlDocente extends ActionSupport {
         if (persona == null) {
             return "NOLOGIN";
         }
-        System.out.println(persona.getId_persona());
+        
         beanDocente = daoDocente.getInfoDocent(persona.getId_persona());
         session.put("docent", beanDocente);
 
@@ -77,7 +77,7 @@ public class ControlDocente extends ActionSupport {
         if (listCourses.size() > 0) {
             respuesta.put("listCourses", listCourses);
         } else {
-            respuesta.put("mensaje", "Sin asesorías canceladas o rechazadas.");
+            respuesta.put("mensaje", "Sin asesorías completadas, canceladas o rechazadas.");
         }
         return SUCCESS;
     }
@@ -180,6 +180,7 @@ public class ControlDocente extends ActionSupport {
         respuesta.put("listStudents", listEstudiantes);
         respuesta.put("idCourse", param_integer);
 
+        System.out.println("listEstudiantes" + listEstudiantes.size());
         String courseDate = listEstudiantes.get(0).getBeanAsesoriaEstudiante().getDate();
         Calendar c = Calendar.getInstance();
 
@@ -212,6 +213,25 @@ public class ControlDocente extends ActionSupport {
             }
         } catch (JSONException ex) {
             Logger.getLogger(ControlDocente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return SUCCESS;
+    }
+
+    public String obtenerEstudiantesSearch() {
+        DaoDocente dao = new DaoDocente();
+        List<BeanEstudiante> estudiantes = dao.obtenerEstudiantes(datos, param_integer);
+        respuesta = new HashMap();
+        respuesta.put("estudiantes", estudiantes);
+        return SUCCESS;
+    }
+
+    public String asignarEstudianteAsesoria() {
+        DaoDocente dao = new DaoDocente();
+        respuesta = new HashMap();
+        if (dao.asignarEstudiante(param_integer, Integer.parseInt(datos))) {
+            respuesta.put("mensaje", "1");
+        } else {
+            respuesta.put("mensaje", "2");
         }
         return SUCCESS;
     }

@@ -5,15 +5,27 @@
         "http://struts.apache.org/dtds/struts-2.5.dtd">
 <struts>
     
-    <package name="adminPackage" extends="struts-default,json-default">
+    <package name="adminPackage" extends="struts-default,json-default,packInterceptor">
         <action name="inicioAdmin" > 
             <result name="success">views/admin/inicioAdmin.jsp</result>
         </action>
         <action name="list-horarios" class="com.sgaa.admin.ControlAdmin" method="inicioHorario"> 
             <result name="success">views/admin/inicioHorario.jsp</result>
         </action>
-        <action name="horario"> 
+        <action name="list-grupos" class="com.sgaa.admin.ControlAdmin" method="inicioGrupo">
+            <result name="success">views/admin/inicioGrupo.jsp</result>
+        </action>
+        <action name="list-docentes" class="com.sgaa.admin.ControlAdmin" method="inicioDocente">
+            <result name="success">/views/admin/inicioDocentes.jsp</result>
+        </action>
+        <action name="horario">
             <result name="success">views/admin/horario/registrarHorario.jsp</result>
+        </action>
+        <action name="grupo"  class="com.sgaa.admin.ControlAdmin" method="prepararRegistrarGrupo">
+            <result name="success">views/admin/grupo/registrarGrupo.jsp</result>
+        </action>
+        <action name="docente"  class="com.sgaa.admin.ControlAdmin" method="prepararRegistrarDocente">
+            <result name="success">views/admin/docente/registrarDocente.jsp</result>
         </action>
         <action name="registrar-horario" class="com.sgaa.admin.ControlAdmin" method="registrarHorario">
             <result name="success" type="redirectAction">
@@ -21,9 +33,60 @@
                 <param name="mensaje">${respuesta.mensaje}</param>
             </result>
         </action>
+        <action name="registrar-grupo" class="com.sgaa.admin.ControlAdmin" method="registrarGrupo">
+            <result name="success" type="redirectAction">
+                <param name="actionName">list-grupos</param>
+                <param name="mensaje">${respuesta.mensaje}</param>
+            </result>
+        </action>
+        <action name="registrar-docente" class="com.sgaa.admin.ControlAdmin" method="registrarDocente">
+            <result name="success" type="redirectAction">
+                <param name="actionName">list-docentes</param>
+                <param name="mensaje">${respuesta.mensaje}</param>
+            </result>
+        </action>
+        <action name="modificar-grupo" class="com.sgaa.admin.ControlAdmin" method="modificarGrupo">
+            <result name="success" type="redirectAction">
+                <param name="actionName">list-grupos</param>
+                <param name="mensaje">${respuesta.mensaje}</param>
+            </result>
+        </action>
         <action name="cambiar-estado-horario" class="com.sgaa.admin.ControlAdmin" method="cambiarEstado">
             <result name="success" type="redirectAction">
                 <param name="actionName">list-horarios</param>
+                <param name="mensaje">${respuesta.mensaje}</param>
+            </result>
+        </action>
+        <action name="inicioPeriodos" class="com.sgaa.admin.ControlAdmin" method="inicioPeriodos">
+            <result name="success">views/admin/periodo/inicioPeriodo.jsp</result>
+        </action>
+        <action name="vistaPeriodo" class="com.sgaa.admin.ControlAdmin">
+            <result>views/admin/periodo/nuevoPeriodo.jsp</result>
+        </action>
+        <action name="registrarPeriodo" class="com.sgaa.admin.ControlAdmin" method="registrarPeriodo">
+            <result type="json"></result>
+        </action>
+        <action name="modificarEstado" class="com.sgaa.admin.ControlAdmin" method="modificarEstado">
+            <result type="json"></result>
+        </action>
+        <action name="infoPeriodo" class="com.sgaa.admin.ControlAdmin" method="infoPeriodo">
+            <result name="success">views/admin/periodo/infoPeriodo.jsp</result>
+        </action>
+        <action name="infoGrupo" class="com.sgaa.admin.ControlAdmin" method="infoGrupo">
+            <result name="success">views/admin/grupo/modificarGrupo.jsp</result>
+        </action>
+        <action name="modificarPeriodo" class="com.sgaa.admin.ControlAdmin" method="modificarPeriodo">
+            <result type="json"></result>
+        </action>
+        <action name="cambiar-estado-grupo" class="com.sgaa.admin.ControlAdmin" method="cambiarEstadoGrupo">
+            <result name="success" type="redirectAction">
+                <param name="actionName">list-grupos</param>
+                <param name="mensaje">${respuesta.mensaje}</param>
+            </result>
+        </action>
+        <action name="cambiar-estado-docente" class="com.sgaa.admin.ControlAdmin" method="cambiarEstadoDocente">
+            <result name="success" type="redirectAction">
+                <param name="actionName">list-docentes</param>
                 <param name="mensaje">${respuesta.mensaje}</param>
             </result>
         </action>

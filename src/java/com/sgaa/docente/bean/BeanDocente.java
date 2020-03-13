@@ -29,6 +29,10 @@ public class BeanDocente extends BeanPersona{
         this.desc = desc;
     }
 
+    public BeanDocente(int id_docent) {
+        this.id_docent = id_docent;
+    }
+
     public String getDesc() {
         return desc;
     }

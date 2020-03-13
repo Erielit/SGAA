@@ -29,6 +29,10 @@ public class BeanCuatrimestre {
         this.estado = estado;
     }
 
+    public BeanCuatrimestre(int id_cuatrimestre) {
+        this.id_cuatrimestre = id_cuatrimestre;
+    }
+
     public BeanEstado getEstado() {
         return estado;
     }

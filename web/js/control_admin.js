@@ -27,7 +27,8 @@ app.controller('administrador', function ($scope, $http) {
 
     $scope.confirmar = function () {
         swalWithBootstrapButtons.fire({
-            title: 'Registrar Horario',
+            title: '' +
+                'Registrar Horario',
             text: "Confirmar para continuar la acción.",
             icon: 'warning',
             showCancelButton: true,
@@ -40,9 +41,87 @@ app.controller('administrador', function ($scope, $http) {
         });
     };
 
+    $scope.confirmarGrupo = function () {
+        swalWithBootstrapButtons.fire({
+            title: 'Registrar grupo',
+            text: "Confirmar para continuar la acción.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Aceptar',
+            cancelButtonText: 'Cancelar'
+        }).then(function (result) {
+            console.log("Result" + result.value);
+            if (result.value) {
+                $("#registrar-grupo").submit();
+            }
+        });
+    };
+
+    $scope.confirmarDocente = function () {
+        swalWithBootstrapButtons.fire({
+            title: 'Registrar docente',
+            text: "Confirmar para continuar la acción.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Aceptar',
+            cancelButtonText: 'Cancelar'
+        }).then(function (result) {
+            console.log("Result" + result.value);
+            if (result.value) {
+                $("#registrar-docente").submit();
+            }
+        });
+    };
+
+    $scope.confirmarGrupoModificar = function () {
+        swalWithBootstrapButtons.fire({
+            title: 'Modificar grupo',
+            text: "Confirmar para continuar la acción.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Aceptar',
+            cancelButtonText: 'Cancelar'
+        }).then(function (result) {
+            console.log("Result" + result.value);
+            if (result.value) {
+                $("#modificar-grupo").submit();
+            }
+        });
+    };
+
     $scope.confirmarEstado = function (form) {
         swalWithBootstrapButtons.fire({
             title: 'Estado Horario',
+            text: "Confirmar para continuar la acción.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Aceptar',
+            cancelButtonText: 'Cancelar'
+        }).then(function (result) {
+            if (result.value) {
+                $('#' + form).submit();
+            }
+        });
+    };
+
+    $scope.confirmarGrupoCambio = function (form) {
+        swalWithBootstrapButtons.fire({
+            title: 'Estado Grupo',
+            text: "Confirmar para continuar la acción.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Aceptar',
+            cancelButtonText: 'Cancelar'
+        }).then(function (result) {
+            if (result.value) {
+                $('#' + form).submit();
+            }
+        });
+    };
+
+    $scope.confirmarDocenteCambio = function (form) {
+        swalWithBootstrapButtons.fire({
+            title: 'Estado Docente',
             text: "Confirmar para continuar la acción.",
             icon: 'warning',
             showCancelButton: true,

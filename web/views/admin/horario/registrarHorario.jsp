@@ -16,7 +16,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>SGAA | Horario</title>
         <!-- Required Fremwork -->
-        <link rel="stylesheet" type="text/css" href="<%=context%>/css/bootstrap.css"/>
+        <link rel="stylesheet" type="text/css" href="<%=context%>\files\bower_components\bootstrap\css\bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href="<%=context%>/css/sweetalert2.css">
 
         <!-- themify-icons line icon -->
@@ -34,7 +34,9 @@
         <link rel="stylesheet" type="text/css" href="<%=context%>\files\assets\css\style.css"/>
         <!-- Sidebar -->
         <link rel="stylesheet" type="text/css" href="<%=context%>\files\assets\css\jquery.mCustomScrollbar.css"/>
-        <link rel="stylesheet" type="text/css" href="<%=context%>/css/datatables.css">
+        <link rel="stylesheet" type="text/css" href="<%=context%>\files\bower_components\datatables.net-bs4\css\dataTables.bootstrap4.min.css">
+        <link rel="stylesheet" type="text/css" href="<%=context%>\files\assets\pages\data-table\css\buttons.dataTables.min.css">
+        <link rel="stylesheet" type="text/css" href="<%=context%>\files\bower_components\datatables.net-responsive-bs4\css\responsive.bootstrap4.min.css">
     </head>
     <body >
         <!-- Pre-loader start -->
@@ -78,11 +80,11 @@
         <div id="pcoded" class="pcoded">
             <div class="pcoded-overlay-box"></div>
             <div class="pcoded-container navbar-wrapper">
-                <jsp:include page="../../header.jsp"/>
+                <jsp:include page="<%=context%>/<%=context%>/header.jsp"/>
                 <!-- Sidebar inner chat end-->
                 <div class="pcoded-main-container">
                     <div class="pcoded-wrapper">
-                        <jsp:include page="../../menu.jsp"/>
+                        <jsp:include page="<%=context%>/<%=context%>/menu.jsp"/>
                         <div class="pcoded-content" ng-app="docent-app">
                             <div class="pcoded-inner-content"  ng-controller="administrador">
                                 <div class="main-body">
@@ -99,7 +101,7 @@
                                                                 <div class="form-group">
                                                                     <label>Hora inicial</label>
                                                                     <select name="horario.hora_inicio" required="" class="form-control" >
-                                                                        <option value="">Selecciona...</option>
+                                                                        <option value="">Selecciona<%=context%>.</option>
                                                                         <option value="13:00:00">13:00</option>
                                                                         <option value="14:00:00">14:00</option>
                                                                         <option value="15:00:00">15:00</option>
@@ -111,7 +113,7 @@
                                                                 <div class="form-group">
                                                                     <label>Hora final</label>
                                                                     <select name="params" required="" class="form-control" >
-                                                                        <option value="">Selecciona...</option>
+                                                                        <option value="">Selecciona<%=context%>.</option>
                                                                         <option value="14:00:00">14:00</option>
                                                                         <option value="15:00:00">15:00</option>
                                                                         <option value="16:00:00">16:00</option>
@@ -159,53 +161,53 @@
     <script type="text/javascript" src="<%=context%>\js\angular.js"></script>
     <script type="text/javascript" src="<%=context%>\js\control_admin.js"></script>
     <script src="<%=context%>\js\datatables.js"></script>
-       <!--<script src="<%=context%>\files\bower_components\datatables.net-responsive-bs4\js\responsive.bootstrap4.min.js"></script>-->
+    <!--<script src="<%=context%>\files\bower_components\datatables.net\js\jquery.dataTables.min.js"></script>-->
     <script>
-                                $(document).ready(function () {
-                                    $("#simpletable").DataTable({
-                                        "language": {
-                                            "sProcessing": "Procesando...",
-                                            "sLengthMenu": "Mostrar _MENU_ registros",
-                                            "sZeroRecords": "No se encontraron resultados",
-                                            "sEmptyTable": "Ningún dato disponible en esta tabla",
-                                            "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
-                                            "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
-                                            "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                                            "sInfoPostFix": "",
-                                            "sSearch": "Buscar:",
-                                            "sUrl": "",
-                                            "sInfoThousands": ",",
-                                            "sLoadingRecords": "Cargando...",
-                                            "oPaginate": {
-                                                "sFirst": "Primero",
-                                                "sLast": "Último",
-                                                "sNext": "Siguiente",
-                                                "sPrevious": "Anterior"
-                                            },
-                                            "oAria": {
-                                                "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                                                "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                                            }
-                                        }
-                                    });
-                                });
-                                (function () {
-                                    'use strict';
-                                    window.addEventListener('load', function () {
-                                        // Fetch all the forms we want to apply custom Bootstrap validation styles to
-                                        var forms = document.getElementsByClassName('needs-validation');
-                                        // Loop over them and prevent submission
-                                        var validation = Array.prototype.filter.call(forms, function (form) {
-                                            form.addEventListener('change', function (event) {
-                                                if (form.checkValidity() === false) {
-                                                    event.preventDefault();
-                                                    event.stopPropagation();
-                                                }
-                                                form.classList.add('was-validated');
-                                            }, false);
-                                        });
-                                    }, false);
-                                })();
+                                                                    $(document).ready(function () {
+                                                                        $("#simpletable").DataTable({
+                                                                            "language": {
+                                                                                "sProcessing": "Procesando...",
+                                                                                "sLengthMenu": "Mostrar _MENU_ registros",
+                                                                                "sZeroRecords": "No se encontraron resultados",
+                                                                                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                                                                                "sInfo": "Mostrando registros del _START_ al _END_ de un total de _TOTAL_ registros",
+                                                                                "sInfoEmpty": "Mostrando registros del 0 al 0 de un total de 0 registros",
+                                                                                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                                                                                "sInfoPostFix": "",
+                                                                                "sSearch": "Buscar:",
+                                                                                "sUrl": "",
+                                                                                "sInfoThousands": ",",
+                                                                                "sLoadingRecords": "Cargando...",
+                                                                                "oPaginate": {
+                                                                                    "sFirst": "Primero",
+                                                                                    "sLast": "Último",
+                                                                                    "sNext": "Siguiente",
+                                                                                    "sPrevious": "Anterior"
+                                                                                },
+                                                                                "oAria": {
+                                                                                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                                                                                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                                                                                }
+                                                                            }
+                                                                        });
+                                                                    });
+                                                                    (function () {
+                                                                        'use strict';
+                                                                        window.addEventListener('load', function () {
+                                                                            // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                                                                            var forms = document.getElementsByClassName('needs-validation');
+                                                                            // Loop over them and prevent submission
+                                                                            var validation = Array.prototype.filter.call(forms, function (form) {
+                                                                                form.addEventListener('change', function (event) {
+                                                                                    if (form.checkValidity() === false) {
+                                                                                        event.preventDefault();
+                                                                                        event.stopPropagation();
+                                                                                    }
+                                                                                    form.classList.add('was-validated');
+                                                                                }, false);
+                                                                            });
+                                                                        }, false);
+                                                                    })();
     </script>
 </body>
 </html>

@@ -16,6 +16,10 @@ public class BeanGenero {
     public BeanGenero() {
     }
 
+    public BeanGenero(int id_genero) {
+        this.id_genero = id_genero;
+    }
+
     public BeanGenero(int id_genero, String genero) {
         this.id_genero = id_genero;
         this.genero = genero;
