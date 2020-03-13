@@ -13,12 +13,18 @@
             <result name="docente" type="redirectAction">
                 <param name="actionName">inicioDocente</param>
             </result>
+            <result name="coordinador" type="redirectAction">
+                <param name="actionName">inicio-coordinador</param>
+            </result>
             <result name="tutor" type="redirectAction">
                 <param name="actionName">inicioTutor</param>
             </result>
             <result name="error">/index.jsp</result>
         </action>
         <action name="cerrar-sesion" class="com.sgaa.controlAcceso.control.IniciarSesion" method="cerrarSesion">
+            <result name="success">/index.jsp</result>
+        </action>
+        <action name="index">
             <result name="success">/index.jsp</result>
         </action>
     </package>

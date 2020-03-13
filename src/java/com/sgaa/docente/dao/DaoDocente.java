@@ -182,6 +182,49 @@ public class DaoDocente {
         return canalized;
     }
 
+    public List<BeanEstudiante> obtenerEstudiantes(String matricula, int asesoria) {
+        List<BeanEstudiante> listaEstudiantes = new ArrayList<>();
+        BeanEstudiante beanEstudiante = null;
+        try {
+            con = SQLConnection.getConnection();
+            cstm = con.prepareCall("{call sp_list_students(?,?)}");
+            cstm.setString(1, matricula);
+            cstm.setInt(2, asesoria);
+            rs = cstm.executeQuery();
+            while (rs.next()) {
+                beanEstudiante = new BeanEstudiante();
+                beanEstudiante.setId_estudiante(rs.getInt("id_student"));
+                beanEstudiante.setNombre(rs.getString("name"));
+                beanEstudiante.setPrimer_apellido(rs.getString("last_name"));
+                beanEstudiante.setSegundo_apellido(rs.getString("second_last_name"));
+                beanEstudiante.setMatricula(rs.getString("matricula"));
+                beanEstudiante.setFecha_nacimiento(rs.getString("grupo"));
+                listaEstudiantes.add(beanEstudiante);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error en el método getListStudents " + e.getMessage());
+        } finally {
+            cerrarConexiones();
+        }
+        return listaEstudiantes;
+    }
+
+    public boolean asignarEstudiante(int estudiante, int asesoria) {
+        boolean result = false;
+        try {
+            con = SQLConnection.getConnection();
+            cstm = con.prepareCall("{call sp_add_student_course(?,?)}");
+            cstm.setInt(1, estudiante);
+            cstm.setInt(2, asesoria);
+            result = cstm.executeUpdate() == 1;
+        } catch (SQLException e) {
+            System.out.println("Error en el metodo asignarEstudiante " + e.getMessage());
+        } finally {
+            cerrarConexiones();
+        }
+        return result;
+    }
+
     public void cerrarConexiones() {
         try {
             if (con != null) {

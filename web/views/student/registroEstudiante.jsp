@@ -33,7 +33,7 @@
         <link rel="stylesheet" type="text/css" href="<%=context%>\files\bower_components\jquery.steps\css\jquery.steps.css"/>
         <link rel="stylesheet" type="text/css" href="<%=context%>\files\bower_components\datedropper\css\datedropper.min.css">
     </head>
-    <body class="fix-menu">
+    <body class="fix-menu" ng-app="my-app" ng-controller="registroEstudiante">
         <!-- Pre-loader start -->
         <div class="theme-loader">
             <div class="ball-scale">
@@ -58,21 +58,20 @@
                 <div class="row">
                     <div class="col-sm-8 offset-2">
                         <div class="card">
-                            <div class="card-header">
-                                <h5>Registrarse</h5>
-                            </div>
-                            <div class="card-block">
+                            <div class="card-block" >
                                 <div class="row">
                                     <div class="col-md-12">
                                         <div id="wizard3">
                                             <section>
-                                                <form class="wizard-form" id="design-wizard" action="#">
+                                                <form class="needs-validation" name="formRegistrarse" id="design-wizard" action="<%=context%>/registrarse" method="post"
+                                                      oninput='params.setCustomValidity(params.value != confirm.value ? "Las contraseñas no coinciden." : "")'>
                                                     <h3></h3>
                                                     <fieldset>
+                                                        <h4>Datos personales</h4><br/>
                                                         <div class="form-row form-group">
                                                             <div class="col-md-4">
                                                                 <label>Nombre: </label><br/>
-                                                                <input name="nombre" class="form-control" required="">  
+                                                                <input name="nombre" ng-required="true" class="form-control" required="">  
                                                             </div>
                                                             <div class="col-md-4">
                                                                 <label>Primer apellido: </label><br/>
@@ -86,11 +85,11 @@
                                                         <div class="form-row form-group">
                                                             <div class="col-md-4">
                                                                 <label>Curp: </label><br/>
-                                                                <input name="curp" class="form-control" required="">
+                                                                <input name="curp" style="text-transform: uppercase" class="form-control" required="">
                                                             </div>
                                                             <div class="col-md-4">
                                                                 <label>Fecha de nacimiento: </label><br/>
-                                                                <input name="fecha_nacimiento" required="" id="dropper-default" class="form-control">
+                                                                <input name="fecha_nacimiento" type="date" required="" id="dropper-default" class="form-control">
                                                             </div>
                                                             <div class="col-md-4">
                                                                 <label>Género: </label><br/>
@@ -103,12 +102,61 @@
                                                     </fieldset>
                                                     <h3></h3>
                                                     <fieldset>
-                                                        
+                                                        <h4>Datos académicos</h4><br/>
+                                                        <div class="form-row form-group">
+                                                            <div class="col-md-12">
+                                                                <label>Carrera </label><br/>
+                                                                <select name="carrera" required="" ng-model="carrera" ng-change="carreraChange(carrera)"
+                                                                        class="custom-select">
+                                                                    <option value="">Selecciona...</option>
+                                                                    <s:iterator value="respuesta.carreras" status="po">
+                                                                        <option value="<s:property value="id_carrera"/>"><s:property value="nombre"/></option> 
+                                                                    </s:iterator>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group form-row">
+                                                            <div class="col-md-6">
+                                                                <label>Matrícula: </label><br/>
+                                                                <input name="matricula" type="text" class="form-control" required="">  
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <label>Grupo: </label><br/>
+                                                                <select class="custom-select" name="grupo" required="">
+                                                                    <option value="">Selecciona...</option>
+                                                                    <option ng-repeat="grupo in grupos" value="{{grupo.id_grupo}}">{{grupo.numero_cuatri.numero + " " + grupo.letra.letra}}</option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
                                                     </fieldset>
                                                     <h3></h3>
                                                     <fieldset>
+                                                        <h4>Datos de sesión</h4><br/>
+                                                        <div class="form-row form-group">
+                                                            <div class="col-md-4">
+                                                                <label>Correo institucional: </label><br/>
+                                                                <input name="email" type="email" class="form-control" ng-model="correo" required="">  
+                                                            </div><br/>
+                                                            <br/>
+                                                            <div class="col-md-4">
+                                                                <label>Contraseña: </label><br/>
+                                                                <input name="params" maxlength="15" ng-model="contrasenia" type="password" class="form-control" required="">  
+                                                            </div><br/><br/>
+                                                            <div class="col-md-4">
+                                                                <label>Confirmar contraseña:  </label><br/>
+                                                                <input name="confirm" maxlength="15" type="password" ng-model="confirm" class="form-control" required="">  
+                                                            </div>
+                                                            <div>
 
+                                                            </div>
+                                                        </div>
                                                     </fieldset>
+                                                    <div class="row">
+                                                        <div class="col text-right">
+                                                            <a href="index" class="btn btn-danger">Cancelar</a>
+                                                            <button type="button" class="btn btn-success" ng-disabled="formRegistrarse.$invalid" ng-click="confirmarRegistro()">Registrarse</button>
+                                                        </div>
+                                                    </div>
                                                 </form>
                                             </section>
                                         </div>
@@ -116,77 +164,6 @@
                                 </div>
                             </div>
                         </div>
-                        <!--                        <form class="md-float-material form-material">
-                                                    <div class="text-center">
-                        
-                                                    </div>
-                                                    <div class="auth-box card">
-                                                        <div class="card-block">
-                                                            <div class="row m-b-20">
-                                                                <div class="col-md-12 text-center">
-                                                                    <img src="<%=context%>\images\datic.png" class="" width="250px" alt="logo.png">
-                                                                </div>
-                                                            </div>
-                                                            <div class="form-group form-primary">
-                                                                <input type="text" name="user-name" class="form-control" required="" placeholder="Choose Username">
-                                                                    <span class="form-bar"></span>
-                                                            </div>
-                                                            <div class="form-group form-primary">
-                                                                <input type="text" name="email" class="form-control" required="" placeholder="Your Email Address">
-                                                                    <span class="form-bar"></span>
-                                                            </div>
-                                                            <div class="row">
-                                                                <div class="col-sm-6">
-                                                                    <div class="form-group form-primary">
-                                                                        <input type="password" name="password" class="form-control" required="" placeholder="Password">
-                                                                            <span class="form-bar"></span>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-sm-6">
-                                                                    <div class="form-group form-primary">
-                                                                        <input type="password" name="confirm-password" class="form-control" required="" placeholder="Confirm Password">
-                                                                            <span class="form-bar"></span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row m-t-25 text-left">
-                                                                <div class="col-md-12">
-                                                                    <div class="checkbox-fade fade-in-primary">
-                                                                        <label>
-                                                                            <input type="checkbox" value="">
-                                                                                <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
-                                                                                <span class="text-inverse">I read and accept <a href="#">Terms &amp; Conditions.</a></span>
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="col-md-12">
-                                                                    <div class="checkbox-fade fade-in-primary">
-                                                                        <label>
-                                                                            <input type="checkbox" value="">
-                                                                                <span class="cr"><i class="cr-icon icofont icofont-ui-check txt-primary"></i></span>
-                                                                                <span class="text-inverse">Send me the <a href="#!">Newsletter</a> weekly.</span>
-                                                                        </label>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                            <div class="row m-t-30">
-                                                                <div class="col-md-12">
-                                                                    <button type="button" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Sign up now</button>
-                                                                </div>
-                                                            </div>
-                                                            <hr>
-                                                                <div class="row">
-                                                                    <div class="col-md-10">
-                                                                        <p class="text-inverse text-left m-b-0">Thank you.</p>
-                                                                        <p class="text-inverse text-left"><a href="index-1.htm"><b class="f-w-600">Back to website</b></a></p>
-                                                                    </div>
-                                                                    <div class="col-md-2">
-                                                                        <img src="..\files\assets\images\auth\Logo-small-bottom.png" alt="small-logo.png">
-                                                                    </div>
-                                                                </div>
-                                                        </div>
-                                                    </div>
-                                                </form>-->
                     </div>
                     <!-- end of col-sm-12 -->
                 </div>
@@ -198,30 +175,32 @@
         <script type="text/javascript" src="<%=context%>\js\popper.js"></script>
         <script type="text/javascript" src="<%=context%>\js\bootstrap.js"></script>
         <script type="text/javascript" src="<%=context%>\js\sweetalert2.js"></script>
-        <script type="text/javascript" src="<%=context%>\files\bower_components\jquery-slimscroll\js\jquery.slimscroll.js"></script>
+        <script type="text/javascript" src="<%=context%>\files\bower_components\jquery-slimscroll\js\jquery.slimscroll.js"></script>    
         <!-- Sidebar -->
         <script src="<%=context%>\files\assets\js\pcoded.min.js"></script>
         <script src="<%=context%>\files\assets\js\vartical-layout.min.js"></script>
         <script src="<%=context%>\files\assets\js\jquery.mCustomScrollbar.concat.min.js"></script>
         <script type="text/javascript" src="<%=context%>\files\assets\js\script.min.js"></script>
         <script type="text/javascript" src="<%=context%>\js\angular.js"></script>
-
-        <script src="<%=context%>\files\bower_components\jquery.cookie\js\jquery.cookie.js"></script>
-        <script src="<%=context%>\files\bower_components\jquery.steps\js\jquery.steps.js"></script>
-        <script src="<%=context%>\files\bower_components\jquery-validation\js\jquery.validate.js"></script>
-        <!-- Validation js -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.10.6/moment.min.js"></script>
-        <script type="text/javascript" src="<%=context%>\files\assets\pages\form-validation\validate.js"></script>
-        <!-- Custom js -->
-        <script src="<%=context%>\files\assets\pages\forms-wizard-validation\form-wizard.js"></script>
-        <script type="text/javascript" src="<%=context%>\files\bower_components\datedropper\js\datedropper.min.js"></script>
+        <script src="<%=context%>/js/registro_estudiante.js"></script>
         <script>
-            $("#dropper-default").dateDropper({
-                dropWidth: 200,
-                dropPrimaryColor: "#1abc9c",
-                dropBorder: "1px solid #1abc9c"
-            });
+                                                                        (function () {
+                                                                            'use strict';
+                                                                            window.addEventListener('load', function () {
+                                                                                // Fetch all the forms we want to apply custom Bootstrap validation styles to
+                                                                                var forms = document.getElementsByClassName('needs-validation');
+                                                                                // Loop over them and prevent submission
+                                                                                var validation = Array.prototype.filter.call(forms, function (form) {
+                                                                                    form.addEventListener('change', function (event) {
+                                                                                        if (form.checkValidity() === false) {
+                                                                                            event.preventDefault();
+                                                                                            event.stopPropagation();
+                                                                                        }
+                                                                                        form.classList.add('was-validated');
+                                                                                    }, false);
+                                                                                });
+                                                                            }, false);
+                                                                        })();
         </script>
     </body>
 </html>
