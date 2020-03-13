@@ -10,6 +10,7 @@ import com.opensymphony.xwork2.ActionSupport;
 import com.sgaa.cuatrimestre.bean.BeanCuatrimestre;
 import com.sgaa.cuatrimestre.dao.DaoCuatrimestre;
 import com.sgaa.estudiante.dao.DaoEstudiante;
+import com.sgaa.grupo.dao.DaoGrupo;
 import com.sgaa.horario.bean.BeanHorario;
 import com.sgaa.horario.dao.DaoHorario;
 import com.sgaa.persona.bean.BeanPersona;
@@ -21,7 +22,6 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 /**
- *
  * @author netmo
  */
 public class ControlAdmin extends ActionSupport {
@@ -37,6 +37,14 @@ public class ControlAdmin extends ActionSupport {
         respuesta = new HashMap();
         respuesta.put("mensaje", mensaje);
         respuesta.put("horarios", dao.listSchedules());
+        return SUCCESS;
+    }
+
+    public String inicioGrupo() {
+        DaoGrupo dao = new DaoGrupo();
+        respuesta = new HashMap();
+        respuesta.put("mensaje", mensaje);
+        respuesta.put("grupos", dao.listGrupos());
         return SUCCESS;
     }
 
@@ -58,6 +66,17 @@ public class ControlAdmin extends ActionSupport {
         System.out.println(params);
         horario.setEstado(params);
         if (dao.cambiarEstadoHorario(horario)) {
+            respuesta.put("mensaje", "1");
+        } else {
+            respuesta.put("mensaje", "2");
+        }
+        return SUCCESS;
+    }
+    public String cambiarEstadoGrupo() {
+        DaoGrupo dao = new DaoGrupo();
+        respuesta = new HashMap();
+        System.out.println(params);
+        if (dao.cambiarEstadoGrupo(params)) {
             respuesta.put("mensaje", "1");
         } else {
             respuesta.put("mensaje", "2");
