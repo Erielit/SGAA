@@ -12,7 +12,6 @@ window.addEventListener('load', function () {
         month = '0' + month;
     }
     var date = year + "-" + month + "-" + day;
-    console.log(date)
     document.getElementById("fechaInicio").setAttribute('min', date);
 });
 
@@ -39,7 +38,6 @@ function pRegistrar() {
         });
     }
 }
-;
 
 function pModificar() {
     if (validar()) {
@@ -64,12 +62,10 @@ function pModificar() {
         });
     }
 }
-;
 
 function back() {
     window.history.back();
 }
-;
 
 function validar() {
     var nombre = document.getElementById("nombre").value;

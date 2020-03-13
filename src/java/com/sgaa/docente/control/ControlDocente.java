@@ -77,7 +77,7 @@ public class ControlDocente extends ActionSupport {
         if (listCourses.size() > 0) {
             respuesta.put("listCourses", listCourses);
         } else {
-            respuesta.put("mensaje", "Sin asesorías canceladas o rechazadas.");
+            respuesta.put("mensaje", "Sin asesorías completadas, canceladas o rechazadas.");
         }
         return SUCCESS;
     }

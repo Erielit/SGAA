@@ -9,6 +9,7 @@ import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.sgaa.carrera.bean.BeanCarrera;
 import com.sgaa.carrera.dao.DaoCarrera;
+import com.sgaa.controlAcceso.control.IniciarSesion;
 import com.sgaa.cuatrimestre.bean.BeanCuatrimestre;
 import com.sgaa.cuatrimestre.dao.DaoCuatrimestre;
 import com.sgaa.docente.bean.BeanDocente;
@@ -28,6 +29,9 @@ import com.sgaa.numero_cuatrimestre.bean.BeanNumeroCuatri;
 import com.sgaa.numero_cuatrimestre.dao.DaoNumeroCuatrimestre;
 import com.sgaa.persona.bean.BeanPersona;
 import com.sgaa.usuario.bean.BeanUsuario;
+import com.sgaa.persona.dao.DaoPersona;
+import com.sgaa.usuario.bean.BeanUsuario;
+import freemarker.ext.beans.HashAdapter;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -321,6 +325,49 @@ public class ControlAdmin extends ActionSupport {
 
         respuesta = new HashMap();
         respuesta.put("bandera", daoCuatrimestre.editQuarter(beanCuatrimestre));
+        return SUCCESS;
+    }
+
+    public String verPerfil() {
+        DaoPersona daoPersona = new DaoPersona();
+        Map session = ActionContext.getContext().getSession();
+        BeanPersona persona = (BeanPersona) session.get("persona");
+        if (persona == null) {
+            return "NOLOGIN";
+        }
+
+        respuesta = new HashMap();
+        respuesta.put("persona", daoPersona.getProfile(persona.getId_persona()));
+        return SUCCESS;
+    }
+
+    public String modificarPerfil() {
+        DaoPersona daoPersona = new DaoPersona();
+
+        Map session = ActionContext.getContext().getSession();
+        BeanPersona persona = (BeanPersona) session.get("persona");
+        if (persona == null) {
+            return "NOLOGIN";
+        }
+        respuesta = new HashMap();
+        try {
+            JSONObject myObj = new JSONObject(mensaje);
+            persona.setNombre(myObj.getString("nombre"));
+            persona.setPrimer_apellido(myObj.getString("apellidoM"));
+            persona.setSegundo_apellido(myObj.getString("apellidoP"));
+            persona.setFecha_nacimiento(myObj.getString("fechaNac"));
+            persona.setCurp(myObj.getString("curp"));
+
+            BeanUsuario beanUsuario = new BeanUsuario();
+            beanUsuario.setUsername(myObj.getString("email"));
+            beanUsuario.setPassword(myObj.getString("contra"));
+            System.out.println(myObj.getString("contra"));
+            persona.setUsuario(beanUsuario);
+        } catch (JSONException ex) {
+            Logger.getLogger(ControlAdmin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        respuesta.put("bandera", daoPersona.editProfile(persona));
         return SUCCESS;
     }
 
