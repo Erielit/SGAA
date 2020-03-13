@@ -184,6 +184,14 @@
 <script type="text/javascript" src="<%=context%>\js\control_admin.js"></script>
 <script src="<%=context%>\js\datatables.js"></script>
 <!--<script src="<%=context%>\files\bower_components\datatables.net-responsive-bs4\js\responsive.bootstrap4.min.js"></script>-->
+<%--    Los de whats--%>
+<script src="<%=context%>\files\bower_components\datatables.net\js\jquery.dataTables.min.js"></script>
+<script src="<%=context%>\files\bower_components\datatables.net-buttons\js\dataTables.buttons.min.js"></script>
+<script src="<%=context%>\files\bower_components\datatables.net-bs4\js\dataTables.bootstrap4.min.js"></script>
+<script src="<%=context%>\files\bower_components\datatables.net-responsive\js\dataTables.responsive.min.js"></script>
+<script src="<%=context%>\files\bower_components\datatables.net-responsive-bs4\js\responsive.bootstrap4.min.js"></script>
+<link rel="stylesheet" type="text/css" href="<%=context%>/css/dataTables.bootstrap4.css">
+
 <script>
 
     $(document).ready(function () {
