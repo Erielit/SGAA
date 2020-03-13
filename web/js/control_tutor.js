@@ -44,9 +44,9 @@ function canalizar(idGroupStudent) {
                 });
             } else {
                 Swal.fire({
-                    title: 'Éxito',
-                    text: 'Error al canalizar estudiante, intente de nuevo.',
-                    icon: 'success'
+                    title: 'Error',
+                    text: 'Error al intentar canalizar estudiante, intente de nuevo.',
+                    icon: 'error'
                 });
             }
         },

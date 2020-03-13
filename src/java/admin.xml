@@ -5,7 +5,7 @@
         "http://struts.apache.org/dtds/struts-2.5.dtd">
 <struts>
     
-    <package name="adminPackage" extends="struts-default,json-default">
+    <package name="adminPackage" extends="struts-default,json-default,packInterceptor">
         <action name="inicioAdmin" > 
             <result name="success">views/admin/inicioAdmin.jsp</result>
         </action>
@@ -26,6 +26,24 @@
                 <param name="actionName">list-horarios</param>
                 <param name="mensaje">${respuesta.mensaje}</param>
             </result>
+        </action>
+        <action name="inicioPeriodos" class="com.sgaa.admin.ControlAdmin" method="inicioPeriodos">
+            <result name="success">views/admin/periodo/inicioPeriodo.jsp</result>
+        </action>
+        <action name="vistaPeriodo" class="com.sgaa.admin.ControlAdmin">
+            <result>views/admin/periodo/nuevoPeriodo.jsp</result>
+        </action>
+        <action name="registrarPeriodo" class="com.sgaa.admin.ControlAdmin" method="registrarPeriodo">
+            <result type="json"></result>
+        </action>
+        <action name="modificarEstado" class="com.sgaa.admin.ControlAdmin" method="modificarEstado">
+            <result type="json"></result>
+        </action>
+        <action name="infoPeriodo" class="com.sgaa.admin.ControlAdmin" method="infoPeriodo">
+            <result name="success">views/admin/periodo/infoPeriodo.jsp</result>
+        </action>
+        <action name="modificarPeriodo" class="com.sgaa.admin.ControlAdmin" method="modificarPeriodo">
+            <result type="json"></result>
         </action>
     </package>
 </struts>
